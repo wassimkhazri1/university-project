@@ -1,0 +1,24 @@
+package com.university.manager.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.university.manager.models.Etudiant;
+import com.university.manager.models.Note;
+
+@Repository
+public interface NoteRepository extends JpaRepository<Note, Long> {
+
+	// recuoérer les etudiants par niveau scolaire et class et groupe
+	@Query("SELECT e FROM Note e WHERE e.etudiant.id = :etudiantId")
+	List<Note> getNotesByEtudiant(@Param("etudiantId") Long etudiantId);
+	
+	// recuoérer les notes par etudiants scolaire et class et groupe
+	@Query("SELECT n FROM Note n WHERE n.etudiant.id = :etudiantId AND n.matiere.code = :matiereCode")
+	List<Note> findNotesByEtudiantMatiere(@Param("etudiantId") Long etudiantId, @Param("matiereCode") Long matiereCode);
+
+}

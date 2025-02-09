@@ -1,0 +1,138 @@
+#Ajouter un etudiant
+#Path:http://localhost:8080/api/etudiants
+#Methode:POST
+
+{
+  "personne":{ 
+  "nom": "jacob", 
+  "prenom": "khazri",
+  "email": "jacob@hotmail.fr",
+  "cinNumber":"08040208",
+  "telephone":52300116
+},
+  "groupe": {
+    "id": 2,
+    "nom": "GROUPE_2"
+  },
+  "classe": {
+    "id": 1,
+    "nom": "CLASSE_A"
+  },
+  "niveauScol": {
+    "id": 1,
+    "nom": "PREMIERE_ANNEE"
+  },
+  "branche": {
+    "id": 1,
+    "nom": "INFORMATIQUE"
+  }
+}
+###############
+#find Etudiants By Groupe Classe Niveau
+#Path:http://localhost:8080/api/etudiants/1/1/2
+#Methode:GET
+##############
+#get all students
+#Path:http://localhost:8080/api/etudiants
+#Methode:GET
+#############
+#attestation etudiant
+#Path:http://localhost:8080/api/attestationEtudiant/generate/3
+#Methode:POST
+############
+#export etudiants pdf
+#Path:http://localhost:8080/api/etudiants/export/pdf/1/1/2
+#Methode:GET
+#############
+#update student
+#Path:http://localhost:8080/api/etudiants/14
+#Methode:PUT
+{
+        "id": 14,
+        "personne": {
+            "id": 1,
+            "nom": "Wassim",
+            "prenom": "khazri",
+            "email": "wassim@hotmail.fr",
+            "cinNumber": "08040203",
+            "telephone": "52300111"
+        },
+        "matricule": "1A-CB-G2-08040203",
+        "password": "1A-CB-G2-08040203khazri",
+        "groupe": {
+            "id": 1,
+            "nom": "GROUPE_1"
+        },
+        "classe": {
+            "id": 2,
+            "nom": "CLASSE_B"
+        },
+        "niveauScol": {
+            "id": 1,
+            "nom": "PREMIERE_ANNEE"
+        },
+        "branche": {
+            "id": 1,
+            "nom": "INFORMATIQUE"
+        }
+    }
+###############
+#ajouter note
+#Path:http://localhost:8080/api/notes
+#Methode:POST
+{
+    "etudiant":{
+        "id":3
+        }, 
+    "matiere":{
+        "id":3
+        },
+    "noteTd":13.5,
+    "coefTd":1,
+    "noteExamen":13.5,
+    "coefExamen":1.5,
+    "coefMoyenne":2.5
+
+}
+#######################
+#moyenne par etudiant
+#Path:http://localhost:8080/api/moyennes/1
+#Methode:POST
+####################
+#export note pdf
+#Path:http://localhost:8080/api/notes/export/pdf
+#Methode:POST
+###############
+#export note pdf par etudiant
+#Path:http://localhost:8080/api/notes/export/pdf/1
+#Methode:POST
+###############	
+#delete student
+#Path:http://localhost:8080/api/etudiants/delete/1
+Methode:POST
+###############
+#add matiere
+#Path:http://localhost:8080/api/matieres
+#Methode:POST
+{
+    "nom":"programation2",
+    "codeIntitule":"prog2",
+    "nature":{
+        "id":2,
+        "nom":"DECOUVERTE"
+
+    },
+    "niveauScol":{
+        "id":1,
+        "nom":"PREMIERE_ANNEE"
+    },
+    "semestre":{
+        "id": 2,
+        "nom":"SEMESTRE2"
+    }
+}
+###################
+#update absence
+#Path:http://localhost:8080/api/absences/1
+#Methode:PUT
+###############
