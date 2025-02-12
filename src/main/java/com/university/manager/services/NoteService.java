@@ -48,6 +48,10 @@ public class NoteService {
 		return noteRepository.save(note);
 	}
 
+	public List<Note> getNotesByEtudiantBySemestre(Long etudiantId, Long semestreId) {
+		return noteRepository.getNotesByEtudiantBySemestre(etudiantId, semestreId);
+	}
+
 	public void exportAllNotesToPdf(List<Note> notes, HttpServletResponse response)
 			throws IOException, DocumentException {
 		Document document = new Document(PageSize.A4.rotate());
@@ -71,7 +75,7 @@ public class NoteService {
 		table.setSpacingBefore(10f);
 
 		// Column widths (ajusté pour inclure la nouvelle colonne)
-		float[] columnWidths = { 1f, 2f, 5f, 2f, 2f, 3f, 2f, 2f, 2f, 2f, 2f, 2f, 2f,2f};
+		float[] columnWidths = { 1f, 2f, 5f, 2f, 2f, 3f, 2f, 2f, 2f, 2f, 2f, 2f, 2f, 2f };
 		table.setWidths(columnWidths);
 		// Table headers
 		addTableHeader(table, "", 1, normalFont1); // 🔥 Nouvelle colonne fusionnée
@@ -82,7 +86,7 @@ public class NoteService {
 
 		// Subheaders0
 		String[] subHeaders = { "", "Code", "Nature", "Crédits Requis", "Coef.", "Intitulé(s)", "Crédits Requis",
-				"Coef.", "Matières Note", "Crédits", "U.E Note", "Crédits Session", "Session P","Session R" };
+				"Coef.", "Matières Note", "Crédits", "U.E Note", "Crédits Session", "Session P", "Session R" };
 		for (int i = 0; i < subHeaders.length; i++) {
 			PdfPCell cell = new PdfPCell(new Phrase(subHeaders[i], headerFont));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -96,34 +100,17 @@ public class NoteService {
 		int rowCounter = 0;
 		int totalRows = notes.size();
 		for (Note note : notes) {
-			// Ajouter la cellule fusionnée uniquement à la 3ème ligne pour remplacer les
-			// deux premières
-//	    	if (rowCounter == 3) { 
-//	    	    PdfPCell mergedCell = new PdfPCell(new Phrase("Valeur fusionnée", normalFont));
-//	    	    mergedCell.setRowspan(totalRows - 2); // Fusionne avec toutes les lignes sauf les 2 premières
-//	    	    mergedCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-//	    	    mergedCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-//	    	    mergedCell.setRotation(90); // 🔥 Rotation verticale du texte
-//	    	    table.addCell(mergedCell);
-//	    	}
 
 			// Ajouter une cellule fusionnée toutes les 5 lignes
 			if (rowCounter % 5 == 0) {
-				PdfPCell mergedCell = new PdfPCell(new Phrase("Valeur fusionnée", normalFont));
+				String semestre = (note.getMatiere().getCode().startsWith("UE1")) ? "Semestre 1" : "Semestre 2";
+				PdfPCell mergedCell = new PdfPCell(new Phrase(semestre, normalFont));
 				mergedCell.setRowspan(5); // Fusionne sur 5 lignes
 				mergedCell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				mergedCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				mergedCell.setRotation(90); // 🔥 Rotation du texte en vertical
 				table.addCell(mergedCell);
 			}
-
-//	        if (rowCounter % 5 == 0) {
-//	            PdfPCell mergedCell = new PdfPCell(new Phrase("Valeur fusionnée", normalFont));
-//	            mergedCell.setRowspan(5); // Fusionne sur 5 lignes
-//	            mergedCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-//	            mergedCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-//	            table.addCell(mergedCell);
-//	        }
 
 			// Ajouter les autres colonnes normalement
 			table.addCell(note.getMatiere().getCode());
@@ -139,12 +126,11 @@ public class NoteService {
 			table.addCell(String.valueOf(note.getCreditsRattrapage()));
 			String session = "Normal";
 			String session1 = "";
-			String session2="";
-			if(session == "Normal") {
+			String session2 = "";
+			if (session == "Normal") {
 				session1 = "Normal";
 				session2 = "";
-			}
-			else {
+			} else {
 				session2 = "Normal";
 				session1 = "";
 			}
@@ -157,14 +143,6 @@ public class NoteService {
 		document.add(table);
 		document.close();
 	}
-
-//	private void addTableHeader(PdfPTable table, String title, int colspan, Font font) {
-//	    PdfPCell cell = new PdfPCell(new Phrase(title, font));
-//	    cell.setColspan(colspan);
-//	    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-//	    cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-//	    table.addCell(cell);
-//	}
 
 	public void exportAllNotesToPdf3(List<Note> notes, HttpServletResponse response)
 			throws IOException, DocumentException {
@@ -259,14 +237,6 @@ public class NoteService {
 		document.close();
 	}
 
-//	private void addTableHeader(PdfPTable table, String title, int colspan, Font font) {
-//	    PdfPCell cell = new PdfPCell(new Phrase(title, font));
-//	    cell.setColspan(colspan);
-//	    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-//	    cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-//	    table.addCell(cell);
-//	}
-
 	public void exportAllNotesToPdf2(List<Note> notes, HttpServletResponse response)
 			throws IOException, DocumentException {
 		Document document = new Document(PageSize.A4.rotate());
@@ -306,12 +276,6 @@ public class NoteService {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
 		}
-
-		// Adding rows with sample data
-//		String[][] sampleData = {
-//				{ "U.E.F", "Fondamentale", "6", "3", "Mathématiques", "6", "3", "15", "6", "Normal", "15", "6" },
-//				{ "U.E.D", "Découverte", "3", "2", "Physique", "3", "2", "14", "3", "Normal", "14", "3" },
-//				{ "U.E.T", "Transversale", "2", "1", "Informatique", "2", "1", "16", "2", "Normal", "16", "2" } };
 
 		for (Note note : notes) {
 
@@ -410,19 +374,6 @@ public class NoteService {
 		}
 
 		// Remplir le tableau avec les notes
-//	        for (Note note : notes) {
-//	            table.addCell(note.getNature());
-//	            table.addCell(note.getCodeIntitule());
-//	            table.addCell(String.valueOf(note.getCredits()));
-//	            table.addCell(String.valueOf(note.getCoefficient()));
-//	            table.addCell(note.getIntituleMatiere());
-//	            table.addCell(String.valueOf(note.getCreditsMatiere()));
-//	            table.addCell(String.valueOf(note.getCoefficientMatiere()));
-//	            table.addCell(String.valueOf(note.getNoteNormale()));
-//	            table.addCell(String.valueOf(note.getCreditsNormale()));
-//	            table.addCell(String.valueOf(note.getNoteRattrapage()));
-//	            table.addCell(String.valueOf(note.getCreditsRattrapage()));
-//	        }
 
 		for (Note note : notes) {
 			table.addCell(note.getNoteTd().toString());
@@ -432,11 +383,6 @@ public class NoteService {
 			table.addCell(note.getMoyenne().toString());
 			table.addCell(note.getCoefMoyenne().toString());
 			table.addCell(note.getMatiere().getCodeIntitule());
-//	            table.addCell(String.valueOf(note.getCredits()));
-//	            table.addCell(String.valueOf(note.getCoefficient()));
-//	            table.addCell(note.getIntituleMatiere());
-//	            table.addCell(String.valueOf(note.getCreditsMatiere()));
-//	            table.addCell(String.valueOf(note.getCoefficientMatiere()));
 			table.addCell(String.valueOf(note.getNoteNormale()));
 			table.addCell(String.valueOf(note.getCreditsNormale()));
 			table.addCell(String.valueOf(note.getNoteRattrapage()));
@@ -459,6 +405,138 @@ public class NoteService {
 
 		document.add(new Paragraph("\nLe Chef de Département : Griffe, cachet rond, signature et date", subtitleFont));
 
+		document.close();
+	}
+
+	public void exportAllNotesByEtudiantToPdf(List<Note> notes1, List<Note> notes2, HttpServletResponse response)
+			throws IOException, DocumentException {
+		Document document = new Document(PageSize.A4.rotate());
+		PdfWriter.getInstance(document, response.getOutputStream());
+		document.open();
+
+		// Font settings
+		Font headerFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+		Font normalFont = new Font(Font.FontFamily.TIMES_ROMAN, 10);
+		Font normalFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 10);
+
+		// Title
+		Paragraph title = new Paragraph("RELEVÉ DE NOTES", new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD));
+		title.setAlignment(Element.ALIGN_CENTER);
+		document.add(title);
+		document.add(new Paragraph("\n"));
+
+		// Table settings
+		PdfPTable table = new PdfPTable(14);
+		table.setWidthPercentage(100);
+		table.setSpacingBefore(10f);
+
+		// Column widths (ajusté pour inclure la nouvelle colonne)
+		float[] columnWidths = { 1f, 2f, 5f, 2f, 2f, 3f, 2f, 2f, 2f, 2f, 2f, 2f, 2f, 2f };
+		table.setWidths(columnWidths);
+		// Table headers
+		addTableHeader(table, "", 1, normalFont1); // 🔥 Nouvelle colonne fusionnée
+		addTableHeader(table, "Unités d’Enseignement (U.E)", 4, headerFont);
+		addTableHeader(table, "Matière(s) constitutive(s) de l’unité d’enseignement", 2, headerFont);
+		addTableHeader(table, "Résultats obtenus", 3, headerFont);
+		addTableHeader(table, "Session", 4, headerFont);
+
+		// Subheaders0
+		String[] subHeaders = { "", "Code", "Nature", "Crédits Requis", "Coef.", "Intitulé(s)", "Crédits Requis",
+				"Coef.", "Matières Note", "Crédits", "U.E Note", "Crédits Session", "Session P", "Session R" };
+		for (int i = 0; i < subHeaders.length; i++) {
+			PdfPCell cell = new PdfPCell(new Phrase(subHeaders[i], headerFont));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+			table.addCell(cell);
+		}
+
+		// Ajout des données
+		int rowCounter = 0;
+		int totalRows1 = notes1.size();
+		int totalRows2 = notes2.size();
+		for (Note note : notes1) {
+
+			// Ajouter une cellule fusionnée toutes les 5 lignes
+			if (rowCounter % totalRows1 == 0) {
+				String semestre = (note.getMatiere().getCode().startsWith("UE1")) ? "Semestre 1" : "Semestre 2";
+				PdfPCell mergedCell = new PdfPCell(new Phrase(semestre, normalFont));
+				mergedCell.setRowspan(totalRows1); // Fusionne sur 5 lignes
+				mergedCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				mergedCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				mergedCell.setRotation(90); // 🔥 Rotation du texte en vertical
+				table.addCell(mergedCell);
+			}
+
+			// Ajouter les autres colonnes normalement
+			table.addCell(note.getMatiere().getCode());
+			table.addCell(note.getMatiere().getNature().getNom());
+			table.addCell(note.getCredits().toString());
+			table.addCell(note.getCoefTd().toString());
+			table.addCell(note.getMatiere().getCodeIntitule());
+			table.addCell("4");
+			table.addCell(note.getCoefMoyenne().toString());
+			table.addCell(note.getMoyenne().toString());
+			table.addCell(String.valueOf(note.getCreditsNormale()));
+			table.addCell(String.valueOf(note.getNoteRattrapage()));
+			table.addCell(String.valueOf(note.getCreditsRattrapage()));
+			String session = "Normal";
+			String session1 = "";
+			String session2 = "";
+			if (session == "Normal") {
+				session1 = "Normal";
+				session2 = "";
+			} else {
+				session2 = "Normal";
+				session1 = "";
+			}
+			table.addCell(session1);
+			table.addCell(session2);
+
+			rowCounter++;
+		}
+
+		for (Note note : notes2) {
+
+			// Ajouter une cellule fusionnée toutes les 5 lignes
+			if (rowCounter % totalRows2 == 0) {
+				String semestre = (note.getMatiere().getCode().startsWith("UE1")) ? "Semestre 1" : "Semestre 2";
+				PdfPCell mergedCell = new PdfPCell(new Phrase(semestre, normalFont));
+				mergedCell.setRowspan(totalRows2); // Fusionne sur 5 lignes
+				mergedCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				mergedCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				mergedCell.setRotation(90); // 🔥 Rotation du texte en vertical
+				table.addCell(mergedCell);
+			}
+
+			// Ajouter les autres colonnes normalement
+			table.addCell(note.getMatiere().getCode());
+			table.addCell(note.getMatiere().getNature().getNom());
+			table.addCell(note.getCredits().toString());
+			table.addCell(note.getCoefTd().toString());
+			table.addCell(note.getMatiere().getCodeIntitule());
+			table.addCell("4");
+			table.addCell(note.getCoefMoyenne().toString());
+			table.addCell(note.getMoyenne().toString());
+			table.addCell(String.valueOf(note.getCreditsNormale()));
+			table.addCell(String.valueOf(note.getNoteRattrapage()));
+			table.addCell(String.valueOf(note.getCreditsRattrapage()));
+			String session = "Normal";
+			String session1 = "";
+			String session2 = "";
+			if (session == "Normal") {
+				session1 = "Normal";
+				session2 = "";
+			} else {
+				session2 = "Normal";
+				session1 = "";
+			}
+			table.addCell(session1);
+			table.addCell(session2);
+
+			rowCounter++;
+		}
+
+		document.add(table);
 		document.close();
 	}
 

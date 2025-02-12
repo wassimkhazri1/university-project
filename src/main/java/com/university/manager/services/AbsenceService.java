@@ -18,4 +18,9 @@ public class AbsenceService {
 		return absenceRepository.findAll();
 	}
 
+	public Absence ajouterAbsence(Absence absence) {
+		// TODO Auto-generated method stub
+		return absenceRepository.save(absence);
+	}
+
 }
