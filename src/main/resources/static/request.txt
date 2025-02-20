@@ -140,4 +140,31 @@ Methode:POST
 #Path:http://localhost:8080/api/notes/exportpdf/1
 #Methode:GET
 ###############
+#sign up 
+#Path:http://localhost:8080/api/auth/signup
+#Methode:POST
+{
+    "nom":"", // à remplir
+    "prenom":"", // à remplir
+    "cinNumber":"", // à remplir
+    "telephone":"", // à remplir
+    "password":"", // à remplir
+    "role":"" // à remplir
+}
+###############
+#sign in 
+#Path:http://localhost:8080/api/auth/signin
+#Methode:POST
+{
+    "prenom" : "", // à remplir
+    "password" : "" // à remplir
+}
+################
+#sign out
+#Path:http://localhost:8080/api/auth/signout
+#Methode:POST
+{
+"token": "", // à remplir
+"type": "Bearer",
+}
 

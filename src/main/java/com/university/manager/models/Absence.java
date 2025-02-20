@@ -1,5 +1,6 @@
 package com.university.manager.models;
-
+//CreatedAndDevelopedByWassimKhazri
+//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

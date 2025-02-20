@@ -22,6 +22,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM Users WHERE id = :codeId", nativeQuery = true)
     Optional<User> findByCodeId(@Param("codeId") Long id);
 	
-	
-
 }

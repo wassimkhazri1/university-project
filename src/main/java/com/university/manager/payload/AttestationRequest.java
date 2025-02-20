@@ -1,5 +1,6 @@
 package com.university.manager.payload;
-
+//CreatedAndDevelopedByWassimKhazri
+//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
