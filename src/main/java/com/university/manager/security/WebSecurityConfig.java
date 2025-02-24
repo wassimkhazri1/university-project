@@ -59,7 +59,8 @@ public class WebSecurityConfig {
 		http.csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.requestMatchers("/api/auth/**").permitAll() // accès public pour l'authentification
-				.requestMatchers("/api/user/**").hasRole("USER") // accès restreint par rôle
+			//	.requestMatchers("/api/etudiants/**").hasRole("STUDENT") // accès restreint par rôle
+				.requestMatchers("/api/prof/**").hasRole("PROF") // accès restreint par rôle
 				.requestMatchers("/api/admin/**").hasRole("ADMIN") // accès restreint par rôle
 				.requestMatchers("/api/auth/signout").authenticated().anyRequest().authenticated() // tous les autres
 																									// endpoints

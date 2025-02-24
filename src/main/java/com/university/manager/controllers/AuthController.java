@@ -99,7 +99,7 @@ public class AuthController {
 		}
 
 		// Créer un nouvel utilisateur avec les données extraites
-	//	Personne user = new Personne(prenom, prenom, encoder.encode(password));
+	    // Personne user = new Personne(prenom, prenom, encoder.encode(password));
 		Personne user = new Personne(nom, prenom, email, cinNumber,telephone,encoder.encode(password));
 		// Gérer les rôles comme d'habitude
 

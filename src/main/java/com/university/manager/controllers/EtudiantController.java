@@ -1,4 +1,5 @@
 package com.university.manager.controllers;
+
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,8 @@ import com.university.manager.models.Branche;
 import com.university.manager.models.Classe;
 import com.university.manager.models.Etudiant;
 import com.university.manager.models.Group;
-import com.university.manager.models.Groupe;
 import com.university.manager.models.NiveauScol;
 import com.university.manager.models.Personne;
-import com.university.manager.models.Role;
-import com.university.manager.models.User;
 import com.university.manager.repositories.BrancheRepository;
 import com.university.manager.repositories.ClasseRepository;
 import com.university.manager.repositories.EtudiantRepository;
@@ -27,8 +25,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
+
 import java.util.Optional;
+
 @CrossOrigin(origins = "http://localhost:3000") // Allow requests from React app
 @RestController
 @RequestMapping("/api/etudiants")
@@ -135,7 +134,8 @@ public class EtudiantController {
 		// Passer la liste des utilisateurs au service pour générer le PDF
 		etudiantService.exportAllEtudiantsToPdf(etudiants, response);
 	}
-    // generation en pdf  la liste des etudiant par niveau, classe, et group 
+
+	// generation en pdf la liste des etudiant par niveau, classe, et group
 	@GetMapping("/export/pdf/{niveauid}/{classeid}/{groupid}")
 	public void exportPdf(@PathVariable Long niveauid, @PathVariable Long classeid, @PathVariable Long groupid,
 			HttpServletResponse response) throws IOException, DocumentException {
