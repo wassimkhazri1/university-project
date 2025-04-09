@@ -25,9 +25,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.university.manager.models.Admin;
 import com.university.manager.models.ERole;
+import com.university.manager.models.Etudiant;
 import com.university.manager.models.Role;
 import com.university.manager.models.Personne;
+import com.university.manager.models.Professeur;
 import com.university.manager.payload.request.LoginRequest;
 import com.university.manager.payload.request.SignupRequest;
 import com.university.manager.payload.response.JwtResponse;
@@ -65,7 +68,7 @@ public class AuthController {
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getPrenom(), loginRequest.getPassword()));
+				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
@@ -78,67 +81,127 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
 				userDetails.getEmail(), null, roles));
 	}
-
+	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@ModelAttribute SignupRequest signUpRequest) throws IOException {
-		// Extraire les informations de l'objet SignupRequest
-		String nom = signUpRequest.getNom();
-		String prenom = signUpRequest.getPrenom();
-		String email = signUpRequest.getEmail();
-		String cinNumber = signUpRequest.getCinNumber();
-		String telephone = signUpRequest.getTelephone();
-		String password = signUpRequest.getPassword();
-		Set<String> role = signUpRequest.getRole();
+	    // Vérifications existantes (email, cin, etc.)
+	    if (personneRepository.existsByEmail(signUpRequest.getEmail())) {
+	        return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+	    }
+	    // ... autres vérifications
 
-		if (personneRepository.existsByPrenom(signUpRequest.getPrenom())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
-		}
+	    // Crée la bonne sous-classe selon le rôle
+	    Personne user;
+	    Set<String> strRoles = signUpRequest.getRole();
+	    Set<Role> roles = new HashSet<>();
 
-		if (personneRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
-		}
+	    if (strRoles == null) {
+	        // Par défaut, STUDENT
+	        user = new Etudiant(); 
+	        Role userRole = roleRepository.findByName(ERole.ROLE_STUDENT)
+	                .orElseThrow(() -> new RuntimeException("Error: Role not found."));
+	        roles.add(userRole);
+	    } else {
+	        // Vérifie le premier rôle (simplifié)
+	        String primaryRole = strRoles.iterator().next(); 
+	        switch (primaryRole) {
+	            case "admin":
+	                user = new Admin();
+	                roles.add(roleRepository.findByName(ERole.ROLE_ADMIN).orElseThrow());
+	                break;
+	            case "prof":
+	                user = new Professeur();
+	                roles.add(roleRepository.findByName(ERole.ROLE_PROF).orElseThrow());
+	                break;
+	            default:
+	                user = new Etudiant();
+	                roles.add(roleRepository.findByName(ERole.ROLE_STUDENT).orElseThrow());
+	        }
+	    }
 
-		// Créer un nouvel utilisateur avec les données extraites
-	    // Personne user = new Personne(prenom, prenom, encoder.encode(password));
-		Personne user = new Personne(nom, prenom, email, cinNumber,telephone,encoder.encode(password));
-		// Gérer les rôles comme d'habitude
+	    // Set les propriétés communes
+	    user.setNom(signUpRequest.getNom());
+	    user.setPrenom(signUpRequest.getPrenom());
+	    user.setEmail(signUpRequest.getEmail());
+	    user.setCinNumber(signUpRequest.getCinNumber());
+	    user.setTelephone(signUpRequest.getTelephone());
+	    user.setPassword(encoder.encode(signUpRequest.getPassword()));
+	    user.setRoles(roles);
 
-		Set<String> strRoles = signUpRequest.getRole();
-		Set<Role> roles = new HashSet<>();
-//		CreatedAndDevelopedByWassimKhazri
-//		https://www.linkedin.com/in/wassim-khazri-ab923a14b/
-		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_STUDENT)
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-			roles.add(userRole);
-		} else {
-			strRoles.forEach(rol -> {
-				switch (rol) {
-				case "admin":
-					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(adminRole);
-
-					break;
-				case "prof":
-					Role modRole = roleRepository.findByName(ERole.ROLE_PROF)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(modRole);
-
-					break;
-				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_STUDENT)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(userRole);
-				}
-			});
-		}
-
-		user.setRoles(roles);
-		personneRepository.save(user);
-
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	    personneRepository.save(user); // Sauvegarde la sous-classe (Etudiant, Admin, etc.)
+	    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
+	
+	
+
+//	@PostMapping("/signup")
+//	public ResponseEntity<?> registerUser(@ModelAttribute SignupRequest signUpRequest) throws IOException {
+//		// Extraire les informations de l'objet SignupRequest
+//		String nom = signUpRequest.getNom();
+//		String prenom = signUpRequest.getPrenom();
+//		String email = signUpRequest.getEmail();
+//		String cinNumber = signUpRequest.getCinNumber();
+//		String telephone = signUpRequest.getTelephone();
+//		String password = signUpRequest.getPassword();
+//		Set<String> role = signUpRequest.getRole();
+//
+//		if (personneRepository.existsByPrenom(signUpRequest.getPrenom())) {
+//			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+//		}
+//
+//		if (personneRepository.existsByEmail(signUpRequest.getEmail())) {
+//			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+//		}
+//		
+//		if (personneRepository.existsByPrenom(signUpRequest.getCinNumber())) {
+//			return ResponseEntity.badRequest().body(new MessageResponse("Error: CinNumber is already taken!"));
+//		}
+//		
+//		if (personneRepository.existsByPrenom(signUpRequest.getTelephone())) {
+//			return ResponseEntity.badRequest().body(new MessageResponse("Error: Telephone is already taken!"));
+//		}
+//
+//		// Créer un nouvel utilisateur avec les données extraites
+//		Personne user = new Personne(nom, prenom, email, cinNumber,telephone,encoder.encode(password));
+//		// Gérer les rôles comme d'habitude
+//
+//		Set<String> strRoles = signUpRequest.getRole();
+//		Set<Role> roles = new HashSet<>();
+////		CreatedAndDevelopedByWassimKhazri
+////		https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+//		if (strRoles == null) {
+//			Role userRole = roleRepository.findByName(ERole.ROLE_STUDENT)
+//					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//			roles.add(userRole);
+//		} else {
+//			strRoles.forEach(rol -> {
+//				System.out.println("###################This is rol: "+ rol);
+//				switch (rol) {
+//				case "admin":
+//					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+//							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//					roles.add(adminRole);
+//
+//					break;
+//				case "prof":
+//					Role modRole = roleRepository.findByName(ERole.ROLE_PROF)
+//							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//					roles.add(modRole);
+//
+//					break;
+//				default:
+//					Role userRole = roleRepository.findByName(ERole.ROLE_STUDENT)
+//							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//					roles.add(userRole);
+//				}
+//			});
+//		}
+//
+//		user.setRoles(roles);
+//		personneRepository.save(user);
+//
+//		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+//	}
 
 	@PostMapping("/signout")
 	public ResponseEntity<?> signOutUser(HttpServletRequest request) {

@@ -1,4 +1,5 @@
 package com.university.manager.models;
+
 import jakarta.persistence.CascadeType;
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
@@ -13,12 +14,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "admins")
+@Table(name = "entreprises")
 @Getter
 @Setter
-public class Admin extends Personne{
+public class Entreprise extends Personne{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	private String matricule; // matricule fiscale
 
 }

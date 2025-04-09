@@ -40,7 +40,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		try {
 			String jwt = parseJwt(request);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-
+				System.out.println("Token reçu : " + jwt);
 				if (!tokenBlacklistService.isTokenBlacklisted(jwt)) {
 					String username = jwtUtils.getUserNameFromJwtToken(jwt);
 

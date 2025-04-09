@@ -36,6 +36,10 @@
 #Path:http://localhost:8080/api/etudiants
 #Methode:GET
 #############
+#get student by id
+#Path:http://localhost:8080/api/etudiants?id=8
+#Methode:GET
+#############
 #attestation etudiant
 #Path:http://localhost:8080/api/attestationEtudiant/generate/3
 #Methode:POST
@@ -146,6 +150,7 @@ Methode:POST
 {
     "nom":"", // à remplir
     "prenom":"", // à remplir
+    "email":"", // à remplir
     "cinNumber":"", // à remplir
     "telephone":"", // à remplir
     "password":"", // à remplir
@@ -156,7 +161,7 @@ Methode:POST
 #Path:http://localhost:8080/api/auth/signin
 #Methode:POST
 {
-    "prenom" : "", // à remplir
+    "email" : "", // à remplir
     "password" : "" // à remplir
 }
 ################

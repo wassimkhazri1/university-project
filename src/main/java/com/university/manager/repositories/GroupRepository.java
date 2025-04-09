@@ -8,11 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.university.manager.models.Group;
+import com.university.manager.models.Groupe;
 
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Long> {
+public interface GroupRepository extends JpaRepository<Groupe, Long> {
 
 	@Query(value = "SELECT * FROM ggroupes WHERE id = :codeId", nativeQuery = true)
-	Optional<Group> findByCodeId(@Param("codeId") Long id);
+	Optional<Groupe> findByCodeId(@Param("codeId") Long id);
 }

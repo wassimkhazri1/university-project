@@ -13,9 +13,9 @@ import com.university.manager.models.User;
 public interface PersonneRepository extends JpaRepository<Personne, Long> {
 
     Optional<Personne> findByPrenom(String username);
-
     Boolean existsByPrenom(String prenom);
 
     Boolean existsByEmail(String email);
+	Optional<Personne> findByEmail(String email);
 	
 }

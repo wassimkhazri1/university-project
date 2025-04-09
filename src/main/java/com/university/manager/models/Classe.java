@@ -28,18 +28,11 @@ public class Classe {
         inverseJoinColumns = @JoinColumn(name = "professeur_id")
     )
     private List<Professeur> professeurs = new ArrayList<>();
-//    @ManyToOne
-//    @JoinColumn(name = "branche_id", nullable = false)
-//    private Branche branche;
-//
-//    @OneToMany(mappedBy = "classe", cascade = CascadeType.ALL)
-//    private List<Group> groups;
 
     public Classe() {}
 
-    public Classe(String nom/*, Branche branche*/) {
+    public Classe(String nom) {
         this.nom = nom;
-      //  this.branche = branche;
     }
 
 }

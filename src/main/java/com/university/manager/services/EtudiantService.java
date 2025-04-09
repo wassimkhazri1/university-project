@@ -3,6 +3,7 @@ package com.university.manager.services;
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.BaseColor;
@@ -22,22 +23,28 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.university.manager.models.Branche;
 import com.university.manager.models.Classe;
+import com.university.manager.models.ERole;
 import com.university.manager.models.Etudiant;
-import com.university.manager.models.Group;
+import com.university.manager.models.Groupe;
 import com.university.manager.models.NiveauScol;
 import com.university.manager.models.Personne;
+import com.university.manager.models.Role;
 import com.university.manager.repositories.BrancheRepository;
 import com.university.manager.repositories.ClasseRepository;
 import com.university.manager.repositories.EtudiantRepository;
 import com.university.manager.repositories.GroupRepository;
 import com.university.manager.repositories.NiveauScolRepository;
 import com.university.manager.repositories.PersonneRepository;
+import com.university.manager.repositories.RoleRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @Service
@@ -59,19 +66,43 @@ public class EtudiantService {
 
 	@Autowired
 	private PersonneRepository personneRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	PasswordEncoder encoder;
 
+	@SuppressWarnings("unchecked")
 	public Etudiant ajouterEtudiant(Etudiant etudiant) {
-		// Créer et sauvegarder la Personne
-		Personne personne = new Personne();
-		personne.setNom(etudiant.getPersonne().getNom());
-		personne.setPrenom(etudiant.getPersonne().getPrenom());
-		personne.setCinNumber(etudiant.getPersonne().getCinNumber());
-		personne.setEmail(etudiant.getPersonne().getEmail());
-		personne.setTelephone(etudiant.getPersonne().getTelephone());
-		personne = personneRepository.save(personne);
+		Optional<Role> roleOptional = roleRepository.findByName(ERole.ROLE_STUDENT);
+		if (roleOptional.isPresent()) {
+		    Role role = roleOptional.get();
+		    etudiant.getRoles().add(role);
+		    System.out.println("Rôle trouvé : " + role.getName());
+		} else {
+		    System.out.println("Rôle non trouvé");
+		}
+		
+		
+        String nom = etudiant.getNom();
+        String prenom = etudiant.getPrenom();
+        String email = etudiant.getEmail();
+        String cinNumber = etudiant.getCinNumber();
+        String telephone = etudiant.getTelephone();
+        String password = etudiant.getPassword();
+      //  Set<String> role = signUpRequest.getRole();
+		
+		
+        etudiant.setNom(nom);
+        etudiant.setPrenom(prenom);
+        etudiant.setCinNumber(cinNumber);
+        etudiant.setEmail(email);
+        etudiant.setTelephone(telephone);
+        etudiant.setPassword(encoder.encode(password));
 
 		// Vérifier si le groupe, la classe et le niveau existent
-		Group groupe = groupeRepository.findById(etudiant.getGroupe().getId())
+		Groupe groupe = groupeRepository.findById(etudiant.getGroupe().getId())
 				.orElseThrow(() -> new RuntimeException("Groupe non trouvé !"));
 
 		Classe classe = classeRepository.findById(etudiant.getClasse().getId())
@@ -84,8 +115,7 @@ public class EtudiantService {
 				.orElseThrow(() -> new RuntimeException("Branche non trouvé !"));
 
 		// Associer l'étudiant
-		// Etudiant etudiant = new Etudiant();
-		etudiant.setPersonne(personne);
+
 		etudiant.setGroupe(groupe);
 		etudiant.setClasse(classe);
 		etudiant.setNiveauScol(niveauScolaire);
@@ -101,7 +131,7 @@ public class EtudiantService {
 				.orElseThrow(() -> new RuntimeException("Étudiant non trouvé !"));
 
 		// Vérifier si le groupe, la classe et le niveau existent
-		Group groupe = groupeRepository.findById(groupeId)
+		Groupe groupe = groupeRepository.findById(groupeId)
 				.orElseThrow(() -> new RuntimeException("Groupe non trouvé !"));
 
 		Classe classe = classeRepository.findById(classeId)
@@ -182,10 +212,10 @@ public class EtudiantService {
 			String niveauscol = operation.getNiveauScol().getNom();
 
 			table.addCell(operation.getMatricule());
-			table.addCell(operation.getPersonne().getNom() + " " + operation.getPersonne().getPrenom());
+			table.addCell(operation.getNom() + " " + operation.getPrenom());
 			// table.addCell(operation.typeNiveauScol(niveauscol));
 			table.addCell(typeNiveauScol(niveauscol));
-			table.addCell(String.valueOf(operation.getGroupe().getNom()));
+			table.addCell(String.valueOf(operation.getGroupe().getName()));
 
 		}
 

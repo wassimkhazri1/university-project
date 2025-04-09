@@ -1,4 +1,5 @@
 package com.university.manager.models;
+import jakarta.persistence.CascadeType;
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import jakarta.persistence.Entity;
@@ -18,14 +19,10 @@ import java.util.List;
 @Table(name = "professeurs")
 @Getter
 @Setter
-public class Professeur {
+public class Professeur extends Personne{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@OneToOne
-	@JoinColumn(name = "personne_id")
-	private Personne personne;
 
 	@ManyToMany(mappedBy = "professeurs")
 	private List<Classe> classes = new ArrayList<>();

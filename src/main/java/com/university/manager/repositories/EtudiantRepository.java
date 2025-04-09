@@ -14,21 +14,26 @@ import com.university.manager.models.Etudiant;
 @Repository
 public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
 
-	// recuoérer les etudiants par niveau scolaire et class et groupe
+	// recupérer les etudiants par niveau scolaire et class et groupe
 	@Query("SELECT e FROM Etudiant e WHERE e.groupe.id = :groupeId AND e.classe.id = :classeId AND e.niveauScol.id = :niveauId")
 	List<Etudiant> findEtudiantsByGroupeClasseNiveau(@Param("niveauId") Long niveauId, @Param("classeId") Long classeId,
 			@Param("groupeId") Long groupeId);
 
-	// recuoérer l'etudiants par id
-	@Query(value = "SELECT * FROM Etudiant WHERE id = :codeId", nativeQuery = true)
+	// recupérer l'etudiants par id
+	@Query(value = "SELECT * FROM Etudiant e WHERE e.id = :codeId", nativeQuery = true)
 	Etudiant findByCodeId(@Param("codeId") Long id);
-
-	// recuoérer les etudiants par niveau scolaire
+	
+	// recupérer les etudiants par niveau scolaire
 	@Query("SELECT e FROM Etudiant e WHERE e.niveauScol.id = :niveauId")
 	List<Etudiant> findEtudiantsByNiveau(@Param("niveauId") Long niveauId);
 
-	// recuoérer les etudiants par niveau scolaire et class
+	// recupérer les etudiants par niveau scolaire et class
 	@Query("SELECT e FROM Etudiant e WHERE e.classe.id = :classeId AND e.niveauScol.id = :niveauId")
 	List<Etudiant> findEtudiantsByClasseNiveau(@Param("niveauId") Long niveauId, @Param("classeId") Long classeId);
+	
+	// recuoérer id etudiant par id personne
+//	@Query("SELECT id FROM Etudiant e WHERE e.personne.id = :personneId")
+//	Long findEtudiantIdByPersonneId(@Param("personneId") Long personneId);
+	
 
 }

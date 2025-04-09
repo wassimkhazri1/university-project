@@ -60,7 +60,7 @@ public class User {
 	@PreUpdate
 	public void generateMatriculeAndPassword() {
 		if (role != null && niveauScolaire != null && groupe != null && cinNumber != null) {
-			this.matricule = typeRole(role) + niveauScolaire + typeGroupe(groupe) + cinNumber;
+			this.matricule = typeRole(role) + niveauScolaire + typeGroup(groupe) + cinNumber;
 		}
 		if (matricule != null && firstName != null) {
 			this.password = matricule + firstName;
@@ -82,12 +82,12 @@ public class User {
 	}
 
 	// Méthode pour déterminer le type de groupe
-	public String typeGroupe(Groupe groupe) {
-		switch (groupe.getName()) {
-		case GROUP_A:
-			return "A";
-		case GROUP_B:
-			return "B";
+	public String typeGroup(Groupe group) {
+		switch (group.getName()) {
+		case GROUPE_1:
+			return "G1";
+		case GROUPE_2:
+			return "G2";
 		default:
 			return "";
 		}

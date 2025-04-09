@@ -22,7 +22,8 @@ import jakarta.persistence.*;
 @Table(name = "personnes")
 @Getter
 @Setter
-public class Personne {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Personne {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -4,6 +4,7 @@ package com.university.manager.models;
 public enum ERole {
 	ROLE_STUDENT,
 	ROLE_PROF,
-	ROLE_ADMIN
+	ROLE_ADMIN,
+	ROLE_ENTREPRISE
 
 }

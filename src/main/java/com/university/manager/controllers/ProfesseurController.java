@@ -19,7 +19,7 @@ import com.itextpdf.text.DocumentException;
 import com.university.manager.models.Branche;
 import com.university.manager.models.Classe;
 import com.university.manager.models.Etudiant;
-import com.university.manager.models.Group;
+import com.university.manager.models.Groupe;
 import com.university.manager.models.NiveauScol;
 import com.university.manager.models.Personne;
 import com.university.manager.models.Professeur;
@@ -66,20 +66,12 @@ public class ProfesseurController {
 
 		if (professeurOptional.isPresent()) {
 			Professeur professeur = professeurOptional.get();
-
-			// Vérification et mise à jour du personne
-			Optional<Personne> personneOptional = personneRepository.findById(userDetails.getPersonne().getId());
-			if (personneOptional.isPresent()) {
-				Personne personne = personneOptional.get();
-				professeur.setPersonne(personne);
-			}
-
 			// Vérification et mise à jour du classe
 
 			List<Classe> classes = classeRepository.findClassesByProfesseurId(professeur.getId());
 			professeur.setClasses(classes);
 
-			professeurRepository.save(professeur);
+			professeurRepository.save(userDetails);
 			return ResponseEntity.ok(professeur);
 		} else {
 			return ResponseEntity.notFound().build();

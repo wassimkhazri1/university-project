@@ -4,13 +4,14 @@ package com.university.manager.controllers;
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.itextpdf.text.DocumentException;
 import com.university.manager.models.Branche;
 import com.university.manager.models.Classe;
 import com.university.manager.models.Etudiant;
-import com.university.manager.models.Group;
+import com.university.manager.models.Groupe;
 import com.university.manager.models.NiveauScol;
 import com.university.manager.models.Personne;
 import com.university.manager.repositories.BrancheRepository;
@@ -20,6 +21,7 @@ import com.university.manager.repositories.GroupRepository;
 import com.university.manager.repositories.NiveauScolRepository;
 import com.university.manager.repositories.PersonneRepository;
 import com.university.manager.services.EtudiantService;
+import com.university.manager.services.PasswordUpdateService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -48,6 +50,11 @@ public class EtudiantController {
 	private NiveauScolRepository niveauScolRepository;
 	@Autowired
 	private BrancheRepository brancheRepository;
+	@Autowired
+	PasswordEncoder encoder;
+
+	@Autowired
+	public PasswordUpdateService passwordUpdateService;
 
 	@GetMapping
 	public List<Etudiant> getAllEtudiants() {
@@ -62,9 +69,16 @@ public class EtudiantController {
 	}
 
 	// get student list by niveauScol
-	@GetMapping("/{niveauid}")
+	@GetMapping("/niveau/{niveauid}")
 	public List<Etudiant> getEtudiantsByNiveau(@PathVariable Long niveauid) {
 		return etudiantRepository.findEtudiantsByNiveau(niveauid);
+	}
+
+	// get student by id
+	@GetMapping("/id/{codeId}")
+	public Optional<Etudiant> getEtudiantByCodeId(@PathVariable Long codeId) {
+//		return etudiantRepository.findByeCodeId(codeId);
+		return etudiantRepository.findById(codeId);
 	}
 
 	// get student list by classe,and niveauScol
@@ -85,16 +99,27 @@ public class EtudiantController {
 
 		if (etudiantOptional.isPresent()) {
 			Etudiant etudiant = etudiantOptional.get();
+			System.out.println("*************Ancien Password****************");
+			System.out.println("Nouveau mot de passe hashé : " + etudiant.getPassword());
+			System.out.println("*****************************");
+			System.out.println("*************Nouveau Password****************");
+			System.out.println("Nouveau mot de passe hashé : " + userDetails.getPassword());
+			System.out.println("*****************************");
+			System.out.println(encoder.matches("motDePasseTest", etudiant.getPassword()));
+			etudiant.setNom(userDetails.getNom());
+			etudiant.setPrenom(userDetails.getPrenom());
+			etudiant.setCinNumber(userDetails.getCinNumber());
+			etudiant.setEmail(userDetails.getEmail());
+			etudiant.setTelephone(userDetails.getTelephone());
 
-			// Vérification et mise à jour du personne
-			Optional<Personne> personneOptional = personneRepository.findById(userDetails.getPersonne().getId());
-			if (personneOptional.isPresent()) {
-				Personne personne = personneOptional.get();
-				etudiant.setPersonne(personne);
+			// Mise à jour conditionnelle du mot de passe
+			if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
+				etudiant.setPassword(encoder.encode(userDetails.getPassword()));
+
 			}
 
 			// Vérification et mise à jour du groupe
-			Optional<Group> groupe = groupRepository.findById(userDetails.getGroupe().getId());
+			Optional<Groupe> groupe = groupRepository.findById(userDetails.getGroupe().getId());
 			groupe.ifPresent(etudiant::setGroupe);
 
 			// Vérification et mise à jour du classe

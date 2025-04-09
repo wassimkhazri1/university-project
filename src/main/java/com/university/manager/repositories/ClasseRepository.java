@@ -13,6 +13,6 @@ import com.university.manager.models.Classe;
 @Repository
 public interface ClasseRepository extends JpaRepository<Classe, Long> {
 
-	@Query("SELECT * from professeur_classe where professeur_id = :professeur")
+	@Query("SELECT c FROM Classe c JOIN c.professeurs p WHERE p.id = :professeurId")
 	List<Classe> findClassesByProfesseurId(@Param("professeurId") Long professeurId);
 }

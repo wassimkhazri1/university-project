@@ -1,0 +1,39 @@
+// ajouter branches;
+INSERT INTO `university`.`branches` (`id`, `nom`) VALUES ('1', 'INFORMATIQUE');
+INSERT INTO `university`.`branches` (`id`, `nom`) VALUES ('2', 'MECANIQUE');
+INSERT INTO `university`.`branches` (`id`, `nom`) VALUES ('3', 'ELECTRONIQUE');
+
+// ajouter classes;
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('1', 'CLASSE_A');
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('2', 'CLASSE_B');
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('3', 'CLASSE_C');
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('4', 'CLASSE_D');
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('5', 'CLASSE_E');
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('6', 'CLASSE_F');
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('7', 'CLASSE_G');
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('8', 'CLASSE_H');
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('9', 'CLASSE_I');
+INSERT INTO `university`.`classes` (`id`, `nom`) VALUES ('10', 'CLASSE_J');
+
+// ajouter groupes;
+INSERT INTO `university`.`ggroupes` (`id`, `nom`) VALUES ('1', 'GROUPE_1');
+INSERT INTO `university`.`ggroupes` (`id`, `nom`) VALUES ('2', 'GROUPE_2');
+
+// ajouter natures;
+INSERT INTO `university`.`natures` (`id`, `nom`) VALUES ('1', 'FONDAMENTALE');
+INSERT INTO `university`.`natures` (`id`, `nom`) VALUES ('2', 'DECOUVERTE');
+INSERT INTO `university`.`natures` (`id`, `nom`) VALUES ('3', 'TRANSVERSALE');
+
+// ajouter niveaux_scolaires;
+INSERT INTO `university`.`niveaux_scolaires` (`id`, `nom`) VALUES ('1', 'PREMIERE_ANNEE');
+INSERT INTO `university`.`niveaux_scolaires` (`id`, `nom`) VALUES ('2', 'DEUXIEME_ANNEE');
+INSERT INTO `university`.`niveaux_scolaires` (`id`, `nom`) VALUES ('3', 'TROISIEME_ANNE');
+
+// ajouter roles;
+INSERT INTO `university`.`roles` (`id`, `name`) VALUES ('1', 'ROLE_STUDENT');
+INSERT INTO `university`.`roles` (`id`, `name`) VALUES ('2', 'ROLE_PROF');
+INSERT INTO `university`.`roles` (`id`, `name`) VALUES ('3', 'ROLE_ADMIN');
+
+// ajouter semestres;
+INSERT INTO `university`.`semestres` (`id`, `nom`) VALUES ('1', 'SEMESTRE1');
+INSERT INTO `university`.`semestres` (`id`, `nom`) VALUES ('2', 'SEMESTRE2');

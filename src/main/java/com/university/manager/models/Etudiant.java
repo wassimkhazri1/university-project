@@ -1,4 +1,5 @@
 package com.university.manager.models;
+
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import java.util.ArrayList;
@@ -16,23 +17,17 @@ import lombok.Setter;
 @Table(name = "etudiants")
 @Getter
 @Setter
-public class Etudiant {
+public class Etudiant extends Personne {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
-	@JoinColumn(name = "personne_id")
-	private Personne personne;
-
 	private String matricule;
-
-	private String password;
 
 	@ManyToOne
 	@JoinColumn(name = "groupe_id", nullable = false)
-	private Group groupe;
+	private Groupe groupe;
 
 	@ManyToOne
 	@JoinColumn(name = "classe_id", nullable = false)
@@ -48,7 +43,7 @@ public class Etudiant {
 
 	@OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Note> notes;
-	
+
 	@ManyToMany(mappedBy = "etudiants")
 	private List<Matiere> matieres = new ArrayList<>();
 
@@ -57,13 +52,13 @@ public class Etudiant {
 	@PreUpdate
 	public void generateMatriculeAndPassword() {
 		String TRI = "-";
-		if (niveauScol != null && classe != null && groupe != null && personne.getCinNumber() != null) {
+		if (niveauScol != null && classe != null && groupe != null && this.getCinNumber() != null) {
 			this.matricule = typeNiveauScol(niveauScol) + TRI + typeClasse(classe) + TRI + typeGroupe(groupe) + TRI
-					+ personne.getCinNumber();
+					+ this.getCinNumber();
 		}
-		if (matricule != null && personne.getPrenom() != null) {
-			this.password = matricule + personne.getPrenom();
-		}
+//		if (matricule != null && this.getPrenom() != null) {
+//			this.password = matricule + this.getPrenom();
+//		}
 	}
 
 	// Méthode pour déterminer le type d'année
@@ -82,11 +77,11 @@ public class Etudiant {
 	}
 
 	// Méthode pour déterminer le type de groupe
-	public String typeGroupe(Group groupe) {
-		switch (groupe.getNom()) {
-		case "GROUPE_1":
+	public String typeGroupe(Groupe groupe) {
+		switch (groupe.getName()) {
+		case GROUPE_1:
 			return "G1";
-		case "GROUPE_2":
+		case GROUPE_2:
 			return "G2";
 		default:
 			return "";
@@ -124,9 +119,23 @@ public class Etudiant {
 	public Etudiant() {
 	}
 
-	public Etudiant(Personne personne, Group groupe) {
-		this.personne = personne;
+	public Etudiant(Long id, String matricule, Groupe groupe, Classe classe, NiveauScol niveauScol, Branche branche,
+			List<Note> notes, List<Matiere> matieres) {
+		super();
+		this.id = id;
+		this.matricule = matricule;
 		this.groupe = groupe;
+		this.classe = classe;
+		this.niveauScol = niveauScol;
+		this.branche = branche;
+		this.notes = notes;
+		this.matieres = matieres;
+	}
+
+	public Etudiant(String nom, String prenom, String email, @NotBlank @Size(max = 10) String cinNumber,
+			@NotBlank @Size(max = 8) String telephone, String password) {
+		super(nom, prenom, email, cinNumber, telephone, password);
+
 	}
 
 }

@@ -2,7 +2,7 @@ package com.university.manager.controllers;
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import com.university.manager.models.Etudiant;
-import com.university.manager.models.Group;
+import com.university.manager.models.Groupe;
 import com.university.manager.models.NiveauScol;
 import com.university.manager.payload.AttestationRequest;
 import com.university.manager.repositories.EtudiantRepository;
@@ -38,13 +38,13 @@ public class AttestaionEtudiantController {
 			return ResponseEntity.notFound().build();
 		}
 
-		Group groupe = etudiant.get().getGroupe();
+		Groupe groupe = etudiant.get().getGroupe();
 		NiveauScol niveauscol = etudiant.get().getNiveauScol();
 		
-		request.setFirstName(etudiant.get().getPersonne().getNom());
-		request.setLastName(etudiant.get().getPersonne().getPrenom());
-		request.setEmail(etudiant.get().getPersonne().getEmail());
-		request.setCinNumber(etudiant.get().getPersonne().getCinNumber());
+		request.setFirstName(etudiant.get().getNom());
+		request.setLastName(etudiant.get().getPrenom());
+		request.setEmail(etudiant.get().getEmail());
+		request.setCinNumber(etudiant.get().getCinNumber());
 	    request.setMatricule(etudiant.get().getMatricule());
 		request.setNiveauScolaire(typeNiveauScol(niveauscol));
 		request.setGroupe(typeGroupe(groupe));
@@ -72,11 +72,11 @@ public class AttestaionEtudiantController {
 	}
 
 	// Méthode pour déterminer le type de groupe
-	public String typeGroupe(Group groupe) {
-		switch (groupe.getNom()) {
-		case "GROUPE_1":
+	public String typeGroupe(Groupe groupe) {
+		switch (groupe.getName()) {
+		case GROUPE_1:
 			return "groupe 1";
-		case "GROUPE_2":
+		case GROUPE_2:
 			return "groupe 2";
 		default:
 			return "";
