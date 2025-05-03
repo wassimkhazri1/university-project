@@ -1,4 +1,5 @@
 package com.university.manager.services;
+
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import java.io.IOException;
@@ -7,7 +8,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -25,17 +28,29 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
+import com.university.manager.Dto.NoteDTO;
 import com.university.manager.models.Etudiant;
+import com.university.manager.models.Matiere;
 import com.university.manager.models.Note;
+import com.university.manager.repositories.EtudiantRepository;
+import com.university.manager.repositories.MatiereRepository;
 import com.university.manager.repositories.NoteRepository;
 import com.university.manager.services.EtudiantService.HeaderFooterPageEvent;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @Service
 public class NoteService {
 	@Autowired
 	private NoteRepository noteRepository;
+
+	@Autowired
+	private MatiereRepository matiereRepository;
+
+	@Autowired
+	private EtudiantRepository etudiantRepository;
 
 	public List<Note> getNotesByEtudiant(Long id) {
 		return noteRepository.getNotesByEtudiant(id);
@@ -45,10 +60,32 @@ public class NoteService {
 		return noteRepository.findAll();
 	}
 
-	public Note ajouterNote(Note note) {
-		return noteRepository.save(note);
+//	public Note ajouterNote(Note note) {
+//		return noteRepository.save(note);
+//	}
+
+	public ResponseEntity<Note> ajouterNote(@Valid @RequestBody Note note) {
+		// Vérifier l'existence de la matière et de l'étudiant
+		Matiere matiere = matiereRepository.findById(note.getMatiere().getId())
+				.orElseThrow(() -> new EntityNotFoundException("Matière non trouvée"));
+
+		Etudiant etudiant = etudiantRepository.findById(note.getEtudiant().getId())
+				.orElseThrow(() -> new EntityNotFoundException("Étudiant non trouvé"));
+
+		// Vérifier si note existe déjà
+		if (noteRepository.existsByEtudiantAndMatiere(etudiant, matiere)) {
+			throw new IllegalStateException("Note existe déjà pour cet étudiant dans cette matière");
+		}
+		note.setMatiere(matiere);
+		note.setEtudiant(etudiant);
+		Note savedNote = noteRepository.save(note);
+
+		return ResponseEntity.ok(savedNote);
 	}
 
+	public List<Note> getNotesByEtudiantId(Long etudiantId) {
+	    return noteRepository.getNotesByEtudiant(etudiantId);
+	}
 	public List<Note> getNotesByEtudiantBySemestre(Long etudiantId, Long semestreId) {
 		return noteRepository.getNotesByEtudiantBySemestre(etudiantId, semestreId);
 	}
@@ -140,11 +177,141 @@ public class NoteService {
 
 			rowCounter++;
 		}
-
 		document.add(table);
 		document.close();
 	}
+	public void exportAllNotesToPdf4(List<Note> notes1, List<Note> notes2, HttpServletResponse response)
+			throws IOException, DocumentException {
+		Document document = new Document(PageSize.A4.rotate());
+		PdfWriter.getInstance(document, response.getOutputStream());
+		document.open();
 
+		// Font settings
+		Font headerFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+		Font normalFont = new Font(Font.FontFamily.TIMES_ROMAN, 10);
+		Font normalFont1 = new Font(Font.FontFamily.TIMES_ROMAN, 10);
+
+		// Title
+		Paragraph title = new Paragraph("RELEVÉ DE NOTES", new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD));
+		title.setAlignment(Element.ALIGN_CENTER);
+		document.add(title);
+		document.add(new Paragraph("\n"));
+
+		// Table settings
+		PdfPTable table = new PdfPTable(14);
+		table.setWidthPercentage(100);
+		table.setSpacingBefore(10f);
+
+		// Column widths (ajusté pour inclure la nouvelle colonne)
+		float[] columnWidths = { 1f, 2f, 5f, 2f, 2f, 3f, 2f, 2f, 2f, 2f, 2f, 2f, 2f, 2f };
+		table.setWidths(columnWidths);
+		// Table headers
+		addTableHeader(table, "", 1, normalFont1); // 🔥 Nouvelle colonne fusionnée
+		addTableHeader(table, "Unités d’Enseignement (U.E)", 4, headerFont);
+		addTableHeader(table, "Matière(s) constitutive(s) de l’unité d’enseignement", 2, headerFont);
+		addTableHeader(table, "Résultats obtenus", 3, headerFont);
+		addTableHeader(table, "Session", 4, headerFont);
+
+		// Subheaders0
+		String[] subHeaders = { "", "Code", "Nature", "Crédits Requis", "Coef.", "Intitulé(s)", "Crédits Requis",
+				"Coef.", "Matières Note", "Crédits", "U.E Note", "Crédits Session", "Session P", "Session R" };
+		for (int i = 0; i < subHeaders.length; i++) {
+			PdfPCell cell = new PdfPCell(new Phrase(subHeaders[i], headerFont));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//	        if (i == 0 || i == subHeaders.length - 1) {
+//	            cell.setRotation(90);
+//	        }
+			table.addCell(cell);
+		}
+		
+        //List<Note> notessimetre = noteRepository.getNotesByEtudiantBySemestre(etudiantId, semestreId);
+		// Ajout des données
+		//int rowCounter = 0;
+		//int totalRows = notes1.size();
+		for (Note note : notes1) {
+
+			// Ajouter une cellule fusionnée toutes les 5 lignes
+		//	if (rowCounter % 5 == 0) {
+				String semestre = (note.getMatiere().getCode().startsWith("UE1")) ? "Semestre 1" : "Semestre 2";
+				PdfPCell mergedCell = new PdfPCell(new Phrase(semestre, normalFont));
+				mergedCell.setRowspan(5); // Fusionne sur 5 lignes
+				mergedCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				mergedCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				mergedCell.setRotation(90); // 🔥 Rotation du texte en vertical
+				table.addCell(mergedCell);
+		//	}
+
+			// Ajouter les autres colonnes normalement
+			table.addCell(note.getMatiere().getCode());
+			table.addCell(note.getMatiere().getNature().getNom());
+			table.addCell(note.getCredits().toString());
+			table.addCell(note.getCoefTd().toString());
+			table.addCell(note.getMatiere().getCodeIntitule());
+			table.addCell("4");
+			table.addCell(note.getCoefMoyenne().toString());
+			table.addCell(note.getMoyenne().toString());
+			table.addCell(String.valueOf(note.getCreditsNormale()));
+			table.addCell(String.valueOf(note.getNoteRattrapage()));
+			table.addCell(String.valueOf(note.getCreditsRattrapage()));
+			String session = "Normal";
+			String session1 = "";
+			String session2 = "";
+			if (session == "Normal") {
+				session1 = "Normal";
+				session2 = "";
+			} else {
+				session2 = "Normal";
+				session1 = "";
+			}
+			table.addCell(session1);
+			table.addCell(session2);
+
+		//	rowCounter++;
+		}
+		for (Note note : notes2) {
+
+			// Ajouter une cellule fusionnée toutes les 5 lignes
+		//	if (rowCounter % 5 == 0) {
+				String semestre = (note.getMatiere().getCode().startsWith("UE1")) ? "Semestre 1" : "Semestre 2";
+				PdfPCell mergedCell = new PdfPCell(new Phrase(semestre, normalFont));
+				mergedCell.setRowspan(5); // Fusionne sur 5 lignes
+				mergedCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				mergedCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				mergedCell.setRotation(90); // 🔥 Rotation du texte en vertical
+				table.addCell(mergedCell);
+		//	}
+
+			// Ajouter les autres colonnes normalement
+			table.addCell(note.getMatiere().getCode());
+			table.addCell(note.getMatiere().getNature().getNom());
+			table.addCell(note.getCredits().toString());
+			table.addCell(note.getCoefTd().toString());
+			table.addCell(note.getMatiere().getCodeIntitule());
+			table.addCell("4");
+			table.addCell(note.getCoefMoyenne().toString());
+			table.addCell(note.getMoyenne().toString());
+			table.addCell(String.valueOf(note.getCreditsNormale()));
+			table.addCell(String.valueOf(note.getNoteRattrapage()));
+			table.addCell(String.valueOf(note.getCreditsRattrapage()));
+			String session = "Normal";
+			String session1 = "";
+			String session2 = "";
+			if (session == "Normal") {
+				session1 = "Normal";
+				session2 = "";
+			} else {
+				session2 = "Normal";
+				session1 = "";
+			}
+			table.addCell(session1);
+			table.addCell(session2);
+
+		//	rowCounter++;
+		}
+		document.add(table);
+		document.close();
+	}
+	
 	public void exportAllNotesToPdf3(List<Note> notes, HttpServletResponse response)
 			throws IOException, DocumentException {
 		Document document = new Document(PageSize.A4.rotate());

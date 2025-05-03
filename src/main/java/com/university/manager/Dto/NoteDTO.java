@@ -2,11 +2,13 @@ package com.university.manager.Dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-//CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class NoteDTO {
     private Long id;
     private Double noteTd;
@@ -20,6 +22,12 @@ public class NoteDTO {
     private Double creditsNormale;
     private Double creditsRattrapage;
     private Double coefMoyenne;
-
-    // Getters et Setters
+    
+    // Références par ID plutôt qu'objets complets pour éviter la sérialisation circulaire
+    private Long matiereId;
+    private Long etudiantId;
+    
+    // Vous pouvez ajouter des champs supplémentaires pour les informations de base si nécessaire
+    private String matiereNom;
+    private String etudiantNom;
 }

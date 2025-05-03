@@ -115,7 +115,7 @@
 #Path:http://localhost:8080/api/etudiants/delete/1
 Methode:POST
 ###############
-#add matiere
+#ajouter matiere
 #Path:http://localhost:8080/api/matieres
 #Methode:POST
 {
@@ -136,7 +136,7 @@ Methode:POST
     }
 }
 ###################
-#update absence
+#modifier absence
 #Path:http://localhost:8080/api/absences/1
 #Methode:PUT
 ###############
@@ -144,7 +144,7 @@ Methode:POST
 #Path:http://localhost:8080/api/notes/exportpdf/1
 #Methode:GET
 ###############
-#sign up 
+#enregistrer 
 #Path:http://localhost:8080/api/auth/signup
 #Methode:POST
 {
@@ -157,7 +157,7 @@ Methode:POST
     "role":"" // à remplir
 }
 ###############
-#sign in 
+#login 
 #Path:http://localhost:8080/api/auth/signin
 #Methode:POST
 {

@@ -1,4 +1,5 @@
 package com.university.manager.controllers;
+
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import java.util.List;
@@ -34,12 +35,24 @@ public class AbsenceController {
 	public List<Absence> getAllAbsences() {
 		return absenceService.getAllAbsences();
 	}
-	
-	@PostMapping
-	public Absence addAbsence(@RequestBody Absence absence) {
-		return absenceService.ajouterAbsence(absence);
-	}
 
+//	@PostMapping
+//	public Absence addAbsence(@RequestBody Absence absence) {
+//		return absenceService.ajouterAbsence(absence);
+//	}
+
+    @PostMapping
+    public Absence addAbsence(@RequestBody Absence absence) {
+        return absenceService.addAbsence(absence);
+    }
+
+    @GetMapping("/student/{studentId}")
+    public List<Absence> getStudentAbsences(@PathVariable Long studentId) {
+        return absenceService.getAbsencesByStudent(studentId);
+    }
+	
+	
+	
 	// Mettre à jour un les absences
 	@PutMapping("/{id}")
 	public ResponseEntity<Absence> updateAbsence(@PathVariable Long id) {

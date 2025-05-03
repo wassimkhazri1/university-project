@@ -1,4 +1,6 @@
 package com.university.manager.models;
+import java.time.LocalDate;
+
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import jakarta.persistence.Entity;
@@ -24,6 +26,10 @@ public class Absence {
 	private Long id;
 
 	private int count;
+	
+    private LocalDate date;
+    private boolean justified;
+    private String reason;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "etudiant_id")

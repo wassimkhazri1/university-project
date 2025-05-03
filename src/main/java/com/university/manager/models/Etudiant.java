@@ -43,6 +43,9 @@ public class Etudiant extends Personne {
 
 	@OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Note> notes;
+	
+//    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Absence> absences;
 
 	@ManyToMany(mappedBy = "etudiants")
 	private List<Matiere> matieres = new ArrayList<>();

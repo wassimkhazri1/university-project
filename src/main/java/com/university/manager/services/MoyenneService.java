@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.university.manager.Dto.MoyenneDTO;
 import com.university.manager.models.Moyenne;
 import com.university.manager.repositories.MoyenneRepository;
 
@@ -47,6 +48,10 @@ public class MoyenneService {
 
 	public Optional<Moyenne> findByEtudiantId(Long etudiantId) {
 		return moyenneRepository.findByEtudiantId(etudiantId);
+	}
+	
+	public Optional<MoyenneDTO> findByEtudiantId1(Long etudiantId) {
+		return moyenneRepository.findMoyennesByEtudiantId(etudiantId);
 	}
 
 }

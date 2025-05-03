@@ -22,4 +22,8 @@ public class Candidature {
 
 	@UpdateTimestamp
 	private Date updatedAt;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "job_offer_id")
+	private JobOfferForm jobOffer;
 }

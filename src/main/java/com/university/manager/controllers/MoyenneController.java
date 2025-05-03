@@ -1,5 +1,7 @@
 package com.university.manager.controllers;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 //CreatedAndDevelopedByWassimKhazri
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.university.manager.Dto.MoyenneDTO;
 import com.university.manager.models.Etudiant;
 import com.university.manager.models.Moyenne;
 import com.university.manager.models.Note;
@@ -36,11 +39,16 @@ public class MoyenneController {
 		return moyenneService.getAllMoyennes();
 	}
 
-	@PostMapping("/{id}")
-	public Moyenne addMoyenne(@PathVariable Long id) {
-		List<Note> note = noteService.getNotesByEtudiant(id);
+	@GetMapping("/{codeId}")
+	public Optional<MoyenneDTO> getMoyenne(@PathVariable Long codeId) {
+		return moyenneService.findByEtudiantId1(codeId);
+	}
+	@PostMapping("/{codeId}")
+	public Moyenne addMoyenne(@PathVariable Long codeId) {
+		List<Note> note = noteService.getNotesByEtudiant(codeId);
 		// Long etudiantid = moyenneService.findEtuById(id);
-		Etudiant etudiant = etudiantRepository.findByCodeId(id);
+		// Etudiant etudiant = etudiantRepository.findByCodeId(codeId);
+		Etudiant etudiant = etudiantRepository.getById(codeId);
 		long len = note.size();
 		Double moy = 0.0;
 		Double som = 0.0;
@@ -54,8 +62,13 @@ public class MoyenneController {
 		// pour calculer la moyenne
 		moy = som / somcoef;
 		moyenne.setEtudiant(etudiant);
-		moyenne.setMoy(moy);
-		Optional<Moyenne> existingMoyenne = moyenneService.findByEtudiantId(id);
+		// Formatage à 2 décimales
+		DecimalFormat df = new DecimalFormat("#.##");
+		df.setRoundingMode(RoundingMode.HALF_UP);
+		Double moye = Double.parseDouble(df.format(moy).replace(",", "."));
+
+		moyenne.setMoy(moye);
+		Optional<Moyenne> existingMoyenne = moyenneService.findByEtudiantId(codeId);
 		if (existingMoyenne.isPresent()) {
 			moyenne.setId(existingMoyenne.get().getId());
 			return moyenneService.modifierMoyenne(moyenne);

@@ -75,14 +75,12 @@ public class NoteController {
 
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		Long userid = userDetails.getId();
-//        Long etudiantid = etudiantRepository.findEtudiantIdByPersonneId(userid);
 		// Récupérer les notes de l'étudiant
 		List<Note> notes = noteService.getNotesByEtudiant(userid);		
 		return notes.stream()
                 .map(this::mapToNoteDTO)
                 .collect(Collectors.toList());
 	
-	//	return ResponseEntity.ok(notes);
 	}
 	private NoteDTO mapToNoteDTO(Note note) {
         NoteDTO noteDTO = new NoteDTO();
@@ -98,6 +96,8 @@ public class NoteController {
         noteDTO.setCreditsNormale(note.getCreditsNormale());
         noteDTO.setCreditsRattrapage(note.getCreditsRattrapage());
         noteDTO.setCoefMoyenne(note.getCoefMoyenne());
+        noteDTO.setMatiereNom(note.getMatiere().getNom());
+        
         return noteDTO;
     }
 	
@@ -123,7 +123,7 @@ public class NoteController {
 	}
 
 	@PostMapping
-	public Note addNote(@RequestBody Note note) {
+	public ResponseEntity<Note> addNote(@RequestBody Note note) {
 		return noteService.ajouterNote(note);
 	}
 
@@ -140,17 +140,22 @@ public class NoteController {
 		noteService.exportAllNotesToPdf(notes, response);
 	}
 
+
+
+	@GetMapping("/etudiant/{etudiantId}")
+	public ResponseEntity<List<Note>> getNotesByEtudiant(@PathVariable Long etudiantId) {
+	    List<Note> notes = noteService.getNotesByEtudiantId(etudiantId);
+	    return ResponseEntity.ok(notes);
+	}
 	// obtenir releve de notes par etudiant
 	@GetMapping("/export/pdf/{etudiantId}")
 	public void exportToPdf1(@PathVariable Long etudiantId, HttpServletResponse response)
 			throws IOException, DocumentException {
 		// Récupérer tous les utilisateurs
 		List<Note> notes = noteRepository.getNotesByEtudiant(etudiantId);
-
 		// Configurer la réponse HTTP pour un fichier PDF
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=releve_de_notes.pdf");
-
 		// Passer la liste des utilisateurs au service pour générer le PDF
 		noteService.exportAllNotesToPdf(notes, response);
 	}

@@ -1,4 +1,5 @@
 package com.university.manager.services;
+
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import java.util.List;
@@ -11,17 +12,25 @@ import com.university.manager.repositories.AbsenceRepository;
 
 @Service
 public class AbsenceService {
-	
+
 	@Autowired
 	private AbsenceRepository absenceRepository;
-	
-	public List<Absence> getAllAbsences(){
+
+	public List<Absence> getAllAbsences() {
 		return absenceRepository.findAll();
 	}
 
-	public Absence ajouterAbsence(Absence absence) {
-		// TODO Auto-generated method stub
+//	public Absence ajouterAbsence(Absence absence) {
+//		// TODO Auto-generated method stub
+//		return absenceRepository.save(absence);
+//	}
+
+	public Absence addAbsence(Absence absence) {
 		return absenceRepository.save(absence);
+	}
+
+	public List<Absence> getAbsencesByStudent(Long studentId) {
+		return absenceRepository.findByEtudiantId(studentId);
 	}
 
 }

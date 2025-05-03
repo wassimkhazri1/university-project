@@ -21,6 +21,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
+import com.university.manager.Dto.EtudiantInfoDTO;
 import com.university.manager.models.Branche;
 import com.university.manager.models.Classe;
 import com.university.manager.models.ERole;
@@ -152,9 +153,10 @@ public class EtudiantService {
 		return etudiantRepository.save(etudiant);
 	}
 
-	public List<Etudiant> getAllEtudiants() {
+	public List<EtudiantInfoDTO> getAllEtudiants() {
 		// TODO Auto-generated method stub
-		return etudiantRepository.findAll();
+		//return etudiantRepository.findAll();
+		return etudiantRepository.findEtudiants();
 	}
 
 	public void deleteEtudiant(Long id) {

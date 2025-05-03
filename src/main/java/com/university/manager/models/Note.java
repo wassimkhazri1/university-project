@@ -5,6 +5,8 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
@@ -63,7 +65,13 @@ public class Note {
 	@PreUpdate
 	public void calculateMoyenne() {
 		if (coefExamen != null && coefTd != null && noteExamen != null && noteTd != null) {
-			this.moyenne = (coefExamen * noteExamen + coefTd * noteTd) / (coefExamen + coefTd);
+			//this.moyenne = (coefExamen * noteExamen + coefTd * noteTd) / (coefExamen + coefTd);
+			double moyenneBrute = (coefExamen * noteExamen + coefTd * noteTd) / (coefExamen + coefTd);
+	        
+	        // Formatage à 2 décimales
+	        DecimalFormat df = new DecimalFormat("#.##");
+	        df.setRoundingMode(RoundingMode.HALF_UP);
+	        this.moyenne = Double.parseDouble(df.format(moyenneBrute).replace(",", "."));
 			calculateCredits();
 		}
 	}

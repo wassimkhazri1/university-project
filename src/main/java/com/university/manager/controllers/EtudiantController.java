@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.itextpdf.text.DocumentException;
+import com.university.manager.Dto.EtudiantInfoDTO;
 import com.university.manager.models.Branche;
 import com.university.manager.models.Classe;
 import com.university.manager.models.Etudiant;
@@ -57,7 +58,7 @@ public class EtudiantController {
 	public PasswordUpdateService passwordUpdateService;
 
 	@GetMapping
-	public List<Etudiant> getAllEtudiants() {
+	public List<EtudiantInfoDTO> getAllEtudiants() {
 		return etudiantService.getAllEtudiants();
 	}
 

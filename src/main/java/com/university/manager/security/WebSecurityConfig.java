@@ -77,6 +77,7 @@ public class WebSecurityConfig {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.requestMatchers("/api/auth/**").permitAll().requestMatchers("/signup").permitAll()
 				.requestMatchers("/api/candidatures/**").permitAll()
+				.requestMatchers("/api/matieres/**").hasRole("ADMIN")
 				.requestMatchers("/api/prof/**").hasRole("PROF").requestMatchers("/api/admin/**").hasRole("ADMIN")
 				.requestMatchers("/api/auth/signout").authenticated().anyRequest().authenticated().and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout().disable();
