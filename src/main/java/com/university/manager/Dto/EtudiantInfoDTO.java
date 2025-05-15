@@ -1,5 +1,6 @@
 package com.university.manager.Dto;
-
+//CreatedAndDevelopedByWassimKhazri
+//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import com.university.manager.models.Branche;
 import com.university.manager.models.Classe;
 import com.university.manager.models.Groupe;

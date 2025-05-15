@@ -1,4 +1,5 @@
 package com.university.manager.services;
+
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Stream;
 
 @Service
@@ -67,40 +66,40 @@ public class EtudiantService {
 
 	@Autowired
 	private PersonneRepository personneRepository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	PasswordEncoder encoder;
 
 	@SuppressWarnings("unchecked")
 	public Etudiant ajouterEtudiant(Etudiant etudiant) {
-		Optional<Role> roleOptional = roleRepository.findByName(ERole.ROLE_STUDENT);
+		Optional<Role> roleOptional = Optional.of(roleRepository.findByName(ERole.ROLE_STUDENT)
+				.orElseThrow(() -> new RuntimeException("Rôle non trouvé")));
+
 		if (roleOptional.isPresent()) {
-		    Role role = roleOptional.get();
-		    etudiant.getRoles().add(role);
-		    System.out.println("Rôle trouvé : " + role.getName());
+			Role role = roleOptional.get();
+			etudiant.getRoles().add(role);
+			System.out.println("Rôle trouvé : " + role.getName());
 		} else {
-		    System.out.println("Rôle non trouvé");
+			System.out.println("Rôle non trouvé");
 		}
-		
-		
-        String nom = etudiant.getNom();
-        String prenom = etudiant.getPrenom();
-        String email = etudiant.getEmail();
-        String cinNumber = etudiant.getCinNumber();
-        String telephone = etudiant.getTelephone();
-        String password = etudiant.getPassword();
-      //  Set<String> role = signUpRequest.getRole();
-		
-		
-        etudiant.setNom(nom);
-        etudiant.setPrenom(prenom);
-        etudiant.setCinNumber(cinNumber);
-        etudiant.setEmail(email);
-        etudiant.setTelephone(telephone);
-        etudiant.setPassword(encoder.encode(password));
+
+		String nom = etudiant.getNom();
+		String prenom = etudiant.getPrenom();
+		String email = etudiant.getEmail();
+		String cinNumber = etudiant.getCinNumber();
+		String telephone = etudiant.getTelephone();
+		String password = etudiant.getPassword();
+		// Set<String> role = signUpRequest.getRole();
+
+		etudiant.setNom(nom);
+		etudiant.setPrenom(prenom);
+		etudiant.setCinNumber(cinNumber);
+		etudiant.setEmail(email);
+		etudiant.setTelephone(telephone);
+		etudiant.setPassword(encoder.encode(password));
 
 		// Vérifier si le groupe, la classe et le niveau existent
 		Groupe groupe = groupeRepository.findById(etudiant.getGroupe().getId())
@@ -155,7 +154,7 @@ public class EtudiantService {
 
 	public List<EtudiantInfoDTO> getAllEtudiants() {
 		// TODO Auto-generated method stub
-		//return etudiantRepository.findAll();
+		// return etudiantRepository.findAll();
 		return etudiantRepository.findEtudiants();
 	}
 
@@ -208,7 +207,7 @@ public class EtudiantService {
 		});
 
 		// Add rows
-		//for (Etudiant operation : getAllEtudiants()) {
+		// for (Etudiant operation : getAllEtudiants()) {
 		for (Etudiant operation : etudiants) {
 
 			String niveauscol = operation.getNiveauScol().getNom();

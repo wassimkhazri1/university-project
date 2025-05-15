@@ -104,7 +104,7 @@ public class EtudiantController {
 			System.out.println("Nouveau mot de passe hashé : " + etudiant.getPassword());
 			System.out.println("*****************************");
 			System.out.println("*************Nouveau Password****************");
-			System.out.println("Nouveau mot de passe hashé : " + userDetails.getPassword());
+			System.out.println("Nouveau mot de passe non hashé : " + userDetails.getPassword());
 			System.out.println("*****************************");
 			System.out.println(encoder.matches("motDePasseTest", etudiant.getPassword()));
 			etudiant.setNom(userDetails.getNom());
