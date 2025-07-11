@@ -1,0 +1,26 @@
+/* RegmentInterne.css */
+.reglement-container {
+    position: relative;
+    width: 100%;
+}
+
+.download-button {
+    transition: all 0.3s ease !important;
+}
+
+.download-button:hover {
+    background-color: #5d8ac4 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+}
+
+@media (max-width: 768px) {
+    .reglement-container {
+        min-height: 600px;
+        padding: 10px !important;
+    }
+    
+    h2 {
+        font-size: 1.5rem !important;
+    }
+}

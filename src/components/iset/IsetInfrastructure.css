@@ -1,0 +1,36 @@
+.container {
+    text-align: left;
+  }
+  
+  h2 {
+    color: #0056b3;
+    margin-top: 20px;
+  }
+  
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  /*
+//CreatedAndDevelopedByWassimKhazri
+//https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
+  */
+  ul {
+    list-style-type: square;
+    padding-left: 20px;
+  }
+  
+  .accordion-button {
+    font-weight: bold;
+  }
+  
+  .accordion-body {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-left: 4px solid #0056b3;
+  }
+  
+  .blue {
+    color: #0056b3;
+  }
+  

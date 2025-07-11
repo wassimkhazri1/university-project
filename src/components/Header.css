@@ -1,0 +1,34 @@
+.dropdown-large {
+    width: 700; /* Ajuste la largeur du menu déroulant */
+}
+
+/* Style pour le menu déroulant pleine largeur */
+.dropdown-fullwidth {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 800px;
+    background: white;
+    z-index: 1000;
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-fullwidth .row {
+    display: flex;
+    flex-wrap: nowrap;  /* Empêche les colonnes de se placer en ligne */
+    justify-content: space-between;
+}
+.dropdown-fullwidth .col-md-4 {
+    flex: 1; /* Assure que chaque colonne prend une part égale */
+    min-width: 190px; /* Évite que les colonnes soient trop petites */
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* Ajuste l'espacement */
+}
+/*
+//CreatedAndDevelopedByWassimKhazri
+//https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
+*/

@@ -1,0 +1,65 @@
+.auth-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+  
+  .main-buttons {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 60px;
+  }
+  
+  .auth-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+    cursor: pointer;
+    padding: 0;
+    text-transform: uppercase;
+    transition: opacity 0.3s;
+  }
+  
+  .auth-button:hover {
+    opacity: 0.8;
+  }
+  
+  .secondary-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .link-button {
+    text-decoration: none;
+    color: #000000;
+    font-size: 18px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: opacity 0.3s;
+  }
+  
+  .link-button:hover {
+    opacity: 0.8;
+  }
+  
+  .activation-note {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #777777;
+    font-style: italic;
+  }
+/*CreatedAndDevelopedByWassimKhazri
+https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+*/

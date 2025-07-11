@@ -1,0 +1,96 @@
+:root {
+  --card-width: 300px;
+  --card-height: 450px;
+  --card-border-radius: 10px;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --transition-duration: 0.6s;
+  --front-bg: #f8f9fa;
+  --back-bg: #dadde0;
+}
+
+.card {
+  width: var(--card-width);
+  /* height: var(--card-height); */
+    height: var(--card-height);
+  perspective: 1000px;
+  cursor: pointer;
+  margin: 10px;
+  position: relative;
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform var(--transition-duration) ease;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-front {
+  background: var(--front-bg) url('../../images/ISET/plan2.png') center/cover;
+  transform: rotateY(0deg);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card-back {
+  background-color: var(--back-bg);
+  color: #0e0d0d;
+  transform: rotateY(180deg);
+  overflow-y: auto;
+}
+
+.card.flipped .card-front {
+  transform: rotateY(180deg);
+}
+
+.card.flipped .card-back {
+  transform: rotateY(360deg);
+}
+
+.card-header {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: var(--card-border-radius);
+}
+
+.company-name {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+}
+
+.job-title {
+  margin: 0;
+  color: #7f8c8d;
+}
+
+.card-details {
+  flex: 1;
+}
+
+.card-details p {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 15px;
+  border-top: 1px solid #ccc;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    margin: 10px 0;
+  }
+}

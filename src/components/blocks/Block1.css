@@ -1,0 +1,32 @@
+  /* Ajoutez ce CSS dans votre fichier de style (par exemple, Block1.css) */
+.custom-btn {
+    background-color: transparent; /* Bouton blanc par défaut */
+    color:  rgb(20, 19, 19); /* Couleur du texte (bleu Bootstrap par défaut) */
+    border: 2px solid #66baeb; /* Bordure bleue */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition fluide */
+  }
+  
+  .custom-btn:hover {
+    background-color: #66baeb; /* Fond bleu au survol */
+    color: rgb(175, 48, 48); /* Texte blanc au survol */
+  }
+
+  .bold-text {
+    font-weight: bold;
+   /* font-size: large;*/
+  }
+
+  @keyframes glow {
+    0% { text-shadow: 0 0 5px #ff0000; }
+    50% { text-shadow: 0 0 20px #00ff00; }
+    100% { text-shadow: 0 0 5px #0000ff; }
+  }
+  
+  .animated-text {
+    animation: glow 4s infinite; /* Animation infinie */
+  }
+
+/*
+CreatedAndDevelopedByWassimKhazri
+https://www.linkedin.com/in/wassim-khazri-ab923a14b/  
+*/
