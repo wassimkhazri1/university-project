@@ -20,7 +20,7 @@ function Home() {
   }, []);
   return (
 <div>
-  <Block1 />
+  <Block3 />
  {/* <Block2 />
   <Block3 />*/} 
 </div>

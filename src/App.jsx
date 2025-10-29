@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import AttestationForm from "./components/attestation/AttestationForm";
 import VoiceCommandPdf from "./components/VoiceCommandPdf";
-import Acceuil from "./components/acceuil/Acceuil";
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import Header from "./components/Header";
@@ -49,6 +48,7 @@ import ListJobsByEntreprise from "./components/entreprises/ListJobsByEntreprise"
 import AbsenceForm from "./components/absence/AbsenceForm";
 import MesAbsences from "./components/etudiants/MesAbsences";
 import DocumentsAdministratifs from "./components/iset/DocumentsAdministratifs";
+import AuthForm from "./components/login/AuthForm";
 function App() {
     const roles = JSON.parse(localStorage.getItem("user")) || [];
     const role = roles.roles;
@@ -63,7 +63,6 @@ function App() {
       <Routes>
         <Route path="/attestation" element={<AttestationForm />} />
         <Route path="/pdf" element={<VoiceCommandPdf />} />
-        <Route path="/acceuil" element={<Acceuil />} />
         <Route path="/iset/presentation" element={<IsetPresentation />} />
         <Route path="/iset/infrastructure" element={<IsetInfrastructure />} />
         <Route path="/iset/esp-4c" element={<Espace4c />} />
@@ -73,9 +72,11 @@ function App() {
         <Route path="/iset/account" element={<AccountDropdown />} />
         <Route path="/iset/enseignant" element={<EnseignantHeader />} />
         <Route path="/iset/entreprise" element={<EntrepriseHeader />} />
-        <Route path="/iset/login" element={<Login />} />
+        <Route path="/iset/login" element={<Login />} /> 
+         {/*<Route path="/iset/login" element={<AuthForm />} />*/}
         <Route path="/iset/langue" element={<Language />} />
         <Route path="/iset/nav" element={<Nav />} />
+        
         <Route path="/iset/myprofile" element={<Profile />} />
         <Route path="/presentationinfo" element={<PresentationInfo />} />
         <Route path="/presentationelec" element={<PresentationElec />} />

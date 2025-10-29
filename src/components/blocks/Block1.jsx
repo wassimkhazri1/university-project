@@ -3,7 +3,8 @@ import item1 from "../../images/ISET/articles/item-1.png";
 import item2 from "../../images/ISET/articles/item-2.png";
 import item3 from "../../images/ISET/articles/item-3.png";
 import "./Block1.css"; // Importez votre fichier CSS
-import plan2 from "../../images/ISET/plan2.png";
+// import plan2 from "../../images/ISET/plan2.png";
+import plan2 from "../../images/ISET/image8.svg";
 
 function Block1() {
   return (

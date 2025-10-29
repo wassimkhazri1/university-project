@@ -14,7 +14,13 @@ const DocumentsAdministratifs = () => {
         { path: "/Cahier Des Charges PFE.pdf", name: "Cahier Des Charges PFE", type: "pdf"},
         { path: "/Stage_Initiation.rar", name: "Stage_Initiation.rar", type: "rar" },
         { path: "/مطلب شهادة حضور.pdf", name: "مطلب شهادة حضور", type: "pdf"},
-        { path:"/Documents Stages PFE Licence.pdf", name:"Documents Stages PFE Licence", type: "pdf" }
+        { path:"/Documents Stages PFE Licence.pdf", name:"Documents Stages PFE Licence", type: "pdf" },
+        { path: "livret_stage_ISET J.pdf", name:"livret_stage_ISET J", type:"pdf"},
+        { path: "بطاقة إرشادات - إلتزام.pdf", name:"بطاقة إرشادات - إلتزام", type: "pdf"},
+        { path: "مطلب الحصول على نظير.pdf", name:"مطلب الحصول على نظير", type: "pdf"},
+        { path: "مطلب الحصول على وثائق بالفرنسية.pdf", name: "مطلب الحصول على وثائق بالفرنسية", type: "pdf"}
+
+
     ];
 
     // Icônes selon le type de fichier

@@ -2,12 +2,14 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import blue from "../../images/ISET/articles/blue.png";
+import plan2 from "../../images/ISET/image8.svg";
+import hafedh from "../../images/ISET/sigles/dir4.jpg";
 
 function Block3() {
   return (
     <div className="container mt-4 text-start" 
     style={{
-      backgroundImage: {blue}
+      backgroundImage: {plan2}
     }}
     >
         <div className="acm-features style-1">
@@ -31,16 +33,18 @@ function Block3() {
                   <div className="row ">
                   <div className="col-sm-4">
                       <img
-                        src="https://isetj.rnu.tn/images/joomlart/authors/Ridha-Djebeli.jpg" // Remplace avec l'image du directeur
+                        src={hafedh} // Remplace avec l'image du directeur
                         className="rounded-circle"
                         height="60"
                         alt="Directeur"
                       />
                   </div> 
                   <div className="col-sm-8">
-                      <p className="font-bold">Docteur Ridha Djebali</p>
+                      <p className="font-bold">Docteur Hafedh Ferchichi</p>
                       <p className="text-gray-500 text-sm" style={{color:"#6c757d"}}>Directeur du ISET Jendouba</p>
                   </div>
+
+
                 </div>
                 <hr className="my-4" />
                 <p className="text-blue-600 font-bold text-2xl">20+</p>
