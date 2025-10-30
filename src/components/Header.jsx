@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ProfList from "./enseignants/ProfList";
 import EtudiantHeader from "./etudiants/EtudiantHeader";
 import EnseignantHeader from "./enseignants/EnseignantHeader";
+import ParticlesBackground from "../../src/components/login/ParticlesBackground";
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
 import Logout from "../components/login/Logout";
@@ -18,6 +19,7 @@ import AjoutNote from "./admins/AjoutNote";
 import AddMatiereForm from "./admins/AddMatiereForm";
 import EntrepriseHeader from "./entreprises/EntrepriseHeader";
 import EntrepriseProfil from "./entreprises/EntrepriseProfil";
+import LoginModal from "../components/login/LoginModal";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +27,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [showProfs, setShowProfs] = useState(false);
   const [content, setContent] = useState('');
-
+  const [showLoginModal, setShowLoginModal] = useState(false);
   // Récupérer le token depuis le localStorage
   const token = localStorage.getItem("token");
   
@@ -76,6 +78,24 @@ const Header = () => {
 
   return (
     <header className="bg-light">
+           {/* cette arrière plan de particules dans cette partie permet de rendre tous les pages 
+           du projet sont animées 
+           */}
+
+                  {/* Arrière-plan de particules */}
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1
+      }}>
+        {/* <ParticlesBackground /> */}
+        <ParticlesBackground bgColor="#85dde9ff" />
+      </div>
+
+      
       <div className="container-fluid">
         <div className="row align-items-center py-2">
           {/* Logo */}
@@ -121,6 +141,12 @@ const Header = () => {
                   >
                     Sign In
                   </button>
+                  <button
+  className="btn btn-outline-primary btn-sm"
+  onClick={() => setShowLoginModal(true)}
+>
+  Sign In
+</button>
                   <button 
                     className="btn btn-primary btn-sm"
                     onClick={() => navigate('/iset/register')}
@@ -272,6 +298,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      <LoginModal show={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </header>
   );
 };

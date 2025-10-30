@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useNavigate } from "react-router-dom"; // Pour la redirection
 import plan2 from "../../images/ISET/plan2.png";
 import TermsModal from './TermsModal';
+import ParticlesBackground from "./ParticlesBackground";
 
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
@@ -62,11 +63,23 @@ function Login() {
   return (
     <div className="d-flex justify-content-center align-items-center "   style={{
       flexGrow: "1",
-      backgroundImage: `url(${plan2})`, // Utilisation de la variable logo
+     // backgroundImage: `url(${plan2})`, // Utilisation de la variable logo
       backgroundSize: 'cover', // Ajuste l'image pour couvrir tout le div
       backgroundPosition: 'center', // Centre l'image
       backgroundRepeat: 'no-repeat' // Empêche la répétition de l'image
     }}>
+                  {/* Arrière-plan de particules */}
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1
+      }}>
+        {/* <ParticlesBackground /> */}
+        <ParticlesBackground bgColor="#000000" />
+      </div>
       <div className="card p-4 shadow-sm" style={{ maxWidth: "350px",height: "500px", width: "100%" }}>
         {/* Onglets */}
         <ul className="nav nav-pills nav-justified mb-3">

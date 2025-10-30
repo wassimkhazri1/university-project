@@ -20,9 +20,7 @@ function Home() {
   }, []);
   return (
 <div>
-  <Block3 />
- {/* <Block2 />
-  <Block3 />*/} 
+  <Block3 /> 
 </div>
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 

@@ -2,6 +2,7 @@
 // // https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import plan from "../../images/ISET/plan1.png";
 import './RegmentInterne.css';
+import ParticlesBackground from "../login/ParticlesBackground";
 
 const DocumentsAdministratifs = () => {
     // Liste des fichiers avec leurs noms d'affichage
@@ -69,7 +70,7 @@ const handleDownload = (filePath, fileName) => {
 
     return (
         <div className="reglement-container" style={{
-            backgroundImage: `url(${plan})`,
+            // backgroundImage: `url(${plan})`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             minHeight: '400px',
@@ -78,9 +79,22 @@ const handleDownload = (filePath, fileName) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'rgba(0,0,0,0.5)', // Overlay sombre pour meilleure lisibilité
-            backgroundBlendMode: 'multiply'
+         //   backgroundColor: 'rgba(0,0,0,0.5)', // Overlay sombre pour meilleure lisibilité
+         //   backgroundBlendMode: 'multiply'
         }}>
+
+                  {/* Arrière-plan de particules */}
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1
+      }}>
+        {/* <ParticlesBackground /> */}
+        <ParticlesBackground bgColor="#000000" />
+      </div>
             <h2 style={{ 
                 color: 'white', 
                 textShadow: '2px 2px 4px rgba(0,0,0,0.5)', 

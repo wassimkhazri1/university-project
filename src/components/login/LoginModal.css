@@ -1,0 +1,32 @@
+.captcha-box {
+  background: repeating-linear-gradient(
+    45deg,
+    #f8f9fa,
+    #f8f9fa 10px,
+    #e9ecef 10px,
+    #e9ecef 20px
+  );
+  font-family: monospace;
+  font-size: 1.1rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  border: 1px solid #ced4da;
+  letter-spacing: 2px;
+  color: #212529;
+  user-select: none;
+  transform: rotate(-2deg);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.captcha-container {
+  position: relative;
+}
+
+.refresh-btn {
+  transition: transform 0.2s ease;
+}
+
+.refresh-btn:hover {
+  transform: rotate(180deg);
+}
