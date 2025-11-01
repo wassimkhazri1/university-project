@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import logo from "../../images/ISET/sigles/sigle.png";
 import "./LoginModal.css";
 

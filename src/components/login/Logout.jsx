@@ -10,7 +10,7 @@ function Logout() {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     // Rediriger vers la page de connexion
-    navigate("/iset/login");
+    navigate("/");
     }
   };
 //CreatedAndDevelopedByWassimKhazri

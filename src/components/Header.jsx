@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Header.css';
 import logo from "../images/ISET/sigles/sigle.png";
+import logo1 from "../images/ISET/sigles/logo.png";
 import { useNavigate } from "react-router-dom";
 import ProfList from "./enseignants/ProfList";
 import EtudiantHeader from "./etudiants/EtudiantHeader";
@@ -99,21 +100,21 @@ const Header = () => {
       <div className="container-fluid">
         <div className="row align-items-center py-2">
           {/* Logo */}
-          <a className="col-auto" href="/">
+          {/* <a className="col-auto" href="/">
             <img src={logo} height="50" alt="ISET Logo" loading="lazy" />
-          </a>
+          </a> */}
           
           {/* Titre */}
-          <div className="col text-center">
+          {/* <div className="col text-center">
             <h1 className="mb-0">Institut Supérieur des Etudes Technologiques de Jendouba</h1>
             <p className="mb-0">المعهد العالي للدراسات التكنولوجية بجندوبة</p>
-          </div>
+          </div> */}
           
           {/* Section authentification */}
           <div className="col-auto">
             <div className="dropdown dropleft float-right">
               {/* Si token existe, afficher le profil et logout */}
-              {token ? (
+              {/* {token ? (
                 <>
                   {role == "ROLE_STUDENT" && <EtudiantProfil />}
                   {role == "ROLE_PROF" && <EnseignantProfil />}
@@ -132,29 +133,23 @@ const Header = () => {
                     </li>
                   </ul>
                 </>
-              ) : (
-                // Si pas de token, afficher Sign In et Sign Up
+              ) : ( */}
+                {/* Si pas de token, afficher Sign In et Sign Up */}
                 <div className="d-flex gap-2">
-                  <button 
-                    className="btn btn-outline-primary btn-sm"
-                    onClick={() => navigate('/iset/login')}
-                  >
-                    Sign In
-                  </button>
-                  <button
+                  {/* <button
   className="btn btn-outline-primary btn-sm"
   onClick={() => setShowLoginModal(true)}
 >
-  Sign In
-</button>
-                  <button 
+  Login
+</button> */}
+                  {/* <button 
                     className="btn btn-primary btn-sm"
                     onClick={() => navigate('/iset/register')}
                   >
                     Sign Up
-                  </button>
+                  </button> */}
                 </div>
-              )}
+       {/* )} */}
             </div>
           </div>
         </div>
@@ -165,7 +160,7 @@ const Header = () => {
       <AddMatiereForm open={addModalOpen1} onClose={() => setAddModalOpen1(false)} />
 
       {/* Navbar */}
-      <nav className="navbar navbar-expand navbar-expand-lg ">
+      <nav className="hero navbar navbar-expand navbar-expand-lg ">
         <div>
           <button
             data-mdb-collapse-init
@@ -189,6 +184,7 @@ const Header = () => {
                   
                   <div id="t4-megamenu-mainfr" className="collapse navbar-collapse slide animate" data-duration="400">
                     <ul className="navbar-nav">
+                      <li className="logo"><img src={logo1}></img></li>
                       <li className="nav-item active">
                         <a href="/" className="nav-link" aria-current="page">Accueil</a>
                       </li>          
@@ -289,6 +285,35 @@ const Header = () => {
                           <li><a className="dropdown-item" href="#">candidatures aux mastères</a></li>
                           <li><a className="dropdown-item" href="#">plaquette pédagogique</a></li>
                         </ul>
+                      </li>
+                      <li className="dropdown dropleft float-right">
+                                      {token ? (
+                <>
+                  {role == "ROLE_STUDENT" && <EtudiantProfil />}
+                  {role == "ROLE_PROF" && <EnseignantProfil />}
+                  {role == "ROLE_ADMIN" && <AdminProfil />}
+                  {role == "ROLE_ENTREPRISE" && <EntrepriseProfil />}
+                  
+                  <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                    <li>
+                      <a className="dropdown-item" href="/iset/myprofile">My profile</a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">Settings</a>
+                    </li>
+                    <li>
+                      <Logout />
+                    </li>
+                  </ul>
+                </>
+              ) : (
+                                          <button
+  className="btn btn-outline-primary btn-sm"
+  onClick={() => setShowLoginModal(true)}
+>
+  <a>Login</a>
+</button>
+        )}
                       </li>
                     </ul>
                   </div>

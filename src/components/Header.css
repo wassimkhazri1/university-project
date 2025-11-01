@@ -32,3 +32,26 @@
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
 */
+
+
+.header1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #004080;
+  color: white;
+  /* padding: 20px 40px; */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.hero {
+  text-align: center;
+  /* padding: 80px 20px; */
+  background: linear-gradient(135deg, #0077cc, #00c6ff);
+  color: white;
+}
+.btn a {
+  /* margin-left: 20px; */
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
