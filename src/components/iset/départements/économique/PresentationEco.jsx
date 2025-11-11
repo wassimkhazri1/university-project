@@ -2,20 +2,19 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './PresentationEco.css';
-import BackToTop from "../../../BackToTop";
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
 function PresentationEco() {
   return (
-    <div className="container mt-4 text-start">
-      <h1 className="blue">Sciences Économiques et de Gestion</h1>
+    <div className="hero  text-start">
+      <h1 className="yellow">Sciences Économiques et de Gestion</h1>
 
       <p>
-      <h3 className="blue">Présentation</h3>
+      <h3 className="yellow">Présentation</h3>
       Le département sciences économiques et gestion propose une licence en administration des affaires.
       </p>
       <p>
-      <h3 className="blue">Objectifs</h3>
+      <h3 className="yellow">Objectifs</h3>
       <lu>
       <li>Proposer une formation flexible et comparable aux standards internationaux</li>
       <li>Assurer une formation polyvalente et apte à s’adapter aux mutations de l’environnement mondial</li>
@@ -23,7 +22,7 @@ function PresentationEco() {
       </lu>
       </p>
       <p>
-      <h3 className="blue">Principes</h3>
+      <h3 className="yellow">Principes</h3>
         <lu>
           <li>Créer des parcours de formation souple et efficace</li>
           <li>Inclure l’étudiant dans le choix de ses parcours</li>
@@ -32,7 +31,6 @@ function PresentationEco() {
           <li>Offrir à l’étudiant la possibilité d’insertion professionnelle à tous les niveaux.</li>
         </lu>
       </p>
-      <BackToTop />
     </div>
   );
 }

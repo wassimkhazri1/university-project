@@ -18,13 +18,16 @@ import AjoutNote from "./admins/AjoutNote";
 import AddMatiereForm from "./admins/AddMatiereForm";
 import EntrepriseHeader from "./entreprises/EntrepriseHeader";
 import EntrepriseProfil from "./entreprises/EntrepriseProfil";
+import LoginModal from "../components/login/LoginModal";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(""); // État pour les erreurs
   const navigate = useNavigate(); // Hook pour la navigation
   const [showProfs, setShowProfs] = useState(false);
   const [content, setContent] = useState('');
-
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  // Récupérer le token depuis le localStorage
+  const token = localStorage.getItem("token");
      // Récupérer user depuis le localStorage
      const user = JSON.parse(localStorage.getItem("user"));
       // Récupérer les rôles depuis le localStorage
@@ -281,6 +284,36 @@ const handleOpenAddModal1 = () => {
 							
 </li>
 
+                      <li className="dropdown dropleft float-right">
+                                      {token ? (
+                <>
+                  {role == "ROLE_STUDENT" && <EtudiantProfil />}
+                  {role == "ROLE_PROF" && <EnseignantProfil />}
+                  {role == "ROLE_ADMIN" && <AdminProfil />}
+                  {role == "ROLE_ENTREPRISE" && <EntrepriseProfil />}
+                  
+                  <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                    <li>
+                      <a className="dropdown-item" href="/iset/myprofile">My profile</a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">Settings</a>
+                    </li>
+                    <li>
+                      <Logout />
+                    </li>
+                  </ul>
+                </>
+              ) : (
+                                          <button
+  className="btn btn-outline-primary btn-sm"
+  onClick={() => setShowLoginModal(true)}
+>
+  <a>Login</a>
+</button>
+        )}
+                      </li>
+
 
             {/*Ajoute d'autres items selon tes besoins*/}
           </ul>
@@ -303,6 +336,7 @@ const handleOpenAddModal1 = () => {
   {/*Container wrapper*/}
 
 </nav>
+<LoginModal show={showLoginModal} onClose={() => setShowLoginModal(false)} />
 </header>
     // </div>
     

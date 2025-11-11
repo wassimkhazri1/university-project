@@ -8,15 +8,15 @@ import BackToTop from "../../../BackToTop";
 
 function PresentationElec() {
   return (
-    <div className="container mt-4 text-start">
-      <h1 className="blue">Génie Electrique</h1>
+    <div className="hero text-start">
+      <h1 className="yellow">Génie Electrique</h1>
       <p>
-      <h3 className="blue">Présentation</h3>
+      <h3 className="yellow">Présentation</h3>
       Le département de génie électrique de l’Institut Supérieur des Études Technologiques de Jendouba a été créé dans le but de s’appuyer sur la réalité industrielle. Son objectif est de former des cadres qualifiés en génie électrique.
 
 Ainsi le département est muni d’un équipement de pointe assurant au mieux l’évolution technologique du domaine génie électrique, électronique et informatique industriel.
       </p>
-      <h3 className="blue">Débouchée</h3>
+      <h3 className="yellow">Débouchée</h3>
       <p>
       Les titulaires d’une licence en génie électrique sont capables d’intervenir pour l’installation, le pilotage ou la maintenance des systèmes industriels en :
       <lu>
@@ -31,7 +31,7 @@ Ainsi le département est muni d’un équipement de pointe assurant au mieux l�
       <li>industries électriques et électroniques,</li>
       <li>industries manufacturières et agro-alimentaires, secteurs de la santé, de l'audiovisuel et de télécommunications.</li>
       </p>
-      <h3 className="blue">Organisation des études</h3>
+      <h3 className="yellow">Organisation des études</h3>
       <p>
       Les études en licence appliquée en génie électrique s’étalent sur 3 années (L1, L2, et L3) organisées en 6 semestres.
 
@@ -42,7 +42,7 @@ L’étudiant est appelé à faire deux stages l’un d’initiation et l’autr
 Les études se font sous forme de cours, des TD et TP. Les TP présentent plus que 50% du volume horaire global, ils sont présentés sous forme d’ateliers dans les laboratoires du département.
       </p>
 
-      <h3 className="blue">Spécialités</h3>
+      <h3 className="yellow">Spécialités</h3>
       <p>
         <lu>
           <li>Maintenance Industrielle</li>
@@ -50,8 +50,6 @@ Les études se font sous forme de cours, des TD et TP. Les TP présentent plus q
           <li>Réseaux Électriques</li>
         </lu>
       </p>
-     
-<BackToTop />
     </div>
   );
 }

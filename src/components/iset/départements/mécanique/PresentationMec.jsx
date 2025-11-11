@@ -2,16 +2,15 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './PresentationMec.css';
-import BackToTop from "../../../BackToTop";
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
 function PresentationMec() {
   return (
-    <div className="container mt-4 text-start">
-      <h1 className="blue">Génie Mécanique</h1>
+    <div className="hero text-start">
+      <h1 className="yellow">Génie Mécanique</h1>
 
       <p>
-      <h3 className="blue">Maintenance industrielle (MI)</h3>
+      <h3 className="yellow">Maintenance industrielle (MI)</h3>
       <lu>
       <li>Responsable en maintenance des systèmes manufacturiers</li>
       <li>Responsable en gestion de production</li>
@@ -19,7 +18,7 @@ function PresentationMec() {
       </lu>
       </p>
       <p>
-      <h3 className="blue">Plasturgie (PL)</h3>
+      <h3 className="yellow">Plasturgie (PL)</h3>
       <lu>
       <li>Designer des articles en matières plastiques</li>
       <li>Concepteur d’outillages des articles en matière plastique</li>
@@ -33,7 +32,7 @@ function PresentationMec() {
       </lu>
       </p>
       <p>
-      <h3 className="blue">Construction et fabrication mécanique (CFM)</h3>
+      <h3 className="yellow">Construction et fabrication mécanique (CFM)</h3>
         <lu>
           <li>Concepteur d’outillage des procédés de mise en forme et CAO (emboutissage, estompage, …)</li>
           <li>Responsable méthodes et OGP</li>
@@ -45,7 +44,6 @@ function PresentationMec() {
           <li>Conducteur des procédés de fabrication mécanique (procédés universels, semi automatiques, automatiques, FAO et spéciaux)</li>
         </lu>
       </p>
-      <BackToTop />
     </div>
   );
 }

@@ -3,7 +3,7 @@
   }
   
   h2 {
-    color: #0056b3;
+    color: #ffcc00;
     margin-top: 20px;
   }
   
@@ -30,7 +30,13 @@
     border-left: 4px solid #0056b3;
   }
   
-  .blue {
-    color: #0056b3;
+  .yellow {
+    color: #ffcc00;
   }
   
+  .hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #0077cc, #00c6ff);
+  color: white;
+}

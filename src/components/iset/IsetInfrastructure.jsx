@@ -2,16 +2,16 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./IsetInfrastructure.css";
-import BackToTop from "../BackToTop";
 function IsetInfrastructure() {
   return (
-    <div className="container mt-4 text-start">
-      <h2 className="blue">Infrastructure de L’ISET de Jendouba</h2>
+    // <div className="container mt-4 text-start">
+    <div className="hero  text-start">
+      <h2 className="yellow">Infrastructure de L’ISET de Jendouba</h2>
       <p>
         L’ISET de Jendouba est une nouvelle institution en cours de réception et d’agrandissement composée de plusieurs blocs donnant une vue architecturale remarquable et adaptée aux activités de l’institut pour une capacité d’accueil de 1500 étudiants.
       </p>
 
-      <h3 className="blue">Composants du bâtiment</h3>
+      <h3 className="yellow">Composants du bâtiment</h3>
       <ul>
         <li><strong>Terrain :</strong> 42,000 m²</li>
         <li><strong>Superficie des locaux :</strong> 9,000 m²</li>
@@ -20,7 +20,7 @@ function IsetInfrastructure() {
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 */}
-      <h3 className="blue">Blocs et Espaces Fonctionnels</h3>
+      <h3 className="yellow">Blocs et Espaces Fonctionnels</h3>
       <ul>
         <li>3 blocs fonctionnels</li>
         <li>4ème bloc en cours de construction</li>
@@ -29,7 +29,7 @@ function IsetInfrastructure() {
         <li>Bloc Bibliothèque et Salle de lecture</li>
       </ul>
 
-      <h3 className="blue">Salles et Laboratoires</h3>
+      <h3 className="yellow">Salles et Laboratoires</h3>
       <ul>
         <li>38 salles de cours</li>
         <li>6 laboratoires informatiques câblés (20 prises chacun)</li>
@@ -37,14 +37,14 @@ function IsetInfrastructure() {
         <li>2 laboratoires de langue en cours d’équipement</li>
       </ul>
 
-      <h3 className="blue">Bureaux</h3>
+      <h3 className="yellow">Bureaux</h3>
       <ul>
         <li>34 bureaux pour les enseignants</li>
         <li>18 bureaux administratifs</li>
         <li>4 bureaux pour les clubs étudiants</li>
       </ul>
 
-      <h3 className="blue">Ateliers et Espaces Divers</h3>
+      <h3 className="yellow">Ateliers et Espaces Divers</h3>
       <ul>
         <li>1 atelier principal (420 m²)</li>
         <li>3 ateliers annexes (325 m² chacun)</li>
@@ -55,7 +55,7 @@ function IsetInfrastructure() {
         <li>1 salle de projet</li>
       </ul>
 
-      <h3 className="blue">Laboratoires et Ateliers</h3>
+      <h3 className="yellow">Laboratoires et Ateliers</h3>
       <h4>Laboratoires Informatiques</h4>
       <p>06 laboratoires informatiques</p>
 
@@ -86,8 +86,6 @@ function IsetInfrastructure() {
         <li>B4.1.5 : Electronique II</li>
         <li>B4.0.7 : Circuits Imprimés</li>
       </ul>
-      <BackToTop />
-
     </div>
   );
 }

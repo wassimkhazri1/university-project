@@ -1,5 +1,12 @@
-.blue {
-    color: blue;
+  .yellow {
+    color: #ffcc00;
+  }
+  
+  .hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #0077cc, #00c6ff);
+  color: white;
 }
 /*
 //CreatedAndDevelopedByWassimKhazri

@@ -1,0 +1,129 @@
+/* ===== Sticky Header ===== */
+header.bg-light {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Header Layout ===== */
+.header1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: #004080;
+  color: white;
+}
+
+.header1 .logo {
+  flex-shrink: 0;
+}
+
+.header1 .logo img {
+  height: 48px;
+}
+
+/* ===== Navbar Content ===== */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.navbar-nav .nav-item {
+  position: relative;
+}
+
+.navbar-nav .nav-link {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffcc00;
+}
+
+/* ===== Dropdown Fullwidth ===== */
+.dropdown-fullwidth {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  z-index: 1000;
+  padding: 20px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-fullwidth .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.dropdown-fullwidth .col-md-4 {
+  flex: 1;
+  min-width: 190px;
+  padding: 10px;
+}
+
+/* ===== Login Button ===== */
+.btn a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  background-color: #0077cc;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn a:hover {
+  background-color: #005fa3;
+}
+
+/* ===== Mobile Slide-In Menu ===== */
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #004080;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: 240px;
+    height: 100vh;
+    padding: 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .navbar-nav.open {
+    transform: translateX(0);
+  }
+
+  .navbar-toggler {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+  }
+
+  .header1 {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .header1 .logo img {
+    height: 40px;
+  }
+}

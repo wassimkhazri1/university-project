@@ -1,11 +1,79 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  padding: 6px 0;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.42857;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+.social_icons a {
+  font-size: 24px;
+  color: #4267B2; /* Couleur Facebook */
+  margin-right: 15px;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.social_icons a:hover {
+  color: #000; /* Couleur au survol */
+}
+
+/*
+//CreatedAndDevelopedByWassimKhazri
+//https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
+*/
+
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background-color: #f5f7fa;
   color: #333;
+  background-color:#85dde9ff;
 }
 
-.header {
+/* .App_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,21 +81,21 @@ body {
   color: white;
   padding: 20px 40px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+} */
 
-.nav a {
+/* .App_nav a {
   margin-left: 20px;
   color: white;
   text-decoration: none;
   font-weight: bold;
-}
+} */
 
-.hero {
+/* .hero {
   text-align: center;
   padding: 80px 20px;
   background: linear-gradient(135deg, #0077cc, #00c6ff);
   color: white;
-}
+} */
 
 .fade-in {
   animation: fadeIn 2s ease-in;

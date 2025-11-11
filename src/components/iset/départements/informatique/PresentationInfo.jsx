@@ -7,10 +7,10 @@ import BackToTop from "../../../BackToTop";
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
 function PresentationInfo() {
   return (
-    <div className="container mt-4 text-start">
-      <h1 className="blue">Technologies de l'Informatique</h1>
+    <div className="hero text-start">
+      <h1 className="yellow">Technologies de l'Informatique</h1>
      <p>
-      <h5 className="blue">Parcours : Développement des Systèmes d’Information (DSI)</h5>
+      <h5 className="yellow">Parcours : Développement des Systèmes d’Information (DSI)</h5>
       Métiers visés :
       <lu>
       <li>Développeur d’Applications de gestion</li>
@@ -32,7 +32,7 @@ function PresentationInfo() {
       </lu>
       </p>
       <p>
-      <h5 className="blue">Parcours : Réseaux et Services Informatiques (RSI)</h5>
+      <h5 className="yellow">Parcours : Réseaux et Services Informatiques (RSI)</h5>
       Métiers visés :
       <lu>
       <li>Administrateur réseaux</li>
@@ -51,7 +51,7 @@ function PresentationInfo() {
       </lu>
       </p>
       <p>
-      <h5 className="blue">Parcours : Multimédia et Développement Web (MDW)</h5>
+      <h5 className="yellow">Parcours : Multimédia et Développement Web (MDW)</h5>
       Métiers visés :
       <lu>
       <li>Webmaster développeur</li>
@@ -69,7 +69,7 @@ function PresentationInfo() {
       </lu>
       </p>
       <p>
-      <h5 className="blue">Parcours : Systèmes Embarqués et Mobiles (SEM)</h5>
+      <h5 className="yellow">Parcours : Systèmes Embarqués et Mobiles (SEM)</h5>
       Métiers visés :
       <lu>
       <li>Métiers de la Recherche et du Développement : responsabilité de projets techniques (en totalité, ou en partie seulement pour des projets d’envergure), conception de produit, veille technologique et transfert de savoir-faire.</li>
@@ -86,7 +86,6 @@ function PresentationInfo() {
         <li>Maintenir les systèmes embarqués et mobiles.…</li>
       </lu>
       </p>
-      <BackToTop />
     </div>
   );
 }

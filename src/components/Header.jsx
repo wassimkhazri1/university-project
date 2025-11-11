@@ -77,82 +77,19 @@ const Header = () => {
     setAddModalOpen1(true);
   };
 
-  return (
-    <header className="bg-light">
-           {/* cette arrière plan de particules dans cette partie permet de rendre tous les pages 
-           du projet sont animées 
-           */}
-
-                  {/* Arrière-plan de particules */}
+    return (
+    <header className="header">
+      {/* Arrière-plan de particules */}
       <div style={{
         position: "absolute",
         top: 0,
         left: 0,
         width: "100%",
         height: "100%",
-        zIndex: -1
+        zIndex: -1,
+        bgColor:"#85dde9ff"
       }}>
-        {/* <ParticlesBackground /> */}
-        <ParticlesBackground bgColor="#85dde9ff" />
-      </div>
-
-      
-      <div className="container-fluid">
-        <div className="row align-items-center py-2">
-          {/* Logo */}
-          {/* <a className="col-auto" href="/">
-            <img src={logo} height="50" alt="ISET Logo" loading="lazy" />
-          </a> */}
-          
-          {/* Titre */}
-          {/* <div className="col text-center">
-            <h1 className="mb-0">Institut Supérieur des Etudes Technologiques de Jendouba</h1>
-            <p className="mb-0">المعهد العالي للدراسات التكنولوجية بجندوبة</p>
-          </div> */}
-          
-          {/* Section authentification */}
-          <div className="col-auto">
-            <div className="dropdown dropleft float-right">
-              {/* Si token existe, afficher le profil et logout */}
-              {/* {token ? (
-                <>
-                  {role == "ROLE_STUDENT" && <EtudiantProfil />}
-                  {role == "ROLE_PROF" && <EnseignantProfil />}
-                  {role == "ROLE_ADMIN" && <AdminProfil />}
-                  {role == "ROLE_ENTREPRISE" && <EntrepriseProfil />}
-                  
-                  <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                    <li>
-                      <a className="dropdown-item" href="/iset/myprofile">My profile</a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">Settings</a>
-                    </li>
-                    <li>
-                      <Logout />
-                    </li>
-                  </ul>
-                </>
-              ) : ( */}
-                {/* Si pas de token, afficher Sign In et Sign Up */}
-                <div className="d-flex gap-2">
-                  {/* <button
-  className="btn btn-outline-primary btn-sm"
-  onClick={() => setShowLoginModal(true)}
->
-  Login
-</button> */}
-                  {/* <button 
-                    className="btn btn-primary btn-sm"
-                    onClick={() => navigate('/iset/register')}
-                  >
-                    Sign Up
-                  </button> */}
-                </div>
-       {/* )} */}
-            </div>
-          </div>
-        </div>
+        {/* <ParticlesBackground bgColor="#85dde9ff" /> */}
       </div>
 
       {/* Modales */}
@@ -160,13 +97,18 @@ const Header = () => {
       <AddMatiereForm open={addModalOpen1} onClose={() => setAddModalOpen1(false)} />
 
       {/* Navbar */}
-      <nav className="hero navbar navbar-expand navbar-expand-lg ">
-        <div>
+      <nav className="navbar navbar-expand navbar-expand-lg">
+        <div className="container-fluid">
+          {/* Logo à gauche */}
+          <a className="navbar-brand" href="/">
+            <img src={logo1} alt="Logo" style={{ height: '50px' }} />
+          </a>
+
           <button
-            data-mdb-collapse-init
             className="navbar-toggler"
             type="button"
-            data-mdb-target="#navbarSupportedContent"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
@@ -175,151 +117,135 @@ const Header = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <div className="container">
-              <div className="row align-items-center t4-nav-height">
-                <div className="col-12 col-lg-9 d-flex align-items-center">
-                  <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#t4-megamenu-mainfr" aria-controls="t4-megamenu-mainfr" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                  </button>
-                  
-                  <div id="t4-megamenu-mainfr" className="collapse navbar-collapse slide animate" data-duration="400">
-                    <ul className="navbar-nav">
-                      <li className="logo"><img src={logo1}></img></li>
-                      <li className="nav-item active">
-                        <a href="/" className="nav-link" aria-current="page">Accueil</a>
-                      </li>          
-                      
-                      <li className="nav-item active">
-                        {/* Afficher l'en-tête spécifique seulement si l'utilisateur est connecté */}
-                        {token && (
-                          <>
-                            {role == "ROLE_STUDENT" && <EtudiantHeader />}
-                            {role == "ROLE_PROF" && <EnseignantHeader />}
-                            {role == "ROLE_ENTREPRISE" && <EntrepriseHeader />}
-                          </>
-                        )}
-                      </li>
+            {/* Menu à droite */}
+            <ul className="navbar-nav ms-auto"> {/* ms-auto pousse le menu à droite */}
+              
+              {/* Afficher l'en-tête spécifique seulement si l'utilisateur est connecté */}
+              {token && (
+                <li className="nav-item active">
+                  {role == "ROLE_STUDENT" && <EtudiantHeader />}
+                  {role == "ROLE_PROF" && <EnseignantHeader />}
+                  {role == "ROLE_ENTREPRISE" && <EntrepriseHeader />}
+                </li>
+              )}
 
-                      {/* Le reste de votre navbar reste inchangé */}
-                      <li className="nav-item dropdown">
-                        <a href="#" className="nav-link dropdown-toggle" id="departementsDropdown" role="button" data-bs-toggle="dropdown">
-                          Départements
-                        </a>
-                        <div className="dropdown-menu dropdown-fullwidth">
-                          <div className="row">
-                            <div className="col-md-4">
-                              <h6 className="dropdown-header">Génie Electrique</h6>
-                              <a href="/presentationelec" className="dropdown-item">Présentation</a>
-                              <a href="/elec/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
-                              <a href="/elec/news" className="dropdown-item">Nouveautés</a>
-                            </div>
-                            <div className="col-md-4">
-                              <h6 className="dropdown-header">Génie Mécanique</h6>
-                              <a href="/presentationmec" className="dropdown-item">Présentation</a>
-                              <a href="/mec/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
-                              <a href="/mec/news" className="dropdown-item">Nouveautés</a>
-                            </div>
-                            <div className="col-md-4">
-                              <h6 className="dropdown-header">Sciences Économiques</h6>
-                              <a href="/presentationeco" className="dropdown-item">Présentation</a>
-                              <a href="/eco/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
-                              <a href="/eco/news" className="dropdown-item">Nouveautés</a>
-                            </div>
-                            <div className="col-md-4">
-                              <h6 className="dropdown-header">Technologies Informatique</h6>
-                              <a href="/presentationinfo" className="dropdown-item">Présentation</a>
-                              <a href="/info/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
-                              <a href="/info/news" className="dropdown-item">Nouveautés</a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-
-                      {/* Les autres éléments du menu */}
-                      <li className="nav-item dropdown">
-                        <a href="#" className="nav-link dropdown-toggle" id="institueDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          L'institue
-                        </a>
-                        <ul className="dropdown-menu" aria-labelledby="institueDropdown">
-                          <li><a href="/iset/presentation" className="dropdown-item">Présentation</a></li>
-                          <li><a href="/iset/infrastructure" className="dropdown-item">Infrastructure</a></li>
-                          <li><a href="/iset/esp-4c" className="dropdown-item">Espace 4C</a></li>
-                          <li><a href="/iset/esp-4c" className="dropdown-item">Organigramme</a></li>
-                          <li><a href="/iset/documents" className="dropdown-item">Documents Administratifs</a></li>
-                          
-                          {/* Ces éléments ne sont accessibles que si l'utilisateur est connecté */}
-                          {token && (
-                            <>
-                              {(isAdmin || isProf || isStudent) && (
-                                <li><a href="/iset/proflist" className="dropdown-item">List des enseignants</a></li>
-                              )}
-                              {(isAdmin || isProf) && (
-                                <li><a href="/list" className="dropdown-item">Listes des etudiants</a></li>
-                              )}
-                              {(isAdmin) && (
-                                <li><a href="/iset/entrepriselist" className="dropdown-item">List des entreprises</a></li>
-                              )}
-                              {(isAdmin || isProf || isStudent) && (
-                                <li><a href="/iset/offerlist" className="dropdown-item">List des offres</a></li>
-                              )}
-                              {(isAdmin) && (
-                                <li><a className="dropdown-item" onClick={handleOpenAddModal1}>Ajouter Matiere</a></li>
-                              )}
-                              {(isAdmin) && (
-                                <li><a className="dropdown-item" onClick={handleOpenAddModal}>Ajouter Note</a></li>
-                              )}
-                            </>
-                          )}
-                        </ul>
-                      </li>
-
-                      <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" href="#" id="espacesDropdown" role="button" data-bs-toggle="dropdown">
-                          Enseignement
-                        </a>
-                        <ul className="dropdown-menu" aria-labelledby="enseignementDropdown">
-                          <li><a className="dropdown-item" href="">Reforme LMD en Tunisie</a></li>
-                          <li><a className="dropdown-item" href="#">Licences</a></li>
-                          <li><a className="dropdown-item" href="#">Mastères</a></li>
-                          <li><a className="dropdown-item" href="#">Lauréats</a></li>
-                          <li><a className="dropdown-item" href="#">candidatures aux mastères</a></li>
-                          <li><a className="dropdown-item" href="#">plaquette pédagogique</a></li>
-                        </ul>
-                      </li>
-                      <li className="dropdown dropleft float-right">
-                                      {token ? (
-                <>
-                  {role == "ROLE_STUDENT" && <EtudiantProfil />}
-                  {role == "ROLE_PROF" && <EnseignantProfil />}
-                  {role == "ROLE_ADMIN" && <AdminProfil />}
-                  {role == "ROLE_ENTREPRISE" && <EntrepriseProfil />}
-                  
-                  <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                    <li>
-                      <a className="dropdown-item" href="/iset/myprofile">My profile</a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">Settings</a>
-                    </li>
-                    <li>
-                      <Logout />
-                    </li>
-                  </ul>
-                </>
-              ) : (
-                                          <button
-  className="btn btn-outline-primary btn-sm"
-  onClick={() => setShowLoginModal(true)}
->
-  <a>Login</a>
-</button>
-        )}
-                      </li>
-                    </ul>
+              {/* Les éléments du menu */}
+              <li className="nav-item dropdown">
+                <a href="#" className="nav-link dropdown-toggle" id="departementsDropdown" role="button" data-bs-toggle="dropdown">
+                  Départements
+                </a>
+                <div className="dropdown-menu dropdown-fullwidth">
+                  <div className="row">
+                    <div className="col-md-2">
+                      <h6 className="dropdown-header">Génie Electrique</h6>
+                      <a href="/presentationelec" className="dropdown-item">Présentation</a>
+                      <a href="/elec/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
+                      <a href="/elec/news" className="dropdown-item">Nouveautés</a>
+                    </div>
+                    <div className="col-md-3">
+                      <h6 className="dropdown-header">Génie Mécanique</h6>
+                      <a href="/presentationmec" className="dropdown-item">Présentation</a>
+                      <a href="/mec/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
+                      <a href="/mec/news" className="dropdown-item">Nouveautés</a>
+                    </div>
+                    <div className="col-md-4">
+                      <h6 className="dropdown-header">Sciences Économiques</h6>
+                      <a href="/presentationeco" className="dropdown-item">Présentation</a>
+                      <a href="/eco/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
+                      <a href="/eco/news" className="dropdown-item">Nouveautés</a>
+                    </div>
+                    <div className="col-md-5">
+                      <h6 className="dropdown-header">Technologies Informatique</h6>
+                      <a href="/presentationinfo" className="dropdown-item">Présentation</a>
+                      <a href="/info/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
+                      <a href="/info/news" className="dropdown-item">Nouveautés</a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </li>
+
+              {/* Les autres éléments du menu */}
+              <li className="nav-item dropdown">
+                <a href="#" className="nav-link dropdown-toggle" id="institueDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  L'institue
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="institueDropdown">
+                  <li><a href="/iset/presentation" className="dropdown-item">Présentation</a></li>
+                  <li><a href="/iset/infrastructure" className="dropdown-item">Infrastructure</a></li>
+                  <li><a href="/iset/esp-4c" className="dropdown-item">Espace 4C</a></li>
+                  <li><a href="/iset/esp-4c" className="dropdown-item">Organigramme</a></li>
+                  <li><a href="/iset/documents" className="dropdown-item">Documents Administratifs</a></li>
+                  
+                  {token && (
+                    <>
+                      {(isAdmin || isProf || isStudent) && (
+                        <li><a href="/iset/proflist" className="dropdown-item">List des enseignants</a></li>
+                      )}
+                      {(isAdmin || isProf) && (
+                        <li><a href="/list" className="dropdown-item">Listes des etudiants</a></li>
+                      )}
+                      {(isAdmin) && (
+                        <li><a href="/iset/entrepriselist" className="dropdown-item">List des entreprises</a></li>
+                      )}
+                      {(isAdmin || isProf || isStudent) && (
+                        <li><a href="/iset/offerlist" className="dropdown-item">List des offres</a></li>
+                      )}
+                      {(isAdmin) && (
+                        <li><a className="dropdown-item" onClick={handleOpenAddModal1}>Ajouter Matiere</a></li>
+                      )}
+                      {(isAdmin) && (
+                        <li><a className="dropdown-item" onClick={handleOpenAddModal}>Ajouter Note</a></li>
+                      )}
+                    </>
+                  )}
+                </ul>
+              </li>
+
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="espacesDropdown" role="button" data-bs-toggle="dropdown">
+                  Enseignement
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="enseignementDropdown">
+                  <li><a className="dropdown-item" href="">Reforme LMD en Tunisie</a></li>
+                  <li><a className="dropdown-item" href="#">Licences</a></li>
+                  <li><a className="dropdown-item" href="#">Mastères</a></li>
+                  <li><a className="dropdown-item" href="#">Lauréats</a></li>
+                  <li><a className="dropdown-item" href="#">candidatures aux mastères</a></li>
+                  <li><a className="dropdown-item" href="#">plaquette pédagogique</a></li>
+                </ul>
+              </li>
+
+              {/* Profil utilisateur ou bouton Login */}
+              <li className="nav-item dropdown dropleft float-right">
+                {token ? (
+                  <>
+                    {role == "ROLE_STUDENT" && <EtudiantProfil />}
+                    {role == "ROLE_PROF" && <EnseignantProfil />}
+                    {role == "ROLE_ADMIN" && <AdminProfil />}
+                    {role == "ROLE_ENTREPRISE" && <EntrepriseProfil />}
+                    
+                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                      <li>
+                        <a className="dropdown-item" href="/iset/myprofile">My profile</a>
+                      </li>
+                      <li>
+                        <a className="dropdown-item" href="#">Settings</a>
+                      </li>
+                      <li>
+                        <Logout />
+                      </li>
+                    </ul>
+                  </>
+                ) : (
+                  <button
+                    className="btn btn-outline-primary btn-sm"
+                    onClick={() => setShowLoginModal(true)}
+                  >
+                    <a>Login</a>
+                  </button>
+                )}
+              </li>
+            </ul>
           </div>
         </div>
       </nav>
