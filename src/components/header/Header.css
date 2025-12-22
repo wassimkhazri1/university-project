@@ -6,7 +6,7 @@
   background-color: #004080;
   color: white;
   padding: 15px 30px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1030; /* Augmenté le z-index */
 }
@@ -81,8 +81,7 @@
   position: relative;
 }
 
-
-.nav-link:hover, 
+.nav-link:hover,
 .nav-link:focus {
   color: #2c3e50 !important;
   background-color: #f8f9fa;
@@ -151,22 +150,22 @@
   .institute-title {
     font-size: 1rem;
   }
-  
+
   .institute-title-arabic {
     font-size: 0.9rem;
   }
-  
+
   .dropdown-fullwidth {
     position: static !important;
     width: 100% !important;
     transform: none !important;
     box-shadow: none;
   }
-  
+
   .nav-link {
     padding: 0.5rem !important;
   }
-  
+
   .navbar-collapse {
     padding-top: 1rem;
     border-top: 1px solid #eee;
@@ -178,8 +177,8 @@
     text-align: center;
     padding: 0.5rem;
   }
-  
-  .institute-title, 
+
+  .institute-title,
   .institute-title-arabic {
     display: block;
     width: 100%;
@@ -209,19 +208,16 @@
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-
 .dropdown-fullwidth .row {
-    display: flex;
-    flex-wrap: nowrap;  /* Empêche les colonnes de se placer en ligne */
-    justify-content: space-between;
+  display: flex;
+  flex-wrap: nowrap; /* Empêche les colonnes de se placer en ligne */
+  justify-content: space-between;
 }
 .dropdown-fullwidth .col-md-4 {
-    flex: 1; /* Assure que chaque colonne prend une part égale */
-    min-width: 190px; /* Évite que les colonnes soient trop petites */
+  flex: 1; /* Assure que chaque colonne prend une part égale */
+  min-width: 190px; /* Évite que les colonnes soient trop petites */
 }
 .dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0; /* Ajuste l'espacement */
+  display: block;
+  margin-top: 0; /* Ajuste l'espacement */
 }
-
-

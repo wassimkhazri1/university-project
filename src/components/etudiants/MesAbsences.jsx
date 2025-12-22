@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BackToTop from '../BackToTop';
 import { Visibility } from '@mui/icons-material';
 import { CircularProgress, IconButton, Tooltip } from "@mui/material";
 import DetailsAbsence from '../absence/DetailsAbsence';
@@ -146,7 +145,6 @@ const MesAbsences = () => {
                         </tbody>
                     </table>
                 </div>
-                <BackToTop />
             </div>
         </div>
     );

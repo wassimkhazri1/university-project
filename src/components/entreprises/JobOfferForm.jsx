@@ -10,7 +10,6 @@ import {
   Grid,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import BackToTop from "../BackToTop";
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 const JobOfferForm = () => {
@@ -450,7 +449,6 @@ const JobOfferForm = () => {
           </Box>
         </form>
       </Paper>
-      <BackToTop />
     </Box>
   );
 };

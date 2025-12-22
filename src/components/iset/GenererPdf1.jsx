@@ -100,7 +100,7 @@ const response1 = await axios.get(`http://localhost:8080/api/notes/exportpdf/${u
 
 const hexButtons = [
   { 
-      label: "Génerer l\'attestation", 
+      label: "Génerer l'attestation", 
       icon: <i className="fas fa-file-export"></i>,
       path: handleSubmit
   },
@@ -111,7 +111,7 @@ const hexButtons = [
   }
 ];
 const HexButton = ({ path, label, icon, active }) => {
-  const navigate = useNavigate();
+
   
   return (
       <motion.div

@@ -88,12 +88,7 @@ function Header() {
         </div>
         
         <nav className="nav navbar navbar-expand-lg">
-          <div className="container-fluid"> 
-            {/* Liens principaux */}
-            <a href="#about" className="nav-link">À propos</a>
-            {/* <a href="#departments" className="nav-link">Départements</a> */}
-            <a href="#contact" className="nav-link">Contact</a>
-            
+          <div className="container-fluid">         
             {/* Bouton toggle pour mobile */}
             <button
               className="navbar-toggler"
@@ -109,6 +104,12 @@ function Header() {
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav ms-auto">
+                  <li className="nav-item active">
+                  <a href="#about" className="nav-link">À propos</a>
+                  </li>
+                  <li className="nav-item active">
+                  <a href="#contact" className="nav-link">Contact</a> 
+                  </li>
                 {/* Afficher l'en-tête spécifique seulement si l'utilisateur est connecté */}
                 {token && (
                   <li className="nav-item active">
@@ -123,7 +124,7 @@ function Header() {
                   <a href="#" className="nav-link dropdown-toggle" id="departementsDropdown" role="button" data-bs-toggle="dropdown">
                     Départements
                   </a>
-                  <div className="dropdown-menu dropdown-fullwidth">
+                  <div className="dropdown-menu dropdown-fullwidth" style={{width: "auto", minWidth: "200px"}}>
                     <div className="row">
                       <div className="col-md-2">
                         <h6 className="dropdown-header">Génie Electrique</h6>
@@ -137,13 +138,13 @@ function Header() {
                         <a href="/mec/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
                         <a href="/mec/news" className="dropdown-item">Nouveautés</a>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-3">
                         <h6 className="dropdown-header">Sciences Économiques</h6>
                         <a href="/presentationeco" className="dropdown-item">Présentation</a>
                         <a href="/eco/listenseignants" className="dropdown-item">Liste d'Enseignants</a>
                         <a href="/eco/news" className="dropdown-item">Nouveautés</a>
                       </div>
-                      <div className="col-md-5">
+                      <div className="col-md-3">
                         <h6 className="dropdown-header">Technologies Informatique</h6>
                         <a href="/presentationinfo" className="dropdown-item">Présentation</a>
                         <a href="/info/listenseignants" className="dropdown-item">Liste d'Enseignants</a>

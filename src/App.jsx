@@ -16,7 +16,6 @@ import VoiceCommandPdf from "./components/VoiceCommandPdf";
 import IsetPresentation from "./components/iset/IsetPresentation";
 import IsetInfrastructure from "./components/iset/IsetInfrastructure";
 import Espace4c from "./components/iset/Espace4c";
-import HomTest from "./components/iset/HomTest";
 import EnseignantHeader from "./components/enseignants/EnseignantHeader";
 import EntrepriseHeader from "./components/entreprises/EntrepriseHeader";
 import ProfList from "./components/enseignants/ProfList";
@@ -66,7 +65,6 @@ function App() {
         <Route path="/iset/presentation" element={<IsetPresentation />} />
         <Route path="/iset/infrastructure" element={<IsetInfrastructure />} />
         <Route path="/iset/esp-4c" element={<Espace4c />} />
-        <Route path="/iset/home" element={<HomTest />} />
         <Route path="/iset/block2" element={<Block2 />} />
         <Route path="/iset/account" element={<AccountDropdown />} />
         <Route path="/iset/enseignant" element={<EnseignantHeader />} />

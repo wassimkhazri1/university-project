@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BackToTop from '../BackToTop';
 import { Height } from '@mui/icons-material';
 
 const MesNotes = () => {
@@ -123,7 +122,6 @@ const [notesResponse, moyenneResponse] = await Promise.all([
                     </div>
                 </div>
             )}
-            <BackToTop />
         </div>
     );
 };

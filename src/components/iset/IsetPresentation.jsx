@@ -2,7 +2,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './IsetPresentation.css';
-import BackToTop from "../BackToTop";
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
 function IsetPresentation() {
@@ -141,7 +140,6 @@ function IsetPresentation() {
           </div>
         </div>
       </div>
-      <BackToTop />
     </div>
   );
 }
