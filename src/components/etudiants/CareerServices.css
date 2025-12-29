@@ -1,0 +1,49 @@
+.career-services {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.service-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.service-content {
+  padding: 1.5rem;
+}
+
+.service-content h2 {
+  margin-bottom: 1rem;
+  color: #c00;
+}
+
+.service-content p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.service-button {
+  background-color: #c00;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.service-button:hover {
+  background-color: #a00;
+}

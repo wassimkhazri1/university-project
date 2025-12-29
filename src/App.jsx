@@ -26,6 +26,8 @@ import MesNotes from "./components/etudiants/MesNotes";
 import Language from "./components/Language";
 import EtudiantList from "./components/etudiants/EtudiantList";
 import AddEtudiant from "./components/etudiants/AddEtudiant";
+import EtudiantServices from "./components/etudiants/EtudiantServices";
+import CareerServices from "./components/etudiants/CareerServices";
 import EditEtudiant from "./components/etudiants/EditEtudiant";
 import PresentationInfo from "./components/iset/départements/informatique/PresentationInfo";
 import PresentationElec from "./components/iset/départements/electrique/PresentationElec";
@@ -47,19 +49,20 @@ import ListJobsByEntreprise from "./components/entreprises/ListJobsByEntreprise"
 import AbsenceForm from "./components/absence/AbsenceForm";
 import MesAbsences from "./components/etudiants/MesAbsences";
 import DocumentsAdministratifs from "./components/iset/DocumentsAdministratifs";
+import HomePage from "./components/HomePage";
 
 function App() {
-   const roles = JSON.parse(localStorage.getItem("user")) || [];
-    const role = roles.roles;
-    const isAdmin = roles.roles?.includes("ROLE_ADMIN"); // Vérifie si ROLE_ADMIN est présent
-    const isProf = roles.roles?.includes("ROLE_PROF"); // Vérifie si ROLE_PROF est présent
-    const isStudent = roles.roles?.includes("ROLE_STUDENT"); // Vérifie si ROLE_STUDENT est présent
-    const isEntreprise = roles.roles?.includes("ROLE_ENTREPRISE");
+  const roles = JSON.parse(localStorage.getItem("user")) || [];
+  const role = roles.roles;
+  const isAdmin = roles.roles?.includes("ROLE_ADMIN"); // Vérifie si ROLE_ADMIN est présent
+  const isProf = roles.roles?.includes("ROLE_PROF"); // Vérifie si ROLE_PROF est présent
+  const isStudent = roles.roles?.includes("ROLE_STUDENT"); // Vérifie si ROLE_STUDENT est présent
+  const isEntreprise = roles.roles?.includes("ROLE_ENTREPRISE");
   return (
     <div className="App">
       <Header />
-        <Routes>
-        <Route path="/iset/login" element={<Login />} /> 
+      <Routes>
+        <Route path="/iset/login" element={<Login />} />
         <Route path="/attestation" element={<AttestationForm />} />
         <Route path="/pdf" element={<VoiceCommandPdf />} />
         <Route path="/iset/presentation" element={<IsetPresentation />} />
@@ -69,9 +72,9 @@ function App() {
         <Route path="/iset/account" element={<AccountDropdown />} />
         <Route path="/iset/enseignant" element={<EnseignantHeader />} />
         <Route path="/iset/entreprise" element={<EntrepriseHeader />} />
-        <Route path="/iset/login" element={<Login />} /> 
+        <Route path="/iset/login" element={<Login />} />
         <Route path="/iset/langue" element={<Language />} />
-        
+
         <Route path="/iset/myprofile" element={<Profile />} />
         <Route path="/presentationinfo" element={<PresentationInfo />} />
         <Route path="/presentationelec" element={<PresentationElec />} />
@@ -84,11 +87,13 @@ function App() {
         <Route path="/add" element={<AddEtudiant />} />
         {/*<Route path="/edit/:id" component={EditEtudiant} />*/}
         <Route path="/edit/:id" element={<EditEtudiant />} />
+        <Route path="/Etudiant" element={<EtudiantServices />} />
+        <Route path="/Career" element={<CareerServices />} />
         <Route path="/iset/lmd" element={<Lmd />} />
-        {isEntreprise && <Route path="/offre" element={<JobOfferForm />} />
-        }
-        {isEntreprise && <Route path="/list-offre" element={<ListJobsByEntreprise />} />
-       }
+        {isEntreprise && <Route path="/offre" element={<JobOfferForm />} />}
+        {isEntreprise && (
+          <Route path="/list-offre" element={<ListJobsByEntreprise />} />
+        )}
         <Route path="/iset/offerlist" element={<JobList />} />
         <Route path="/candidaturelist" element={<CandidatureList />} />
         <Route path="/addmatiere" element={<AddMatiereForm />} />
@@ -98,7 +103,8 @@ function App() {
         <Route path="/hexmenu" element={<HexMenu />} />
         <Route path="/polygon" element={<PolygonMenu />} />
         <Route path="/iset/documents" element={<DocumentsAdministratifs />} />
-        <Route path="/absence" element={<AbsenceForm />}/>
+        <Route path="/absence" element={<AbsenceForm />} />
+        <Route path="/homepage" element={<HomePage />} />
 
         <Route
           path="/iset/mesnotes"
@@ -108,7 +114,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-                <Route
+        <Route
           path="/iset/mesabsences"
           element={
             <ProtectedRoute requiredRole="ROLE_STUDENT">
@@ -116,7 +122,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        </Routes>
+      </Routes>
 
       <section className="hero">
         <h1 className="fade-in">Bienvenue à l'ISET de Jendouba</h1>
@@ -128,12 +134,13 @@ function App() {
       <section id="about" className="section about">
         <h2>À propos</h2>
         <p>
-          L'ISET Jendouba forme des techniciens supérieurs dans des domaines innovants et adaptés au marché.
-          Notre campus dynamique favorise l’apprentissage, la recherche et l’entrepreneuriat.
+          L'ISET Jendouba forme des techniciens supérieurs dans des domaines
+          innovants et adaptés au marché. Notre campus dynamique favorise
+          l’apprentissage, la recherche et l’entrepreneuriat.
         </p>
       </section>
-    <ContactSection />
-    <ScrollToTopButton />
+      <ContactSection />
+      <ScrollToTopButton />
       <footer className="footer">
         <p>&copy; 2025 ISET Jendouba. Tous droits réservés.</p>
       </footer>
