@@ -1,11 +1,15 @@
 package com.university.manager.services;
 
+import com.university.manager.Dto.AbsenceDTO;
+import com.university.manager.Dto.JobOfferFormDTO;
+import com.university.manager.models.Absence;
 import com.university.manager.models.JobOfferForm;
 import com.university.manager.repositories.JobOfferFormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JobOfferFormService {
@@ -54,4 +58,6 @@ public class JobOfferFormService {
         JobOfferForm jobOfferForm = getJobOfferById(id);
         jobOfferFormRepository.delete(jobOfferForm);
     }
+	// Convertir une entité Absence en DTO
+
 }

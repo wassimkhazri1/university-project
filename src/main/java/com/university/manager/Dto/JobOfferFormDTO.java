@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class JobOfferFormDTO {
+	private Long id;
 	private String company;
 	private String responsible;
 	private String address;
@@ -21,4 +22,29 @@ public class JobOfferFormDTO {
 	private String startDate;
 	private String expiryDate;
 	private List<String> formations;
+	
+	public JobOfferFormDTO() {
+
+	}
+	public JobOfferFormDTO(Long id, String company, String responsible, String address, String phone, String email,
+			String fax, String website, String jobPositions, String jobTitle, String description, String startDate,
+			String expiryDate, List<String> formations) {
+		super();
+		this.id = id;
+		this.company = company;
+		this.responsible = responsible;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.fax = fax;
+		this.website = website;
+		this.jobPositions = jobPositions;
+		this.jobTitle = jobTitle;
+		this.description = description;
+		this.startDate = startDate;
+		this.expiryDate = expiryDate;
+		this.formations = formations;
+	}
+	
+	
 }
