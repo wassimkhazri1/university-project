@@ -4,6 +4,7 @@ package com.university.manager.controllers;
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.university.manager.Dto.AbsenceDTO;
 import com.university.manager.models.Absence;
 import com.university.manager.models.Etudiant;
 import com.university.manager.repositories.AbsenceRepository;
@@ -33,7 +35,7 @@ public class AbsenceController {
 
 	@GetMapping
 	public List<Absence> getAllAbsences() {
-		return absenceService.getAllAbsences();
+		return absenceService.getAllAbsences();				
 	}
 
 //	@PostMapping
@@ -46,12 +48,23 @@ public class AbsenceController {
         return absenceService.addAbsence(absence);
     }
 
+//    @GetMapping("/student/{studentId}")
+//    public List<Absence> getStudentAbsences(@PathVariable Long studentId) {
+//        return absenceService.getAbsencesByStudent(studentId);
+//    }
+	
     @GetMapping("/student/{studentId}")
-    public List<Absence> getStudentAbsences(@PathVariable Long studentId) {
-        return absenceService.getAbsencesByStudent(studentId);
+    public ResponseEntity<List<AbsenceDTO>> getAbsencesByStudent(@PathVariable Long studentId) {
+        List<Absence> absences = absenceService.getAbsencesByStudent(studentId);
+        List<AbsenceDTO> absenceDTOs = convertToDTOList(absences);
+        return ResponseEntity.ok(absenceDTOs);
     }
-	
-	
+    @GetMapping("/student/{studentId}/{matiereId}")
+    public ResponseEntity<List<AbsenceDTO>> getAbsencesByStudentByMatiere(@PathVariable Long studentId, @PathVariable Long matiereId) {
+        List<Absence> absences = absenceService.getAbsencesByStudentByMatiere(studentId,matiereId);
+        List<AbsenceDTO> absenceDTOs = convertToDTOList(absences);
+        return ResponseEntity.ok(absenceDTOs);
+    }
 	
 	// Mettre à jour un les absences
 	@PutMapping("/{id}")
@@ -70,4 +83,76 @@ public class AbsenceController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	// Convertir une entité Absence en DTO
+    private AbsenceDTO convertToDTO(Absence absence) {
+        if (absence == null) {
+            return null;
+        }
+        
+        AbsenceDTO dto = new AbsenceDTO();
+        dto.setId(absence.getId());
+        dto.setCount(absence.getCount());
+        dto.setDate(absence.getDate());
+        dto.setJustified(absence.isJustified());
+        dto.setReason(absence.getReason());
+        
+        if (absence.getEtudiant() != null) {
+            dto.setEtudiantId(absence.getEtudiant().getId());
+            dto.setEtudiantNom(absence.getEtudiant().getNom());
+            dto.setEtudiantPrenom(absence.getEtudiant().getPrenom());
+            dto.setEtudiantMatricule(absence.getEtudiant().getMatricule());
+        }
+        
+        if (absence.getMatiere() != null) {
+            dto.setMatiereId(absence.getMatiere().getId());
+            dto.setMatiereNom(absence.getMatiere().getNom());
+            dto.setMatiereCode(absence.getMatiere().getCode());
+        }
+        
+        return dto;
+    }
+    
+    // Convertir une liste d'entités en liste de DTOs
+    private List<AbsenceDTO> convertToDTOList(List<Absence> absences) {
+        if (absences == null) {
+            return List.of();
+        }
+        
+        return absences.stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
+    }
+    
+    // Convertir un RequestDTO en entité Absence
+//    private Absence convertToEntity(AbsenceRequestDTO requestDTO, Etudiant etudiant, Matiere matiere) {
+//        if (requestDTO == null) {
+//            return null;
+//        }
+//        
+//        Absence absence = new Absence();
+//        absence.setCount(requestDTO.getCount());
+//        absence.setDate(requestDTO.getDate());
+//        absence.setJustified(requestDTO.isJustified());
+//        absence.setReason(requestDTO.getReason());
+//        absence.setEtudiant(etudiant);
+//        absence.setMatiere(matiere);
+//        
+//        return absence;
+//    }
+    
+    // Mettre à jour une entité existante à partir d'un RequestDTO
+//    private void updateEntityFromDTO(Absence absence, AbsenceRequestDTO requestDTO, 
+//                                     Etudiant etudiant, Matiere matiere) {
+//        if (absence == null || requestDTO == null) {
+//            return;
+//        }
+//        
+//        absence.setCount(requestDTO.getCount());
+//        absence.setDate(requestDTO.getDate());
+//        absence.setJustified(requestDTO.isJustified());
+//        absence.setReason(requestDTO.getReason());
+//        absence.setEtudiant(etudiant);
+//        absence.setMatiere(matiere);
+//    }
 }

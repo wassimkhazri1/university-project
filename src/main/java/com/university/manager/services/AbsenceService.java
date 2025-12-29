@@ -33,4 +33,9 @@ public class AbsenceService {
 		return absenceRepository.findByEtudiantId(studentId);
 	}
 
+	public List<Absence> getAbsencesByStudentByMatiere(Long studentId, Long matiereId) {
+		// TODO Auto-generated method stub
+		return absenceRepository.findByEtudiantIdByMatiereId(studentId,matiereId);
+	}
+
 }

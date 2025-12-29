@@ -139,7 +139,9 @@ public class EtudiantService {
 
 		NiveauScol niveauScolaire = niveauScolaireRepository.findById(niveauId)
 				.orElseThrow(() -> new RuntimeException("Niveau scolaire non trouvé !"));
-
+		if (etudiantDetails.getNom() != null) {
+			etudiant.setNom(etudiant.getNom());
+		}
 		etudiant.setGroupe(groupe);
 		etudiant.setClasse(classe);
 		etudiant.setNiveauScol(niveauScolaire);
