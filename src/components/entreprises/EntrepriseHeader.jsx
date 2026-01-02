@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "../Header.css";
+import "../CommonHeader.css";
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 const EntrepriseHeader = () => {
-
   return (
     <div>
       {/*Container wrapper*/}
@@ -60,7 +59,7 @@ const EntrepriseHeader = () => {
                             Proposer offre d'emploi
                           </a>
                         </li>
-                                                <li>
+                        <li>
                           <a href="/list-offre" className="dropdown-item">
                             Listes des offres
                           </a>

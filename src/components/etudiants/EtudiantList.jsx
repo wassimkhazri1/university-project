@@ -281,7 +281,6 @@ https://www.linkedin.com/in/wassim-khazri-ab923a14b/  */}
           slots={{
             toolbar: CustomToolbar,
           }}
-
           initialState={{
             pagination: {
               paginationModel: { pageSize: 10, page: 0 },
