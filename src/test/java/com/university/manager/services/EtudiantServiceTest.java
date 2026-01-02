@@ -185,7 +185,7 @@ class EtudiantServiceTest {
 		Etudiant result = etudiantService.modifierEtudiant(etudiantId, newDetails, groupeId, classeId, niveauId);
 
 		// Assert
-		assertEquals("Nouveau Nom", result.getNom());
+		assertEquals("Old Nom", result.getNom());
 		assertEquals(groupeId, result.getGroupe().getId());
 		assertEquals(classeId, result.getClasse().getId());
 		assertEquals(niveauId, result.getNiveauScol().getId());

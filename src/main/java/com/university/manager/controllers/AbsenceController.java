@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import com.university.manager.models.Absence;
 import com.university.manager.models.Etudiant;
 import com.university.manager.repositories.AbsenceRepository;
 import com.university.manager.services.AbsenceService;
+import com.university.manager.services.NotificationService;
 
 @CrossOrigin(origins = "http://localhost:3000") // Allow requests from React app
 @RestController
@@ -32,26 +34,27 @@ public class AbsenceController {
 	private AbsenceService absenceService;
 	@Autowired
 	private AbsenceRepository absenceRepository;
-
+    @Autowired
+    private NotificationService notificationService;
+	
 	@GetMapping
 	public List<Absence> getAllAbsences() {
 		return absenceService.getAllAbsences();				
 	}
 
-//	@PostMapping
-//	public Absence addAbsence(@RequestBody Absence absence) {
-//		return absenceService.ajouterAbsence(absence);
-//	}
-
     @PostMapping
     public Absence addAbsence(@RequestBody Absence absence) {
-        return absenceService.addAbsence(absence);
+        // 1. Sauvegarder l'absence
+        Absence savedAbsence = absenceService.addAbsence(absence);
+        
+        // 2. Envoyer une notification à l'étudiant
+        notificationService.sendAbsenceNotification(
+            savedAbsence
+        );
+        
+        return savedAbsence;
     }
 
-//    @GetMapping("/student/{studentId}")
-//    public List<Absence> getStudentAbsences(@PathVariable Long studentId) {
-//        return absenceService.getAbsencesByStudent(studentId);
-//    }
 	
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<AbsenceDTO>> getAbsencesByStudent(@PathVariable Long studentId) {

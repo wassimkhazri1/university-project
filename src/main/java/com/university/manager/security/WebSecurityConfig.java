@@ -1,4 +1,5 @@
 package com.university.manager.security;
+
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import org.springframework.web.cors.CorsConfiguration;
@@ -76,23 +77,16 @@ public class WebSecurityConfig {
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.requestMatchers("/api/auth/**").permitAll().requestMatchers("/signup").permitAll()
-				.requestMatchers("/api/candidatures/**").permitAll()
-				.requestMatchers("/api/matieres/**").hasRole("ADMIN")
-				.requestMatchers("/api/prof/**").hasRole("PROF").requestMatchers("/api/admin/**").hasRole("ADMIN")
-				.requestMatchers("/api/auth/signout").authenticated().anyRequest().authenticated().and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout().disable();
+				.requestMatchers("/ws/**").permitAll()
+				.requestMatchers("/api/candidatures/**").permitAll().requestMatchers("/api/matieres/**")
+				.hasAnyRole("PROF", "ADMIN").requestMatchers("/api/prof/**").hasRole("PROF")
+				.requestMatchers("/api/admin/**").hasRole("ADMIN").requestMatchers("/api/auth/signout").authenticated()
+				.anyRequest().authenticated().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout().disable();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
-	
-	
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/api/**")
-//                .allowedOrigins("http://localhost:3000") // Autorise les requêtes depuis le frontend
-//                .allowedMethods("GET", "POST", "PUT", "DELETE")
-//                .allowedHeaders("*")
-//                .allowCredentials(true);
-//    }
+
 }

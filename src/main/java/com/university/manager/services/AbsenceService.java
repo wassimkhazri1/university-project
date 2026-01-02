@@ -20,11 +20,6 @@ public class AbsenceService {
 		return absenceRepository.findAll();
 	}
 
-//	public Absence ajouterAbsence(Absence absence) {
-//		// TODO Auto-generated method stub
-//		return absenceRepository.save(absence);
-//	}
-
 	public Absence addAbsence(Absence absence) {
 		return absenceRepository.save(absence);
 	}
@@ -35,7 +30,7 @@ public class AbsenceService {
 
 	public List<Absence> getAbsencesByStudentByMatiere(Long studentId, Long matiereId) {
 		// TODO Auto-generated method stub
-		return absenceRepository.findByEtudiantIdByMatiereId(studentId,matiereId);
+		return absenceRepository.findByEtudiantIdByMatiereId(studentId, matiereId);
 	}
 
 }
