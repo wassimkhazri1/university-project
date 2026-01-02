@@ -24,7 +24,8 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
     const client = new Client({
       webSocketFactory: () => socket,
       connectHeaders: {
-        'X-User-Id': userId.toString()
+       Authorization: `Bearer ${localStorage.getItem("token")}`
+       // 'X-User-Id': userId.toString()
       },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
@@ -41,7 +42,8 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
         reconnectAttemptsRef.current = 0; // Réinitialiser les tentatives
         
         // S'abonner aux notifications personnelles
-        const destination = `/user/${userId}/queue/notifications`;
+       // const destination = `/user/${userId}/queue/notifications`;
+       const destination = `/user/queue/notifications`; 
         console.log('📫 Subscribing to:', destination);
         
         client.subscribe(destination, (message) => {

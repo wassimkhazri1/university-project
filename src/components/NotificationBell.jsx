@@ -1,4 +1,3 @@
-// src/components/NotificationBell.jsx
 import React, { useState, useEffect } from "react";
 import { Bell, CheckCircle, X } from "lucide-react";
 import { toast } from "react-hot-toast";
@@ -9,60 +8,54 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
 
-  // Utiliser le hook WebSocket
+  // Hook WebSocket
   const { sendNotificationRead } = useWebSocketNotifications(
     userId,
     handleNewNotification
   );
 
-  // Gérer les nouvelles notifications
+  // Nouvelle notification reçue
   function handleNewNotification(notification) {
-    console.log(
-      "Nouvelle notification reçue dans NotificationBell:",
-      notification
-    );
+    console.log("Nouvelle notification reçue:", notification);
 
     const newNotification = {
-      id: notification.absenceId || notification.id || Date.now(),
+      id: notification.id || crypto.randomUUID(), // ID unique
       type: notification.type,
       message: notification.message,
       date: notification.date,
       timestamp: notification.timestamp || new Date().toISOString(),
       read: false,
-      data: notification, // Conserver les données originales
+      data: notification,
     };
 
     setNotifications((prev) => [newNotification, ...prev]);
     setUnreadCount((prev) => prev + 1);
+
+    // Feedback utilisateur
+    toast(notification.message, { icon: "🔔" });
   }
 
-  // Gestion des notifications
+  // Marquer une notification comme lue
   const handleMarkAsRead = (notificationId) => {
-    // Marquer comme lu localement
     setNotifications((prev) =>
       prev.map((notif) =>
         notif.id === notificationId ? { ...notif, read: true } : notif
       )
     );
     setUnreadCount((prev) => Math.max(0, prev - 1));
-
-    // Envoyer au serveur (via WebSocket ou HTTP)
     sendNotificationRead(notificationId);
   };
 
+  // Tout marquer comme lu
   const handleMarkAllAsRead = () => {
-    // Marquer toutes comme lues localement
     setNotifications((prev) => prev.map((notif) => ({ ...notif, read: true })));
     setUnreadCount(0);
-
-    // Envoyer toutes les notifications non lues au serveur
     notifications
       .filter((notif) => !notif.read)
-      .forEach((notif) => {
-        sendNotificationRead(notif.id);
-      });
+      .forEach((notif) => sendNotificationRead(notif.id));
   };
 
+  // Effacer toutes les notifications
   const handleClearAll = () => {
     setNotifications([]);
     setUnreadCount(0);
@@ -80,7 +73,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
     });
   };
 
-  // Récupérer les notifications existantes au montage
+  // Charger les notifications existantes
   useEffect(() => {
     if (!isAuthenticated || !userId) return;
 
@@ -102,14 +95,11 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
           setNotifications(
             existingNotifications.map((notif) => ({
               ...notif,
-              id: notif.id || Date.now(),
+              id: notif.id || crypto.randomUUID(),
               read: notif.read || false,
             }))
           );
-
-          // Calculer le nombre de notifications non lues
-          const unread = existingNotifications.filter((n) => !n.read).length;
-          setUnreadCount(unread);
+          setUnreadCount(existingNotifications.filter((n) => !n.read).length);
         }
       } catch (error) {
         console.error(
@@ -120,7 +110,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
     };
 
     fetchExistingNotifications();
-  }, [isAuthenticated, userId]);
+  }, [isAuthenticated, userId, userRole]);
 
   return (
     <>
@@ -140,6 +130,8 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
             cursor: "pointer",
           }}
           aria-label="Notifications"
+          aria-haspopup="true"
+          aria-expanded={isOpen}
         >
           <Bell size={20} />
           {unreadCount > 0 && (
@@ -168,6 +160,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
 
         {isOpen && (
           <div
+            role="menu"
             style={{
               position: "absolute",
               top: "100%",
@@ -180,6 +173,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
               border: "1px solid #dee2e6",
               zIndex: 1050,
               marginTop: "10px",
+              animation: "fadeIn 0.3s ease-in-out",
             }}
           >
             {/* Header */}
@@ -229,7 +223,10 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
             </div>
 
             {/* Liste */}
-            <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+            <div
+              style={{ maxHeight: "400px", overflowY: "auto" }}
+              aria-live="polite"
+            >
               {notifications.length === 0 ? (
                 <div
                   style={{
@@ -247,6 +244,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
                 notifications.map((notification) => (
                   <div
                     key={notification.id}
+                    role="menuitem"
                     onClick={() => handleMarkAsRead(notification.id)}
                     style={{
                       padding: "15px 20px",
@@ -371,7 +369,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
   );
 };
 
-// Helper functions pour les styles de notifications
+// Helpers
 function getNotificationIcon(type) {
   switch (type) {
     case "ABSENCE_ADDED":
