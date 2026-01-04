@@ -14,6 +14,8 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
     handleNewNotification
   );
 
+  const { clearNotification } = useWebSocketNotifications(userId);
+
   // Nouvelle notification reçue
   function handleNewNotification(notification) {
     console.log("Nouvelle notification reçue:", notification);
@@ -57,6 +59,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
 
   // Effacer toutes les notifications
   const handleClearAll = () => {
+    clearNotification(userId);
     setNotifications([]);
     setUnreadCount(0);
   };

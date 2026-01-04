@@ -306,7 +306,6 @@ const fetchPendingNotifications = useCallback(async () => {
       }
       return;
     }
-
     // Envoi via WebSocket
     clientRef.current.publish({
       destination: `/app/notification/read`,
@@ -317,6 +316,31 @@ const fetchPendingNotifications = useCallback(async () => {
       })
     });
   }, [userId]);
+
+
+  
+  // Fonction pour effacer toutes les notifications 
+  const clearNotification = useCallback(async (userId) => {
+    if (userId ) {
+     // console.log('pas de notifications pour cet etudiant');
+      // Fallback HTTP si WebSocket non disponible
+      try {
+        const token = localStorage.getItem('token');
+        await fetch(`http://localhost:8080/api/notifications/clear/${userId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      } catch (error) {
+        console.error('Erreur lors du suppression', error);
+      }
+      return;
+    }
+});
+
+
 
   // Fonction pour envoyer une notification de test
   const sendTestNotification = useCallback(() => {
@@ -383,6 +407,7 @@ const fetchPendingNotifications = useCallback(async () => {
     disconnect,
     sendNotificationRead,
     sendTestNotification,
+    clearNotification,
     isConnected: isConnectedRef.current
   };
 };
