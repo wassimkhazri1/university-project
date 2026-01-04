@@ -114,16 +114,10 @@ public class NotificationService {
 		notification.setUserId(dto.getUserId());
 		notification.setAdditionalData(dto.getAdditionalData());
 
+		messagingTemplate.convertAndSendToUser(email, "/queue/notifications", convertToDTO(notification));
 		notificationRepository.save(notification);
 
-		// Déléguer au service
-		// notificationService.sendNotification(userId, email, dto);
 	}
-
-//    public void sendNotification(Long userId, String email, NotificationDTO dto) {
-//        Notification notification = saveNotification(dto);
-//        messagingTemplate.convertAndSendToUser(email, "/queue/notifications", convertToDTO(notification));
-//    }
 
 	private NotificationDTO convertToDTO(Notification notification) {
 		NotificationDTO dto = new NotificationDTO();
@@ -331,23 +325,4 @@ public class NotificationService {
 		}
 	}
 
-	/**
-	 * Méthode pour envoyer une notification de test
-	 */
-	public void sendTestNotification(Long userId, String testMessage) {
-		try {
-			System.out.println("\n=== DÉBUT sendTestNotification ===");
-			System.out.println("Test pour user ID: " + userId);
-			System.out.println("Message: " + testMessage);
-
-			sendNotification(userId, "TEST", testMessage, null);
-
-			System.out.println("✅ Notification de test envoyée!");
-			System.out.println("=== FIN sendTestNotification ===\n");
-
-		} catch (Exception e) {
-			System.err.println("❌ Erreur lors de l'envoi de la notification de test:");
-			e.printStackTrace();
-		}
-	}
 }
