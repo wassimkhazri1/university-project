@@ -8,6 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
+import { DropdownMenu, DropdownItem, NavLink } from "reactstrap";
+
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import Logout from "../login/Logout";
@@ -19,6 +21,7 @@ import AddMatiereForm from "../admins/AddMatiereForm";
 import EntrepriseHeader from "../entreprises/EntrepriseHeader";
 import EntrepriseProfil from "../entreprises/EntrepriseProfil";
 import NotificationBell from "../NotificationBell";
+//import NotificationPanel from "./NotificationPanel";
 
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -30,6 +33,7 @@ function Header() {
   const user = JSON.parse(localStorage.getItem("user")) || {};
   const roles = user.roles || [];
   const userId = user.id || null;
+  const userName = user.username || null;
   const isAdmin = roles.includes("ROLE_ADMIN");
   const isProf = roles.includes("ROLE_PROF");
   const isStudent = roles.includes("ROLE_STUDENT");
@@ -49,13 +53,12 @@ function Header() {
   return (
     <>
       <header className="header">
-        <div className="logo">
-          <a className="col-auto" href="/">
-            <img src={logo} alt="Logo ISET" />
-          </a>
-        </div>
-
         <nav className="nav navbar navbar-expand-lg">
+          <div className="logo">
+            <a className="col-auto" href="/">
+              <img src={logo} alt="Logo ISET" />
+            </a>
+          </div>
           <div className="container-fluid">
             {/* Bouton toggle pour mobile */}
             <button
@@ -74,7 +77,7 @@ function Header() {
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
-              <ul className="navbar-nav ms-auto">
+              <ul className="navbar-nav ms-auto ">
                 <li className="nav-item active">
                   <a href="#about" className="nav-link">
                     À propos
@@ -325,61 +328,77 @@ function Header() {
                     </li>
                   </ul>
                 </li>
-                {token && isStudent && (
-                  <li className="nav-item">
-                    <NotificationBell
-                      userId={userId}
-                      isAuthenticated={!!token}
-                      userRole={role}
-                    />
-                  </li>
-                )}
-                {/* Profil utilisateur ou bouton Login */}
-                <li className="nav-item dropdown">
-                  {token ? (
-                    <>
-                      <a
-                        className="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarDropdownMenuAvatar"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        {role === "ROLE_STUDENT" && <EtudiantProfil />}
-                        {role === "ROLE_PROF" && <EnseignantProfil />}
-                        {role === "ROLE_ADMIN" && <AdminProfil />}
-                        {role === "ROLE_ENTREPRISE" && <EntrepriseProfil />}
-                      </a>
-                      <ul
-                        className="dropdown-menu dropdown-menu-end"
-                        aria-labelledby="navbarDropdownMenuAvatar"
-                      >
-                        <li>
-                          <a className="dropdown-item" href="/iset/myprofile">
-                            My profile
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Settings
-                          </a>
-                        </li>
-                        <li>
-                          <Logout />
-                        </li>
-                      </ul>
-                    </>
-                  ) : (
-                    <a
-                      className="nav-link"
-                      onClick={() => setShowLoginModal(true)}
-                    >
-                      Login
-                    </a>
-                  )}
-                </li>
               </ul>
+              {token && isStudent && (
+                <li className="nav-item">
+                  <NotificationBell
+                    userId={userId}
+                    isAuthenticated={!!token}
+                    userRole={role}
+                  />
+                </li>
+              )}
+              {/* Profil utilisateur ou bouton Login */}
+              <li className="nav-item dropdown" right>
+                {token ? (
+                  <>
+                    {role === "ROLE_STUDENT" && <EtudiantProfil />}
+                    {role === "ROLE_PROF" && <EnseignantProfil />}
+                    {role === "ROLE_ADMIN" && <AdminProfil />}
+                    {role === "ROLE_ENTREPRISE" && <EntrepriseProfil />}
+                    {/* <ul
+                      className="dropdown-menu dropdown-menu-end"
+                      aria-labelledby="navbarDropdownMenuAvatar"
+                    >
+                      <li>
+                        <strong> {user.username}</strong>
+                      </li>
+                      <li>
+                        <a className="dropdown-item" href="/iset/myprofile">
+                          My profile
+                        </a>
+                      </li>
+                      <li>
+                        <a className="dropdown-item" href="#">
+                          Settings
+                        </a>
+                      </li>
+                      <li>
+                        <Logout />
+                      </li>
+                    </ul> */}
+                    <DropdownMenu className="dropdown-navbar" tag="ul" right>
+                      <NavLink tag="li">
+                        <strong> {user.username}</strong>
+                      </NavLink>
+                      <NavLink tag="li">
+                        <DropdownItem
+                          className="nav-item"
+                          href="/iset/myprofile"
+                        >
+                          Profile
+                        </DropdownItem>
+                      </NavLink>
+                      <NavLink tag="li">
+                        <DropdownItem className="nav-item" href="#">
+                          Settings
+                        </DropdownItem>
+                      </NavLink>
+                      <DropdownItem divider tag="li" />
+                      <NavLink tag="li">
+                        <Logout />
+                      </NavLink>
+                    </DropdownMenu>
+                  </>
+                ) : (
+                  <a
+                    className="nav-link"
+                    onClick={() => setShowLoginModal(true)}
+                  >
+                    Login
+                  </a>
+                )}
+              </li>
             </div>
           </div>
         </nav>

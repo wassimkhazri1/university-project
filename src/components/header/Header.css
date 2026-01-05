@@ -1,11 +1,10 @@
 /* Header.css */
 .header {
-  display: flex;
+  /*display: flex;*/
   justify-content: space-between;
   align-items: center;
-  background-color: #004080;
+  background-color: #74c0fc;
   color: white;
-  padding: 15px 30px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1030; /* Augmenté le z-index */
