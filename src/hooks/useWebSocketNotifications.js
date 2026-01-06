@@ -335,18 +335,17 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
       if (!userId || !clientRef.current || !isConnectedRef.current) {
         console.log("WebSocket non connecté, envoi via HTTP");
         // Fallback HTTP si WebSocket non disponible
+        console.log("This is Notification Id: " + `${notificationId}`);
         try {
           const token = localStorage.getItem("token");
-          await fetch(
-            `http://localhost:8080/api/notifications/${notificationId}/read`,
-            {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
+
+        await fetch(`http://localhost:8080/api/notifications/notification/clear/${notificationId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
         } catch (error) {
           console.error("Erreur lors du marquage comme lu:", error);
         }
