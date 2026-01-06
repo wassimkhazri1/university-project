@@ -28,6 +28,13 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     void deleteByUserId(@Param("userId") Long userId);
     
     
+    
+    // Compter les notifications non lues
+    @Query("DELETE FROM Notification n WHERE n.userId = :userId AND n.read = false")
+    void deleteByUserIdAndNotificationRead(@Param("userId") Long userId);
+    
+    
+    
     // Supprimer toutes les notifications "read == true" d'un utilisateur    
     void deleteByUserIdAndRead(Long userId, Boolean read);
     

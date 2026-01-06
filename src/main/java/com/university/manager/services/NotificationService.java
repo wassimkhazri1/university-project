@@ -67,7 +67,9 @@ public class NotificationService {
 
 	@Transactional
 	public void clearAllNotifications(Long userId) {
-		notificationRepository.deleteByUserId(userId);
+	    notificationRepository.deleteByUserId(userId);
+		//notificationRepository.deleteByUserIdAndNotificationRead(userId);
+		//notificationRepository.deleteByUserIdAndRead(userId, false);
 	}
 
 	public boolean isNotificationBelongsToUser(Long notificationId, Long userId) {

@@ -69,6 +69,11 @@ public class NotificationController {
 	public void clearAllNotifications(@PathVariable Long userId) {
 		notificationService.clearAllNotifications(userId);
 	}
+	
+	@DeleteMapping("/notification/clear/{notificationId}")
+	public void deleteNotifications(@PathVariable Long notificationId) {
+		notificationService.deleteNotification(notificationId);
+	}
 
 	// Endpoint REST pour récupérer les notifications en attente
 	@GetMapping("/pending")
