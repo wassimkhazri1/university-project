@@ -62,7 +62,10 @@ public class NotificationService {
 
 	@Transactional
 	public void deleteNotification(Long notificationId) {
-		notificationRepository.deleteById(notificationId);
+		notificationRepository.findById(notificationId).ifPresent(notification -> {
+			notificationRepository.deleteById(notificationId);
+		});
+
 	}
 
 	@Transactional
