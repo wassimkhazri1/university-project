@@ -263,3 +263,19 @@
 .notification-toast .notification-text p {
   margin: 0;
 }
+
+.menu-dropdown li {
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu-dropdown li:hover {
+  background-color: #f8f9fa;
+}
+
+.menu-dropdown li:first-child:hover {
+  color: #0056b3; /* bleu plus foncé au hover */
+}
+
+.menu-dropdown li:last-child:hover {
+  color: #a71d2a; /* rouge plus foncé au hover */
+}

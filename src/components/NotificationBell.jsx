@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Bell, CheckCircle, X } from "lucide-react";
 import { toast } from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelopeOpen, faTrash } from "@fortawesome/free-solid-svg-icons";
+
 import useWebSocketNotifications from "../hooks/useWebSocketNotifications";
+import "./NotificationBell.css";
 
 const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
 
+  const [openMenuId, setOpenMenuId] = useState(false);
+
   // Hook WebSocket
   const { sendNotificationRead } = useWebSocketNotifications(
     userId,
     handleNewNotification
   );
+  const { deleteNotification } = useWebSocketNotifications(userId);
 
   const { clearNotification } = useWebSocketNotifications(userId);
 
@@ -46,6 +53,10 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
     );
     setUnreadCount((prev) => Math.max(0, prev - 1));
     sendNotificationRead(notificationId);
+  };
+
+  const onDelete = (notificationId) => {
+    deleteNotification(notificationId);
   };
 
   // Tout marquer comme lu
@@ -248,13 +259,13 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
                   <div
                     key={notification.id}
                     role="menuitem"
-                    onClick={() => handleMarkAsRead(notification.id)}
                     style={{
                       padding: "15px 20px",
                       borderBottom: "1px solid #f8f9fa",
                       cursor: "pointer",
                       backgroundColor: notification.read ? "white" : "#f0f7ff",
                       transition: "background-color 0.2s",
+                      position: "relative",
                     }}
                   >
                     <div
@@ -280,7 +291,11 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
                       >
                         {getNotificationIcon(notification.type)}
                       </div>
-                      <div style={{ flex: 1 }}>
+
+                      <div
+                        style={{ flex: 1 }}
+                        onClick={() => handleMarkAsRead(notification.id)}
+                      >
                         <p
                           style={{
                             fontWeight: "600",
@@ -309,6 +324,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
                           {formatDate(notification.timestamp)}
                         </p>
                       </div>
+
                       {!notification.read && (
                         <div
                           style={{
@@ -320,6 +336,62 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
                           }}
                         />
                       )}
+
+                      {/* Menu bouton */}
+                      <div
+                        className="notification-menu"
+                        style={{ marginLeft: "auto" }}
+                      >
+                        <button
+                          onClick={() =>
+                            setOpenMenuId(
+                              openMenuId === notification.id
+                                ? null
+                                : notification.id
+                            )
+                          }
+                          style={{
+                            width: "32px",
+                            height: "32px",
+                            borderRadius: "50%",
+                          }}
+                        >
+                          ⋮
+                        </button>
+                        {openMenuId === notification.id && (
+                          <ul className="menu-dropdown">
+                            <li
+                              onClick={() => handleMarkAsRead(notification.id)}
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                                cursor: "pointer",
+                                padding: "8px",
+                                color: "#007bff", // bleu pour l’enveloppe
+                              }}
+                            >
+                              <FontAwesomeIcon icon={faEnvelopeOpen} />
+                              <span>Marquer comme lu</span>
+                            </li>
+
+                            <li
+                              onClick={() => onDelete(notification.id)}
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                                cursor: "pointer",
+                                padding: "8px",
+                                color: "#dc3545", // rouge pour la corbeille
+                              }}
+                            >
+                              <FontAwesomeIcon icon={faTrash} />
+                              <span>Supprimer cette notification</span>
+                            </li>
+                          </ul>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))
