@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import logo from "../../images/ISET/sigles/sigle.png";
 import "./LoginModal.css";
 
 const LoginModal = ({ show, onClose }) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [captcha, setCaptcha] = useState("");
   const [captchaInput, setCaptchaInput] = useState("");
   const [error, setError] = useState("");
@@ -33,7 +34,7 @@ const LoginModal = ({ show, onClose }) => {
     // Vérification du code captcha
     if (captchaInput !== captcha) {
       setError("❌ Code de sécurité incorrect !");
-       alert("❌ Code incorrect !");
+      alert("❌ Code incorrect !");
       return;
     }
 
@@ -72,7 +73,7 @@ const LoginModal = ({ show, onClose }) => {
         setError("Rôle utilisateur non reconnu.");
         return;
       }
-     alert(`✅ Bienvenue ${login}`);
+      alert(`✅ Bienvenue ${login}`);
 
       // Fermer la modale après succès
       onClose();
@@ -82,18 +83,18 @@ const LoginModal = ({ show, onClose }) => {
     } finally {
       setLoading(false);
     }
-}
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (captchaInput.trim() !== captcha.trim()) {
-//       alert("❌ Code incorrect !");
-//       generateCaptcha(); // régénérer après une erreur
-//       setCaptchaInput("");
-//       return;
-//     }
-//     alert(`✅ Bienvenue ${login}`);
-//     onClose();
-//   };
+  };
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
+  //     if (captchaInput.trim() !== captcha.trim()) {
+  //       alert("❌ Code incorrect !");
+  //       generateCaptcha(); // régénérer après une erreur
+  //       setCaptchaInput("");
+  //       return;
+  //     }
+  //     alert(`✅ Bienvenue ${login}`);
+  //     onClose();
+  //   };
 
   return (
     <div
@@ -102,13 +103,18 @@ const LoginModal = ({ show, onClose }) => {
       role="dialog"
       style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
     >
-      <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div
+        className="modal-dialog modal-lg modal-dialog-centered"
+        role="document"
+      >
         <div className="modal-content glassy-card border-0 shadow-lg animate-fade-in">
           <div className="d-flex flex-row">
             {/* Partie gauche - Formulaire */}
             <div className="p-4 flex-grow-1" style={{ width: "50%" }}>
               <h4 className="fw-bold mb-1 text-primary">Se connecter</h4>
-              <p className="text-muted mb-4">Étudiant / Enseignant / Administration</p>
+              <p className="text-muted mb-4">
+                Étudiant / Enseignant / Administration
+              </p>
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
@@ -133,13 +139,25 @@ const LoginModal = ({ show, onClose }) => {
                       <i className="bi bi-lock-fill"></i>
                     </span>
                     <input
-                      type="password"
+                      /* type="password"*/
+                      type={showPassword ? "text" : "password"}
                       className="form-control"
                       placeholder="Mot de passe"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
+                    <span
+                      className="input-group-text bg-transparent"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      <i
+                        className={
+                          showPassword ? "bi bi-eye-slash" : "bi bi-eye"
+                        }
+                      ></i>
+                    </span>
                   </div>
                 </div>
 
@@ -167,7 +185,10 @@ const LoginModal = ({ show, onClose }) => {
                   Mot de passe oublié ?
                 </a>
 
-                <button type="submit" className="btn btn-primary w-100 rounded-pill shadow-sm">
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100 rounded-pill shadow-sm"
+                >
                   <i className="bi bi-box-arrow-in-right me-2"></i> Se connecter
                 </button>
               </form>
@@ -188,7 +209,12 @@ const LoginModal = ({ show, onClose }) => {
               className="d-none d-md-flex flex-column justify-content-center align-items-center right-panel p-4"
               style={{ width: "50%" }}
             >
-              <img src={logo} alt="ISET Logo" className="mb-3" style={{ width: "100px" }} />
+              <img
+                src={logo}
+                alt="ISET Logo"
+                className="mb-3"
+                style={{ width: "100px" }}
+              />
               <p className="fw-semibold text-center mb-1 text-dark">
                 المعهد العالي للدراسات التكنولوجية بجندوبة
               </p>

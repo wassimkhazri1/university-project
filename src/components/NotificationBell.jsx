@@ -56,6 +56,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
   };
 
   const onDelete = (notificationId) => {
+    setNotifications((prev) => prev.map((notif) => ({ ...notif })));
     deleteNotification(notificationId);
   };
 
