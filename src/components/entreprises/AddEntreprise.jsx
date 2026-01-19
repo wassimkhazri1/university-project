@@ -137,7 +137,7 @@ function AddEntreprise({ open, onClose, onSave }) {
                 required
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            {/*   <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
                 label="rhresponsible"
@@ -146,7 +146,7 @@ function AddEntreprise({ open, onClose, onSave }) {
                 onChange={handleChange}
                 required
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} md={6}>
               <TextField
