@@ -80,6 +80,7 @@ public class WebSecurityConfig {
 				.requestMatchers("/ws/**").permitAll()
 				.requestMatchers("/api/candidatures/**").permitAll().requestMatchers("/api/matieres/**")
 				.hasAnyRole("PROF", "ADMIN").requestMatchers("/api/prof/**").hasRole("PROF")
+				.requestMatchers("/api/entreprises/**").hasAnyRole("ENTREPRISE", "ADMIN")
 				.requestMatchers("/api/admin/**").hasRole("ADMIN").requestMatchers("/api/auth/signout").authenticated()
 				.anyRequest().authenticated().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout().disable();
