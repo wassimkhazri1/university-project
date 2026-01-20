@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./components/login/Login";
 // import DepartmentsSection from "./DepartmentDropdown";
 import ContactSection from "./components/blocks/ContactSection";
@@ -50,14 +50,33 @@ import AbsenceForm from "./components/absence/AbsenceForm";
 import MesAbsences from "./components/etudiants/MesAbsences";
 import DocumentsAdministratifs from "./components/iset/DocumentsAdministratifs";
 import HomePage from "./components/HomePage";
+import AboutSection from "./components/blocks/AboutSection";
 
 function App() {
+  const token = localStorage.getItem("token");
   const roles = JSON.parse(localStorage.getItem("user")) || [];
   const role = roles.roles;
   const isAdmin = roles.roles?.includes("ROLE_ADMIN"); // Vérifie si ROLE_ADMIN est présent
   const isProf = roles.roles?.includes("ROLE_PROF"); // Vérifie si ROLE_PROF est présent
   const isStudent = roles.roles?.includes("ROLE_STUDENT"); // Vérifie si ROLE_STUDENT est présent
   const isEntreprise = roles.roles?.includes("ROLE_ENTREPRISE");
+  const navigate = useNavigate();
+  const handleClick = () => {
+    // Si vous êtes déjà sur la page d'accueil
+    const aboutElement = document.getElementById("about");
+    if (aboutElement) {
+      aboutElement.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Sinon, naviguer puis défilement
+      navigate("/");
+      // Attendre que la page soit chargée
+      setTimeout(() => {
+        const element = document.getElementById("about");
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  };
+
   return (
     <div className="App">
       <Header />
@@ -127,18 +146,15 @@ function App() {
       <section className="hero">
         <h1 className="fade-in">Bienvenue à l'ISET de Jendouba</h1>
         <p className="slide-up">Institut Supérieur des Études Technologiques</p>
-        <button className="cta-button">En savoir plus</button>
-        <Block2 />
-      </section>
+        <button onClick={handleClick} className="cta-button">
+          En savoir plus
+        </button>
 
-      <section id="about" className="section about">
-        <h2>À propos</h2>
-        <p>
-          L'ISET Jendouba forme des techniciens supérieurs dans des domaines
-          innovants et adaptés au marché. Notre campus dynamique favorise
-          l’apprentissage, la recherche et l’entrepreneuriat.
-        </p>
+        {!token && !isStudent && !isAdmin && !isProf && !isEntreprise && (
+          <Block2 />
+        )}
       </section>
+      <AboutSection />
       <ContactSection />
       <ScrollToTopButton />
       <footer className="footer">

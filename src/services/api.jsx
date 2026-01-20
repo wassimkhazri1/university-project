@@ -19,7 +19,7 @@ api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export const getEtudiants = () => api.get("/");
@@ -29,7 +29,14 @@ export const updateEtudiant = (id, etudiant) => api.put(`/${id}`, etudiant);
 export const deleteEtudiant = (id) => api.post(`/delete/${id}`);
 export const exportToPdf = () =>
   api.get("/export/pdf", { responseType: "blob" });
-export const getEtudiantById = (id) => api.get(`/${id}`);
+//export const getEtudiantById = (id) => api.get(`/id/${id}`);
+// Récupérer un étudiant par ID
+export const getEtudiantById = (id) => {
+  const token = localStorage.getItem("token");
+  return api.get(`/id/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
 
 const api1 = axios.create({
   baseURL: "http://localhost:8080/api/professeurs",
@@ -48,7 +55,7 @@ api1.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export const deleteEnseignant = (id) => api1.post(`/delete/${id}`);
@@ -72,7 +79,7 @@ api2.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 export const deleteOffer = (id) => api2.delete(`/${id}`);
 
@@ -132,7 +139,7 @@ api3.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 export const deleteEntreprise = (id) => api3.post(`/delete/${id}`);
 // export const deleteEntreprise = (id) => api3.delete(`/${id}`);

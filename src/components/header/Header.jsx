@@ -346,27 +346,6 @@ function Header() {
                     {role === "ROLE_PROF" && <EnseignantProfil />}
                     {role === "ROLE_ADMIN" && <AdminProfil />}
                     {role === "ROLE_ENTREPRISE" && <EntrepriseProfil />}
-                    {/* <ul
-                      className="dropdown-menu dropdown-menu-end"
-                      aria-labelledby="navbarDropdownMenuAvatar"
-                    >
-                      <li>
-                        <strong> {user.username}</strong>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="/iset/myprofile">
-                          My profile
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Settings
-                        </a>
-                      </li>
-                      <li>
-                        <Logout />
-                      </li>
-                    </ul> */}
                     <DropdownMenu className="dropdown-navbar" tag="ul" right>
                       <NavLink tag="li">
                         <strong> {user.username}</strong>

@@ -22,6 +22,9 @@ import AddEtudiant from "./AddEtudiant";
 import AbsenceForm from "../absence/AbsenceForm";
 //const API = "http://localhost:8080";
 function EtudiantList() {
+  const roles = JSON.parse(localStorage.getItem("user")) || [];
+  const isAdmin = roles.roles?.includes("ROLE_ADMIN"); // Vérifie si ROLE_ADMIN est présent
+  const isProf = roles.roles?.includes("ROLE_PROF"); // Vérifie si ROLE_ADMIN est présent
   const [etudiants, setEtudiants] = useState([]);
   const navigate = useNavigate(); // Hook pour la navigation
   const [selectedEtudiant, setSelectedEtudiant] = useState(null);
@@ -47,11 +50,11 @@ function EtudiantList() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       setEtudiants(
-        etudiants.map((e) => (e.id === updatedEtudiant.id ? response.data : e))
+        etudiants.map((e) => (e.id === updatedEtudiant.id ? response.data : e)),
       );
       setEditModalOpen(false);
     } catch (error) {
@@ -102,26 +105,28 @@ function EtudiantList() {
       disableColumnMenu: true,
       renderCell: (params) => (
         <div>
-          {/* Bouton Éditer */}
-          <Tooltip title="Modifier">
-            <IconButton
-              onClick={() => handleEdit(params.row.id)}
-              color="primary"
-            >
-              <Edit fontSize="small" />
-            </IconButton>
-          </Tooltip>
-
-          {/* Bouton Supprimer */}
-          <Tooltip title="Supprimer">
-            <IconButton
-              onClick={() => handleDelete(params.row.id)}
-              color="error"
-            >
-              <Delete fontSize="small" />
-            </IconButton>
-          </Tooltip>
-
+          {isAdmin && (
+            // Bouton Éditer
+            <Tooltip title="Modifier">
+              <IconButton
+                onClick={() => handleEdit(params.row.id)}
+                color="primary"
+              >
+                <Edit fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+          {isAdmin && (
+            // Bouton Supprimer
+            <Tooltip title="Supprimer">
+              <IconButton
+                onClick={() => handleDelete(params.row.id)}
+                color="error"
+              >
+                <Delete fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
           {/* Add Absence Button */}
           <Tooltip title="Add absence" arrow>
             <IconButton
@@ -168,7 +173,7 @@ function EtudiantList() {
             headers: {
               Authorization: `Bearer ${token}`, // Ajoute le token dans l'en-tête
             },
-          }
+          },
         );
         setEtudiants(response.data);
       } catch (error) {
@@ -187,7 +192,7 @@ function EtudiantList() {
       .map((row) =>
         columns
           .map((col) => `"${String(row[col.field] || "").replace(/"/g, '""')}"`)
-          .join(",")
+          .join(","),
       )
       .join("\n");
 
@@ -228,9 +233,6 @@ function EtudiantList() {
     );
   };
 
-  const roles = JSON.parse(localStorage.getItem("user")) || [];
-  const isAdmin = roles.roles?.includes("ROLE_ADMIN"); // Vérifie si ROLE_ADMIN est présent
-  const isProf = roles.roles?.includes("ROLE_PROF"); // Vérifie si ROLE_ADMIN est présent
   return (
     <div>
       <EditEtudiant

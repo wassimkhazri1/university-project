@@ -1,6 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getEtudiantById } from "../../services/api";
+
 function EtudiantProfil() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [photoSrc, setPhotoSrc] = useState(null);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user?.id) {
+      getEtudiantById(user.id)
+        .then((response) => {
+          const etudiant = response.data;
+          if (etudiant.photo) {
+            // Si tu stockes déjà "data:image/jpeg;base64,..."
+            setPhotoSrc(etudiant.photo);
+            // Sinon, ajoute le préfixe :
+            // setPhotoSrc(`data:image/jpeg;base64,${etudiant.photo}`);
+          } else {
+            setPhotoSrc("https://mdbcdn.b-cdn.net/img/new/avatars/2.webp");
+          }
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération de l'étudiant:", error);
+          setPhotoSrc("https://mdbcdn.b-cdn.net/img/new/avatars/2.webp");
+        });
+    }
+  }, []);
+
   return (
     <a
       data-mdb-dropdown-init
@@ -10,30 +35,12 @@ function EtudiantProfil() {
       role="button"
       aria-expanded="false"
     >
-      {/*
-           CreatedAndDevelopedByWassimKhazri
-           https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
-           */}
-      {user.photo ? (
-        <img
-          src={user.photo}
-          alt="Profile"
-          className="rounded-circle"
-          style={{ width: "150px", height: "150px" }}
-        />
-      ) : (
-        <img
-          src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-          className="rounded-circle"
-          height="25"
-          alt="Black and White Portrait of a Man"
-          loading="lazy"
-        />
-      )}
-      {/*  <p>
-        <strong> {user.username}</strong>
-      </p>
-      */}
+      <img
+        src={photoSrc}
+        alt="Profile"
+        className="rounded-circle"
+        style={{ width: "25px", height: "25px" }}
+      />
     </a>
   );
 }

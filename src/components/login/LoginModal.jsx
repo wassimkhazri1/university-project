@@ -34,7 +34,8 @@ const LoginModal = ({ show, onClose }) => {
     // Vérification du code captcha
     if (captchaInput !== captcha) {
       setError("❌ Code de sécurité incorrect !");
-      alert("❌ Code incorrect !");
+      //alert("❌ Code incorrect !" );
+      alert(error);
       return;
     }
 
@@ -180,11 +181,22 @@ const LoginModal = ({ show, onClose }) => {
                     <i className="bi bi-arrow-clockwise"></i>
                   </button>
                 </div>
-
-                <a href="#" className="small text-primary d-block mb-3">
-                  Mot de passe oublié ?
-                </a>
-
+                <div className="mb-3 d-flex align-items-center captcha-container">
+                  <a
+                    href="#contact"
+                    className="small text-primary d-block mb-3"
+                    onClick={onClose}
+                  >
+                    Mot de passe oublié ?
+                  </a>
+                  <a
+                    href="#contact"
+                    className="small text-primary d-block mb-3"
+                    onClick={onClose}
+                  >
+                    N'est pas membre ?
+                  </a>
+                </div>
                 <button
                   type="submit"
                   className="btn btn-primary w-100 rounded-pill shadow-sm"
