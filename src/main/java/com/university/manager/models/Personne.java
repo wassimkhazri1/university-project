@@ -1,21 +1,14 @@
 package com.university.manager.models;
 
-//CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
+
+//CreatedAndDevelopedByWassimKhazri
+//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import jakarta.persistence.*;
 
 @Entity
@@ -45,6 +38,10 @@ public abstract class Personne {
 	@NotBlank
 	@Size(max = 8)
 	private String telephone;
+	
+	@Lob
+	@Column(name = "photo", columnDefinition = "LONGTEXT")
+	private String photo;
 
 	private String password;
 

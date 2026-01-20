@@ -92,6 +92,7 @@ public class EtudiantService {
 		String cinNumber = etudiant.getCinNumber();
 		String telephone = etudiant.getTelephone();
 		String password = etudiant.getPassword();
+		String photo = etudiant.getPhoto();
 		// Set<String> role = signUpRequest.getRole();
 
 		etudiant.setNom(nom);
@@ -100,6 +101,7 @@ public class EtudiantService {
 		etudiant.setEmail(email);
 		etudiant.setTelephone(telephone);
 		etudiant.setPassword(encoder.encode(password));
+		etudiant.setPhoto(photo);
 
 		// Vérifier si le groupe, la classe et le niveau existent
 		Groupe groupe = groupeRepository.findById(etudiant.getGroupe().getId())
@@ -120,7 +122,8 @@ public class EtudiantService {
 		etudiant.setClasse(classe);
 		etudiant.setNiveauScol(niveauScolaire);
 		etudiant.setBranche(branche);
-
+		System.out.println("##############Photo Etudiant#############");
+        System.out.println(etudiant.getPhoto().getBytes());
 		return etudiantRepository.save(etudiant);
 	}
 

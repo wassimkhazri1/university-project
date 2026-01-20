@@ -75,12 +75,16 @@ public class EtudiantController {
 		return etudiantRepository.findEtudiantsByNiveau(niveauid);
 	}
 
-	// get student by id
 	@GetMapping("/id/{codeId}")
-	public Optional<Etudiant> getEtudiantByCodeId(@PathVariable Long codeId) {
-//		return etudiantRepository.findByeCodeId(codeId);
-		return etudiantRepository.findById(codeId);
+	public ResponseEntity<Etudiant> getEtudiantByCodeId(@PathVariable Long codeId) {
+		return etudiantRepository.findById(codeId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
+
+//	// get student by id
+//	@GetMapping("/id/{codeId}")
+//	public Optional<Etudiant> getEtudiantByCodeId(@PathVariable Long codeId) {
+//		return etudiantRepository.findById(codeId);
+//	}
 
 	// get student list by classe,and niveauScol
 	@GetMapping("/{niveauid}/{classeid}")
@@ -89,7 +93,9 @@ public class EtudiantController {
 	}
 
 	@PostMapping
-	public Etudiant addEtudiant(@RequestBody Etudiant etudiant) {
+	// public Etudiant addEtudiant(@RequestBody Etudiant etudiant) {
+	public Etudiant addEtudiant(@RequestParam("photo") String photoBase64, @ModelAttribute Etudiant etudiant) {
+		etudiant.setPhoto(photoBase64);
 		return etudiantService.ajouterEtudiant(etudiant);
 	}
 

@@ -40,10 +40,9 @@ public class EntrepriseController {
 		return entrepriseService.ajouterEntreprise(entreprise);
 	}
 	
-	// get student by id
+	// get entreprise by id
 	@GetMapping("/id/{codeId}")
 	public Optional<Entreprise> getEntrepriseByCodeId(@PathVariable Long codeId) {
-//		return etudiantRepository.findByeCodeId(codeId);
 		return entrepriseRepository.findById(codeId);
 	}
 }
