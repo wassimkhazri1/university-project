@@ -73,8 +73,44 @@ const MesNotes = () => {
   }, []);
   return (
     <div className="container mt-4">
-      <h1 className="mb-4">Mes Notes</h1>
-
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {" "}
+        <h1
+          className="mb-4"
+          style={{
+            color: "#0d3e5f",
+          }}
+        >
+          <em>
+            <span style={{ marginRight: "8px" }}>Mes Notes</span>{" "}
+          </em>
+        </h1>
+        <hr
+          style={{
+            flexGrow: 1,
+            height: "3px",
+            backgroundColor: "#0d3e5f",
+            border: "none",
+          }}
+        />{" "}
+      </div>
+      {/* <h1
+        className="mb-4"
+        style={{
+          color: "",
+        }}
+      >
+        <em>Mes Notes</em>
+        <hr
+          style={{
+            display: "inline-block",
+            width: "82%",
+            verticalAlign: "middle",
+            marginLeft: "10px",
+            border: "2px solid #0d3e5f", // épaisseur et couleur
+          }}
+        />
+      </h1> */}
       <div className="table-responsive">
         <table className="table table-striped table-bordered">
           <thead className="thead-dark">

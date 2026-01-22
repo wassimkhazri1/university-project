@@ -5,15 +5,11 @@ body {
   color: #333;
 }
 
-/*.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #74c0fc;
-  color: white;
-  padding: 20px 40px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}*/
+.hero1 {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: rgb(250, 248, 248);
+}
 
 .nav a {
   margin-left: 20px;

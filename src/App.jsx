@@ -51,6 +51,7 @@ import MesAbsences from "./components/etudiants/MesAbsences";
 import DocumentsAdministratifs from "./components/iset/DocumentsAdministratifs";
 import HomePage from "./components/HomePage";
 import AboutSection from "./components/blocks/AboutSection";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -102,9 +103,7 @@ function App() {
         <Route path="/iset/proflist" element={<ProfList />} />
         <Route path="/list" element={<EtudiantList />} />
         <Route path="/iset/entrepriselist" element={<EntrepriseList />} />
-        {/* <Route path="/add" component={AddEtudiant} /> */}
         <Route path="/add" element={<AddEtudiant />} />
-        {/*<Route path="/edit/:id" component={EditEtudiant} />*/}
         <Route path="/edit/:id" element={<EditEtudiant />} />
         <Route path="/Etudiant" element={<EtudiantServices />} />
         <Route path="/Career" element={<CareerServices />} />
@@ -157,9 +156,7 @@ function App() {
       <AboutSection />
       <ContactSection />
       <ScrollToTopButton />
-      <footer className="footer">
-        <p>&copy; 2025 ISET Jendouba. Tous droits réservés.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

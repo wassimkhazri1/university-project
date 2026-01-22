@@ -43,13 +43,13 @@ function EntrepriseList() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       setEntreprises(
         entreprises.map((e) =>
-          e.id === updatedEntreprise.id ? response.data : e
-        )
+          e.id === updatedEntreprise.id ? response.data : e,
+        ),
       );
       setEditModalOpen(false);
     } catch (error) {
@@ -151,7 +151,7 @@ function EntrepriseList() {
             headers: {
               Authorization: `Bearer ${token}`, // Ajoute le token dans l'en-tête
             },
-          }
+          },
         );
         setEntreprises(response.data);
       } catch (error) {
@@ -170,7 +170,7 @@ function EntrepriseList() {
       .map((row) =>
         columns
           .map((col) => `"${String(row[col.field] || "").replace(/"/g, '""')}"`)
-          .join(",")
+          .join(","),
       )
       .join("\n");
 
@@ -232,7 +232,29 @@ function EntrepriseList() {
           setEntreprises([...entreprises, newEntreprise]);
         }}
       />
-      <h1>Liste des Entreprises</h1>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {" "}
+        <h1
+          className="mb-4"
+          style={{
+            color: "#0d3e5f",
+          }}
+        >
+          <em>
+            <span style={{ marginRight: "8px" }}>
+              Liste des Entreprises
+            </span>{" "}
+          </em>
+        </h1>
+        <hr
+          style={{
+            flexGrow: 1,
+            height: "3px",
+            backgroundColor: "#0d3e5f",
+            border: "none",
+          }}
+        />{" "}
+      </div>
       {/* CreatedAndDevelopedByWassimKhazri
 https://www.linkedin.com/in/wassim-khazri-ab923a14b/  */}
 

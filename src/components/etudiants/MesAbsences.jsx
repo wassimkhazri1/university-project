@@ -29,7 +29,7 @@ const MesAbsences = () => {
 
       const absencesResponse = await axios.get(
         `http://localhost:8080/api/absences/student/${userData.id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
 
       setAbsences(absencesResponse.data || []);
@@ -47,7 +47,7 @@ const MesAbsences = () => {
 
   const handleDetails = (matiereId) => {
     const matiereDetails = Object.entries(aggregated).find(
-      ([_, data]) => data.matiereId === matiereId
+      ([_, data]) => data.matiereId === matiereId,
     );
 
     if (matiereDetails) {
@@ -62,20 +62,6 @@ const MesAbsences = () => {
 
   // Agréger les absences par matière
   const aggregated = {};
-  // Vérifiez que absences est un tableau avant d'utiliser forEach
-  //   if (Array.isArray(absences)) {
-  //     absences.forEach((absence) => {
-  //       if (absence && absence.matiereNom) {
-  //         if (!aggregated[absence.matiereNom]) {
-  //           aggregated[absence.matiereNom] = {
-  //             count: 0,
-  //             matiereId: absence.matiereId,
-  //           };
-  //         }
-  //         aggregated[absence.matiereNom].count += absence.count || 1;
-  //       }
-  //     });
-  //   }
   absences.forEach((absence) => {
     if (!aggregated[absence.matiereNom]) {
       aggregated[absence.matiereNom] = {
@@ -108,8 +94,27 @@ const MesAbsences = () => {
       />
 
       <div className="container mt-4">
-        <h1 className="mb-4">Mes Absences</h1>
-
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {" "}
+          <h1
+            className="mb-4"
+            style={{
+              color: "#0d3e5f",
+            }}
+          >
+            <em>
+              <span style={{ marginRight: "8px" }}>Mes Absences</span>{" "}
+            </em>
+          </h1>
+          <hr
+            style={{
+              flexGrow: 1,
+              height: "3px",
+              backgroundColor: "#0d3e5f",
+              border: "none",
+            }}
+          />{" "}
+        </div>
         <div className="table-responsive">
           <table className="table table-striped table-bordered">
             <thead className="thead-dark">

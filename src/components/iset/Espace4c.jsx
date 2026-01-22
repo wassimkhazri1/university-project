@@ -9,7 +9,7 @@ function Espace4c() {
   return (
     // <div className="container mt-4 text-start">
     <div className="row hero  text-start">
-      <h2 className="yellow">
+      <h2 className="blue">
         Centre de carrières et de certification de compétences
       </h2>
       {/*

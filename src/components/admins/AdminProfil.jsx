@@ -1,41 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 function AdminProfil() {
   const user = JSON.parse(localStorage.getItem("user"));
   //CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+  //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
   return (
-                <a
-          data-mdb-dropdown-init
-          className="dropdown-toggle d-flex align-items-center hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuAvatar"
-          role="button"
-          aria-expanded="false"
-        >
-           
-           {user.photo ? (
-                    <img
-                      src={user.photo}
-                      alt="Profile"
-                      className="rounded-circle"
-                      style={{ width: "150px", height: "150px" }}
-                    />
-                  ) : (
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                      className="rounded-circle"
-                      height="25"
-                      alt="Black and White Portrait of a Man"
-                      loading="lazy"
-                    /> 
-                  )}
-                  <p><strong> {user.username}</strong></p>
-                  
-        </a>
+    <a
+      data-mdb-dropdown-init
+      className="dropdown-toggle d-flex align-items-center hidden-arrow"
+      href="#"
+      id="navbarDropdownMenuAvatar"
+      role="button"
+      aria-expanded="false"
+    >
+      {user.photo ? (
+        <img
+          src={user.photo}
+          alt="Profile"
+          className="rounded-circle"
+          style={{ width: "150px", height: "150px" }}
+        />
+      ) : (
+        <img
+          src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+          className="rounded-circle"
+          height="40"
+          alt="Black and White Portrait of a Man"
+          loading="lazy"
+        />
+      )}
+    </a>
   );
-
 }
 
 export default AdminProfil;

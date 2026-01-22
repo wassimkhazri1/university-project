@@ -259,7 +259,27 @@ function EtudiantList() {
           setEtudiants([...etudiants, newEtudiant]);
         }}
       />
-      <h1>Liste des Étudiants</h1>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {" "}
+        <h1
+          className="mb-4"
+          style={{
+            color: "#0d3e5f",
+          }}
+        >
+          <em>
+            <span style={{ marginRight: "8px" }}>Liste des Étudiants</span>{" "}
+          </em>
+        </h1>
+        <hr
+          style={{
+            flexGrow: 1,
+            height: "3px",
+            backgroundColor: "#0d3e5f",
+            border: "none",
+          }}
+        />{" "}
+      </div>
       {/* CreatedAndDevelopedByWassimKhazri
 https://www.linkedin.com/in/wassim-khazri-ab923a14b/  */}
 

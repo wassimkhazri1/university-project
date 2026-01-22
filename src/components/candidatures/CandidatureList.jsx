@@ -1,64 +1,86 @@
 // src/components/CandidatureList.js
 
-import React, { useState, useEffect } from 'react';
-import { getCandidatures } from '../../services/candidatures/candidatureService';
-import CandidatureItem from './CandidatureItem';
+import React, { useState, useEffect } from "react";
+import { getCandidatures } from "../../services/candidatures/candidatureService";
+import CandidatureItem from "./CandidatureItem";
 import CandidatureForm from "./CandidatureForm";
 
 const CandidatureList = () => {
-    const [candidatures, setCandidatures] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+  const [candidatures, setCandidatures] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-    useEffect(() => {
-        const fetchCandidatures = async () => {
-            try {
-                const response = await getCandidatures();
-                setCandidatures(response.data);
-            } catch (err) {
-                setError('Erreur lors du chargement des candidatures');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchCandidatures();
-    }, []);
-
-    const handleCandidatureCreated = (newCandidature) => {
-        setCandidatures([newCandidature, ...candidatures]);
+  useEffect(() => {
+    const fetchCandidatures = async () => {
+      try {
+        const response = await getCandidatures();
+        setCandidatures(response.data);
+      } catch (err) {
+        setError("Erreur lors du chargement des candidatures");
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const handleDelete = (id) => {
-        setCandidatures(candidatures.filter(c => c.id !== id));
-    };
+    fetchCandidatures();
+  }, []);
 
-    if (loading) return <div>Chargement...</div>;
-    if (error) return <div className="alert alert-danger">{error}</div>;
+  const handleCandidatureCreated = (newCandidature) => {
+    setCandidatures([newCandidature, ...candidatures]);
+  };
 
-    return (
-        <div>
-            <h2>Liste des candidatures</h2>
-            <CandidatureForm onCandidatureCreated={handleCandidatureCreated} />
-            <div className="mt-4">
-                {candidatures.length === 0 ? (
-                    <p>Aucune candidature enregistrée</p>
-                ) : (
-                    candidatures.map(candidature => (
-                        <CandidatureItem 
-                            key={candidature.id} 
-                            candidature={candidature} 
-                            onDelete={handleDelete}
-                        />
-                    ))
-                )}
-                {/* 
+  const handleDelete = (id) => {
+    setCandidatures(candidatures.filter((c) => c.id !== id));
+  };
+
+  if (loading) return <div>Chargement...</div>;
+  if (error) return <div className="alert alert-danger">{error}</div>;
+
+  return (
+    <div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {" "}
+        <h1
+          className="mb-4"
+          style={{
+            color: "#0d3e5f",
+          }}
+        >
+          <em>
+            <span style={{ marginRight: "8px" }}>
+              Liste des candidatures
+            </span>{" "}
+          </em>
+        </h1>
+        <hr
+          style={{
+            flexGrow: 1,
+            height: "3px",
+            backgroundColor: "#0d3e5f",
+            border: "none",
+          }}
+        />{" "}
+      </div>
+      <CandidatureForm onCandidatureCreated={handleCandidatureCreated} />
+      <div className="mt-4">
+        {candidatures.length === 0 ? (
+          <p>Aucune candidature enregistrée</p>
+        ) : (
+          candidatures.map((candidature) => (
+            <CandidatureItem
+              key={candidature.id}
+              candidature={candidature}
+              onDelete={handleDelete}
+            />
+          ))
+        )}
+        {/* 
                 //CreatedAndDevelopedByWassimKhazri
                 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
                 */}
-            </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default CandidatureList;

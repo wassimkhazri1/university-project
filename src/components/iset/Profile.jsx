@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import GenererPdf from "../genererPdf/GenererPdf";
-import plan from "../../images/ISET/plan1.png";
+// import plan from "../../images/ISET/plan1.png";
+import plan from "../../images/ISET/plan3.jpg";
+import plan1 from "../../images/ISET/entreprise1.png";
 import GenererPdf1 from "./GenererPdf1";
 import { getEtudiantById } from "../../services/api";
 //CreatedAndDevelopedByWassimKhazri
@@ -8,6 +10,8 @@ import { getEtudiantById } from "../../services/api";
 function Profile() {
   const [photoSrc, setPhotoSrc] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
+  const roles = JSON.parse(localStorage.getItem("user")) || [];
+  const isStudent = roles.roles?.includes("ROLE_STUDENT"); // Vérifie si ROLE_STUDENT est présent
   useEffect(() => {
     if (user?.id) {
       getEtudiantById(user.id)
@@ -69,7 +73,7 @@ function Profile() {
       </a>
 
       <a className="col-8" id="divdiv">
-        <GenererPdf1 />
+        {isStudent && <GenererPdf1 />}
         {/*   <GenererPdf /> */}
       </a>
     </div>

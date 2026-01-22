@@ -11,7 +11,6 @@ const JobList = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-
   // États pour la modale d'ajout
   const [addModalOpen, setAddModalOpen] = useState(false);
   //CreatedAndDevelopedByWassimKhazri
@@ -87,7 +86,28 @@ const JobList = () => {
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
     */}
-      <h1>Liste des offres</h1>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {" "}
+        <h1
+          className="mb-4"
+          style={{
+            color: "#0d3e5f",
+          }}
+        >
+          <em>
+            <span style={{ marginRight: "8px" }}>Liste des offres</span>{" "}
+          </em>
+        </h1>
+        <hr
+          style={{
+            flexGrow: 1,
+            height: "3px",
+            backgroundColor: "#0d3e5f",
+            border: "none",
+          }}
+        />{" "}
+      </div>
+
       {isAdmin && (
         <div style={{ marginBottom: "20px" }}>
           <Button

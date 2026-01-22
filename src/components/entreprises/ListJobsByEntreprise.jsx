@@ -27,18 +27,21 @@ function ListJobsByEntreprise() {
         const user = JSON.parse(localStorage.getItem("user"));
         const codeId = user.id;
         console.log("ID envoyé : ", codeId);
-        const jobsResponse = await fetch(API + `/api/entreprises/job/${codeId}`, {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        });
+        const jobsResponse = await fetch(
+          API + `/api/job-offers/entreprise/${codeId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
 
         const jobsData = await jobsResponse.json();
         console.log("Données reçues :", jobsData);
         setJobs(jobsData);
-        
+
         if (!jobsResponse.ok) {
           throw new Error(`Erreur HTTP : ${jobsResponse.status}`);
         }
@@ -49,7 +52,7 @@ function ListJobsByEntreprise() {
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, []);
 
@@ -59,9 +62,9 @@ function ListJobsByEntreprise() {
       const response = await fetch(API + `/api/candidatures/job/${jobId}`, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
 
       if (!response.ok) {
@@ -94,7 +97,28 @@ function ListJobsByEntreprise() {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Mes Annonces</h1>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {" "}
+        <h1
+          className="mb-4"
+          style={{
+            color: "#0d3e5f",
+          }}
+        >
+          <em>
+            <span style={{ marginRight: "8px" }}>Mes Annonces</span>{" "}
+          </em>
+        </h1>
+        <hr
+          style={{
+            flexGrow: 1,
+            height: "3px",
+            backgroundColor: "#0d3e5f",
+            border: "none",
+          }}
+        />{" "}
+      </div>
+      {/* <h1 className="text-center mb-4">Mes Annonces</h1> */}
       <div className="table-responsive">
         <table className="table table-bordered table-striped">
           <thead className="thead-dark">
@@ -119,8 +143,8 @@ function ListJobsByEntreprise() {
                   <td>{job.expiryDate}</td>
                   <td>{job.website}</td>
                   <td>
-                    <button 
-                      className="btn btn-link p-0" 
+                    <button
+                      className="btn btn-link p-0"
                       onClick={() => fetchCandidatures(job.id)}
                       disabled={job.candidatureCount === 0}
                     >
@@ -160,9 +184,9 @@ function ListJobsByEntreprise() {
                   {candidatures.map((candidature) => (
                     <tr key={candidature.id}>
                       <td>
-                        <a 
-                          href={`${API}/api/candidatures/${candidature.id}/download/cv`} 
-                          target="_blank" 
+                        <a
+                          href={`${API}/api/candidatures/${candidature.id}/download/cv`}
+                          target="_blank"
                           rel="noopener noreferrer"
                         >
                           Télécharger CV
@@ -170,9 +194,9 @@ function ListJobsByEntreprise() {
                       </td>
                       <td>
                         {candidature.lettreMotivationPath ? (
-                          <a 
-                            href={`${API}/api/candidatures/${candidature.id}/download/lettre`} 
-                            target="_blank" 
+                          <a
+                            href={`${API}/api/candidatures/${candidature.id}/download/lettre`}
+                            target="_blank"
                             rel="noopener noreferrer"
                           >
                             Télécharger Lettre
@@ -181,7 +205,9 @@ function ListJobsByEntreprise() {
                           "Non fournie"
                         )}
                       </td>
-                      <td>{new Date(candidature.createdAt).toLocaleDateString()}</td>
+                      <td>
+                        {new Date(candidature.createdAt).toLocaleDateString()}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

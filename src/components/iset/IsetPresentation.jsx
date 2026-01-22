@@ -6,22 +6,22 @@ import "./IsetPresentation.css";
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 function IsetPresentation() {
   return (
-    //<div className="container mt-4 text-start">
+    // <div className="container mt-4 text-start">
     <div className="hero  text-start">
-      <h3 className="yellow">Création & Présentation</h3>
+      <h3 className="blue">Création & Présentation</h3>
       <p>
         L’institut supérieur des études technologiques de Jendouba (ISETJ) est
         une institution universitaire sous la tutelle de la direction générale
         des études technologiques (DGET).
       </p>
-      <h3 className="yellow">Atouts de l'ISET</h3>
+      <h3 className="blue">Atouts de l'ISET</h3>
       <p>
         L'ISET de Jendouba est un environnement sain et serein où l'étudiant
         peut se livrer entièrement à ses études et profiter des activités tant
         sportives que culturelles mises à sa disposition.
       </p>
 
-      <h3 className="yellow">Spécialités</h3>
+      <h3 className="blue">Spécialités</h3>
       <p>
         Au terme de son apprentissage, l'étudiant de l'ISET est titulaire d'une
         licence appliquée dans l'une des quatre filières :

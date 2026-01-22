@@ -18,13 +18,13 @@ function EnseignantProfil() {
           src={user.photo}
           alt="Profile"
           className="rounded-circle"
-          style={{ width: "150px", height: "150px" }}
+          style={{ width: "40px", height: "40px" }}
         />
       ) : (
         <img
           src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
           className="rounded-circle"
-          height="25"
+          height="40"
           alt="Black and White Portrait of a Man"
           loading="lazy"
         />
