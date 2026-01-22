@@ -59,5 +59,10 @@ public class JobOfferFormService {
         jobOfferFormRepository.delete(jobOfferForm);
     }
 	// Convertir une entité Absence en DTO
+    
+	public List<JobOfferForm> getJobsByEntreprise(Long entrepriseId) {
+		// TODO Auto-generated method stub
+		return jobOfferFormRepository.findByEntrepriseId(entrepriseId);
+	}   
 
 }

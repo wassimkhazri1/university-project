@@ -80,12 +80,6 @@ public class EtudiantController {
 		return etudiantRepository.findById(codeId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
-//	// get student by id
-//	@GetMapping("/id/{codeId}")
-//	public Optional<Etudiant> getEtudiantByCodeId(@PathVariable Long codeId) {
-//		return etudiantRepository.findById(codeId);
-//	}
-
 	// get student list by classe,and niveauScol
 	@GetMapping("/{niveauid}/{classeid}")
 	public List<Etudiant> getEtudiantsByClasseNiveau(@PathVariable Long niveauid, @PathVariable Long classeid) {

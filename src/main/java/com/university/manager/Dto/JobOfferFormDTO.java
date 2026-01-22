@@ -22,13 +22,14 @@ public class JobOfferFormDTO {
 	private String startDate;
 	private String expiryDate;
 	private List<String> formations;
+	private Long entrepriseId;
 	
 	public JobOfferFormDTO() {
 
 	}
 	public JobOfferFormDTO(Long id, String company, String responsible, String address, String phone, String email,
 			String fax, String website, String jobPositions, String jobTitle, String description, String startDate,
-			String expiryDate, List<String> formations) {
+			String expiryDate, List<String> formations, Long entrepriseId) {
 		super();
 		this.id = id;
 		this.company = company;
@@ -44,6 +45,7 @@ public class JobOfferFormDTO {
 		this.startDate = startDate;
 		this.expiryDate = expiryDate;
 		this.formations = formations;
+		this.entrepriseId = entrepriseId;
 	}
 	
 	

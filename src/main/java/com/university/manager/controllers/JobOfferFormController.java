@@ -36,6 +36,16 @@ public class JobOfferFormController {
 	public ResponseEntity<JobOfferForm> getJobOfferById(@PathVariable Long id) {
 		return ResponseEntity.ok(jobOfferFormService.getJobOfferById(id));
 	}
+	
+    @GetMapping("/entreprise/{entrepriseId}")
+    public ResponseEntity<List<JobOfferFormDTO>> getJobsByEntreprise(@PathVariable Long entrepriseId) {
+        List<JobOfferForm> jobs = jobOfferFormService.getJobsByEntreprise(entrepriseId);
+        List<JobOfferFormDTO> jobDTOs = convertToDTOList(jobs);
+        return ResponseEntity.ok(jobDTOs);
+    }
+	
+	
+	
 
 	@PostMapping
 	public JobOfferForm createJobOffer(@RequestBody JobOfferForm jobOfferForm) {
@@ -70,7 +80,9 @@ public class JobOfferFormController {
 		dto.setStartDate(jobOfferForm.getStartDate());
 		dto.setExpiryDate(jobOfferForm.getExpiryDate());
 		dto.setFormations(jobOfferForm.getFormations());
-
+        if(jobOfferForm.getEntreprise() != null) {
+           dto.setEntrepriseId(jobOfferForm.getEntreprise().getId());
+        }
 //        if (jobOfferForm.getEtudiant() != null) {
 //            dto.setEtudiantId(jobOfferForm.getEtudiant().getId());
 //            dto.setEtudiantNom(jobOfferForm.getEtudiant().getNom());

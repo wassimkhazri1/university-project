@@ -1,10 +1,15 @@
 package com.university.manager.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +38,10 @@ public class Entreprise extends Personne {
 	private String web;
 	private String linkedin;
 
+	
+	@OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<JobOfferForm> joboffers = new ArrayList<>();
+	
 	// Constructeur avec paramètres (optionnel)
 	public Entreprise(String matricule, String email, String nomcompany, String owner, String adresse, String fax,
 			String web, String linkedin, String password) {
