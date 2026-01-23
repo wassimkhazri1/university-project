@@ -94,23 +94,6 @@ const MesNotes = () => {
           }}
         />{" "}
       </div>
-      {/* <h1
-        className="mb-4"
-        style={{
-          color: "",
-        }}
-      >
-        <em>Mes Notes</em>
-        <hr
-          style={{
-            display: "inline-block",
-            width: "82%",
-            verticalAlign: "middle",
-            marginLeft: "10px",
-            border: "2px solid #0d3e5f", // épaisseur et couleur
-          }}
-        />
-      </h1> */}
       <div className="table-responsive">
         <table className="table table-striped table-bordered">
           <thead className="thead-dark">
