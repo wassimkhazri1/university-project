@@ -80,21 +80,14 @@ public class JobOfferFormController {
 		dto.setStartDate(jobOfferForm.getStartDate());
 		dto.setExpiryDate(jobOfferForm.getExpiryDate());
 		dto.setFormations(jobOfferForm.getFormations());
+		dto.setWebsite(jobOfferForm.getWebsite());
         if(jobOfferForm.getEntreprise() != null) {
            dto.setEntrepriseId(jobOfferForm.getEntreprise().getId());
         }
-//        if (jobOfferForm.getEtudiant() != null) {
-//            dto.setEtudiantId(jobOfferForm.getEtudiant().getId());
-//            dto.setEtudiantNom(jobOfferForm.getEtudiant().getNom());
-//            dto.setEtudiantPrenom(jobOfferForm.getEtudiant().getPrenom());
-//            dto.setEtudiantMatricule(jobOfferForm.getEtudiant().getMatricule());
-//        }
-
-//        if (absence.getMatiere() != null) {
-//            dto.setMatiereId(absence.getMatiere().getId());
-//            dto.setMatiereNom(absence.getMatiere().getNom());
-//            dto.setMatiereCode(absence.getMatiere().getCode());
-//        }
+        if(jobOfferForm.getCandidatures() != null) {
+        //	dto.setCandidatures(jobOfferForm.getCandidatures());
+        	dto.setCandidatureCount(jobOfferForm.getCandidatures().size());
+        }
 
 		return dto;
 	}

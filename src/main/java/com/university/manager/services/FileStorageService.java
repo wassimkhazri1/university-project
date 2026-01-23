@@ -37,8 +37,7 @@ public class FileStorageService {
 		Files.deleteIfExists(filePath);
 	}
 
-	public URI getUploadDir() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getUploadDir() {
+		return uploadDir;
 	}
 }

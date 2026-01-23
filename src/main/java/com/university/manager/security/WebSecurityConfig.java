@@ -10,6 +10,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -77,13 +78,14 @@ public class WebSecurityConfig {
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.requestMatchers("/api/auth/**").permitAll().requestMatchers("/signup").permitAll()
-				.requestMatchers("/ws/**").permitAll()
-				.requestMatchers("/api/candidatures/**").permitAll().requestMatchers("/api/matieres/**")
-				.hasAnyRole("PROF", "ADMIN").requestMatchers("/api/prof/**").hasRole("PROF")
-				.requestMatchers("/api/entreprises/**").hasAnyRole("ENTREPRISE", "ADMIN")
-				.requestMatchers("/api/admin/**").hasRole("ADMIN").requestMatchers("/api/auth/signout").authenticated()
-				.anyRequest().authenticated().and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout().disable();
+				.requestMatchers("/ws/**").permitAll().requestMatchers("/api/candidatures/**").permitAll()
+				.requestMatchers("/api/matieres/**").hasAnyRole("PROF", "ADMIN").requestMatchers("/api/prof/**")
+				.hasRole("PROF").requestMatchers("/api/entreprises/**").hasAnyRole("ENTREPRISE", "ADMIN")
+				.requestMatchers(HttpMethod.DELETE, "/api/documents/**").hasRole("ADMIN")
+				.requestMatchers("/api/documents/**").permitAll().requestMatchers("/api/admin/**")
+				.hasRole("ADMIN").requestMatchers("/api/auth/signout").authenticated().anyRequest().authenticated()
+				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout()
+				.disable();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

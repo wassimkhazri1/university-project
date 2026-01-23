@@ -6,6 +6,8 @@ import lombok.Data;
 
 import java.util.List;
 
+import com.university.manager.models.Candidature;
+
 @Data
 public class JobOfferFormDTO {
 	private Long id;
@@ -23,13 +25,16 @@ public class JobOfferFormDTO {
 	private String expiryDate;
 	private List<String> formations;
 	private Long entrepriseId;
+	//private List<Candidature> candidatures;
+	private int candidatureCount;
 	
 	public JobOfferFormDTO() {
 
 	}
+
 	public JobOfferFormDTO(Long id, String company, String responsible, String address, String phone, String email,
 			String fax, String website, String jobPositions, String jobTitle, String description, String startDate,
-			String expiryDate, List<String> formations, Long entrepriseId) {
+			String expiryDate, List<String> formations, Long entrepriseId, int candidatureCount) {
 		super();
 		this.id = id;
 		this.company = company;
@@ -46,7 +51,11 @@ public class JobOfferFormDTO {
 		this.expiryDate = expiryDate;
 		this.formations = formations;
 		this.entrepriseId = entrepriseId;
+		this.candidatureCount = candidatureCount;
 	}
+
+
+
 	
 	
 }
