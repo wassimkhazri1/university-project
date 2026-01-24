@@ -213,7 +213,7 @@ function Header() {
                       </a>
                     </li>
                     <li>
-                      <a href="/iset/esp-4c" className="dropdown-item">
+                      <a href="/iset/organigramme" className="dropdown-item">
                         Organigramme
                       </a>
                     </li>
@@ -297,17 +297,17 @@ function Header() {
                     aria-labelledby="enseignementDropdown"
                   >
                     <li>
-                      <a className="dropdown-item" href="">
+                      <a className="dropdown-item" href="/iset/lmd">
                         Reforme LMD en Tunisie
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="/iset/licence">
                         Licences
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="/iset/mastere">
                         Mastères
                       </a>
                     </li>

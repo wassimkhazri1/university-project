@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IconButton, Tooltip} from "@mui/material"; // Import manquant
+import { IconButton, Tooltip } from "@mui/material"; // Import manquant
 import { PlaylistAdd } from "@mui/icons-material";
 import "./JobCard.css"; // Importez le fichier CSS pour les styles
 import { deleteOffer } from "../../services/api";
@@ -11,17 +11,20 @@ import AutofillApplication from "../candidatures/AutofillApplication";
 const JobCard = ({ job }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
 
   const handleClick = () => {
     setIsFlipped(!isFlipped); // Inverse l'état de la carte
+    setIsExpanded(!isExpanded);
   };
   const jobid = job.id;
   console.log("This is jobId:" + jobid);
   const handleDelete = (jobid) => {
     if (window.confirm("Voulez-vous vraiment supprimer cette offre ?")) {
       console.log("Supprimer l'offre ID :", jobid);
-      deleteOffer(jobid).then(navigate("/iset/offerlist"));
+      deleteOffer(jobid).then(() => navigate("/iset/offerlist"));
+      // deleteOffer(jobid).then(navigate("/iset/offerlist"));
     }
   };
 
@@ -32,12 +35,12 @@ const JobCard = ({ job }) => {
 
   return (
     <div
-      className={`card ${isFlipped ? "flipped" : ""}`}
+      className={`card ${isFlipped ? "flipped" : ""} ${isExpanded ? "expanded" : ""}`}
       onClick={handleClick}
       role="button" // Ajout pour l'accessibilité
       tabIndex={0} // Permet de naviguer avec le clavier
       onKeyDown={(e) => e.key === "Enter" && handleClick()} // Gestion des événements clavier
-      aria-label={`Carte de ${job.company} ${job.prenom} . Cliquez pour plus de détails.`} // Description pour les lecteurs d'écran
+      aria-label={`Carte de l'offre ${job.jobTitle} chez ${job.company}. Cliquez pour plus de détails.`} // Description pour les lecteurs d'écran
     >
       <AutofillApplication
         key={job.id}
@@ -45,54 +48,56 @@ const JobCard = ({ job }) => {
         open={addModalOpen}
         onClose={() => setAddModalOpen(false)}
       />
-      <div
-        className="card-front row"
-        style={{
-          backgroundImage: `url(${plan2})`,
-        }}
-      >
-        <p className="card-info">
-          <strong>Company :</strong>
-          <h3>{job.company}</h3>
-        </p>
-        <p className="card-info">
-          <strong>Job Title :</strong>
-          <h3>{job.jobTitle}</h3>
-        </p>
+      <div className="card-front">
+        <div className="card-content">
+          <div className="card-info">
+            <strong>Company :</strong>
+            <h3>{job.company}</h3>
+          </div>
+          <div className="card-info">
+            <strong>Job Title :</strong>
+            <h3>{job.jobTitle}</h3>
+          </div>
+        </div>
       </div>
+
       <div className="card-back text-start">
-        <p className="card-info">
+        <div className="card-info">
           <strong>Email :</strong>{" "}
           <a href={`mailto:${job.email}`}>{job.email}</a>
-        </p>
-        <p className="card-info">
+        </div>
+        <div className="card-info">
           <strong>Téléphone :</strong>{" "}
           <a href={`tel:${job.phone}`}>{job.phone}</a>
-        </p>
-        <p className="card-info">
+        </div>
+        <div className="card-info">
           <strong>Job Positions :</strong>
           {job.jobPositions}
-        </p>
-        <p className="card-info">
+        </div>
+        <div className="card-info">
           <strong>Description :</strong>
           {job.description}
-        </p>
-        <p className="card-info">
+        </div>
+        <div className="card-info">
           <strong>Start Date :</strong>
           {job.startDate}
-        </p>
-        <p className="card-info">
+        </div>
+        <div className="card-info">
           <strong>Expiry Date :</strong>
           {job.expiryDate}
-        </p>
-        <p className="card-info">
+        </div>
+        <div className="card-info">
           <strong>Formations :</strong>
           {job.formations}
-        </p>
+        </div>
         <div>
-          <Tooltip title=" Poser ta candidature">
-            <IconButton onClick={() => handleOpenAddModal()} color="primary">
-              <PlaylistAdd fontSize="big" />
+          <Tooltip title="Poser ta candidature">
+            <IconButton
+              onClick={handleOpenAddModal}
+              color="primary"
+              size="large"
+            >
+              <PlaylistAdd />
             </IconButton>
           </Tooltip>
         </div>

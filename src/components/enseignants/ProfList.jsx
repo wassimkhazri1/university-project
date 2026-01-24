@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Button } from "@mui/material"; // Ajout de l'import manquant
 import AddIcon from "@mui/icons-material/Add"; // Import de l'icône
 import ProfCard from "./ProfCard";
@@ -57,7 +58,9 @@ const ProfList = () => {
           throw new Error(`Erreur HTTP : ${profsResponse.status}`);
         }
       } catch (error) {
-        setError("Erreur lors de la récupération des données.");
+        setError(
+          error.message || "Erreur lors de la récupération des données.",
+        );
         console.error("Erreur complète:", error);
       } finally {
         setLoading(false);
@@ -68,7 +71,7 @@ const ProfList = () => {
   }, []);
 
   if (loading) {
-    return <div>Chargement en cours...</div>;
+    return <CircularProgress color="primary" />;
   }
 
   if (error) {
@@ -124,10 +127,15 @@ const ProfList = () => {
           </Button>
         </div>
       )}
+      {error && (
+        <div style={{ color: "red", marginBottom: "10px" }}>{error}</div>
+      )}
       <div className="row prof-list">
-        {profs.map((prof) => (
-          <ProfCard key={prof.id} prof={prof} />
-        ))}
+        {profs.length > 0 ? (
+          profs.map((prof) => <ProfCard key={prof.id} prof={prof} />)
+        ) : (
+          <p>Aucun enseignant trouvé.</p>
+        )}
       </div>
     </div>
   );

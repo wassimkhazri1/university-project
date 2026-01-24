@@ -8,10 +8,30 @@ import ima from "../../images/ISET/articles/4c.png";
 function Espace4c() {
   return (
     // <div className="container mt-4 text-start">
-    <div className="row hero  text-start">
-      <h2 className="blue">
-        Centre de carrières et de certification de compétences
-      </h2>
+    <div className="row hero  text-start p-4">
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {" "}
+        <h1
+          className="mb-4"
+          style={{
+            color: "#0d3e5f",
+          }}
+        >
+          <em>
+            <span style={{ marginRight: "8px" }}>
+              Centre de carrières et de certification de compétences
+            </span>{" "}
+          </em>
+        </h1>
+        <hr
+          style={{
+            flexGrow: 1,
+            height: "3px",
+            backgroundColor: "#0d3e5f",
+            border: "none",
+          }}
+        />{" "}
+      </div>
       {/*
         //CreatedAndDevelopedByWassimKhazri
         //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 

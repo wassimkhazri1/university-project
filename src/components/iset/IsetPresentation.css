@@ -49,3 +49,16 @@ ul {
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/ 
 */
+
+.text-primary {
+  color: #0d3e5f !important;
+}
+
+.card-header {
+  font-size: 1.1rem;
+}
+
+.card-body ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}

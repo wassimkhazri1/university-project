@@ -1,125 +1,129 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./PresentationInfo.css";
-//CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+
 function PresentationInfo() {
   return (
-    <div className="hero text-start">
-      <h1 className="blue">Technologies de l'Informatique</h1>
-      <p>
-        <h5 className="blue">
-          Parcours : Développement des Systèmes d’Information (DSI)
-        </h5>
-        Métiers visés :
-        <lu>
-          <li>Développeur d’Applications de gestion</li>
-          <li>Développeur de sites Web et mobile</li>
-          <li>Développeur Multimédia</li>
-          <li>Développeur de bases de données</li>
-          <li>
-            Technico-commercial dans la mise en place de solutions logicielles
-          </li>
-        </lu>
-        Compétences recherchées :
-        <lu>
-          <li>
-            Participer à l’analyse et à la conception des systèmes d’information
-          </li>
-          <li>Développer une base de données</li>
-          <li>Développer des applications de gestion</li>
-          <li>Développer des sites Web</li>
-          <li>Développer des applications multimédia</li>
-          <li>Rédiger un cahier des charges logiciels</li>
-          <li>Rédiger un dossier technique</li>
-          <li>Former les utilisateurs sur leurs applications</li>
-        </lu>
-      </p>
-      <p>
-        <h5 className="blue">
-          Parcours : Réseaux et Services Informatiques (RSI)
-        </h5>
-        Métiers visés :
-        <lu>
-          <li>Administrateur réseaux</li>
-          <li>Administrateur systèmes</li>
-          <li>Architecte réseaux et systèmes de communication</li>
-        </lu>
-        Compétences recherchées :
-        <lu>
-          <li>Mettre en œuvre un réseau local</li>
-          <li>Optimiser le fonctionnement d’un réseau</li>
-          <li>Elaborer un cahier des charges technique</li>
-          <li>
-            Assurer l’installation et la configuration des ressources réseaux
-          </li>
-          <li>
-            Mettre en œuvre et utiliser des équipements informatiques
-            fonctionnant sur différents systèmes d’exploitation
-          </li>
-          <li>
-            Installer et maintenir des logiciels et des applications distribuées
-          </li>
-          <li>Mettre en œuvre une politique de sécurisation d’un réseau</li>
-        </lu>
-      </p>
-      <p>
-        <h5 className="blue">
-          Parcours : Multimédia et Développement Web (MDW)
-        </h5>
-        Métiers visés :
-        <lu>
-          <li>Webmaster développeur</li>
-          <li> Webmaster designer</li>
-          <li>Administrateur de portail web</li>
-          <li> Intégrateur de technologies web</li>
-        </lu>
-        Compétences recherchées :
-        <lu>
-          <li>Développer et intégrer des sites web dynamiques</li>
-          <li>Planifier et déployer des portails web</li>
-          <li>Personnaliser et administrer des portails web</li>
-          <li>Produire des images de synthèse</li>
-          <li>Développer et intégrer des applications multimédia</li>
-        </lu>
-      </p>
-      <p>
-        <h5 className="blue">Parcours : Systèmes Embarqués et Mobiles (SEM)</h5>
-        Métiers visés :
-        <lu>
-          <li>
-            Métiers de la Recherche et du Développement : responsabilité de
-            projets techniques (en totalité, ou en partie seulement pour des
-            projets d’envergure), conception de produit, veille technologique et
-            transfert de savoir-faire.
-          </li>
-          <li>
-            Métiers de la production : responsable d’équipes de fabrication,
-            chargé d’essais, exploitation et adaptation de tout ou partie des
-            procédés de fabrication, responsabilité d’un service méthodes.
-          </li>
-          <li>
-            Métiers en amont et en aval : chargé d’affaires (dans le cas de
-            petites et moyennes entreprises), acheteur, formateur produits.
-          </li>
-        </lu>
-        Compétences recherchées :
-        <lu>
-          <li>Développer des logiciels embarqués.</li>
-          <li>Développer des applications temps réel.</li>
-          <li>
-            Concevoir et développer des systèmes électroniques et informatiques
-            embarqués.
-          </li>
-          <li>Développer un système mobile.</li>
-          <li>Exploiter les systèmes embarqués et mobiles.</li>
-          <li>Maintenir les systèmes embarqués et mobiles.…</li>
-        </lu>
-      </p>
+    <div className="hero text-start p-4">
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {" "}
+        <h1
+          className="mb-4"
+          style={{
+            color: "#0d3e5f",
+          }}
+        >
+          <em>
+            <span style={{ marginRight: "8px" }}>
+              Technologies de l'Informatique
+            </span>{" "}
+          </em>
+        </h1>
+        <hr
+          style={{
+            flexGrow: 1,
+            height: "3px",
+            backgroundColor: "#0d3e5f",
+            border: "none",
+          }}
+        />{" "}
+      </div>
+      <div className="container">
+        {/* Parcours DSI */}
+        <section className="mb-4">
+          {/* <h4 className="text-primary"> */}
+          <h4 style={{ color: "#0d3e5f" }}>
+            Parcours : Développement des Systèmes d’Information (DSI)
+          </h4>
+          <h6 className="fw-bold mt-2">Métiers visés :</h6>
+          <ul>
+            <li>Développeur d’Applications de gestion</li>
+            <li>Développeur de sites Web et mobile</li>
+            <li>Développeur Multimédia</li>
+            <li>Développeur de bases de données</li>
+            <li>Technico-commercial en solutions logicielles</li>
+          </ul>
+          <h6 className="fw-bold mt-2">Compétences recherchées :</h6>
+          <ul>
+            <li>Analyse et conception des systèmes d’information</li>
+            <li>Développement de bases de données</li>
+            <li>Applications de gestion et multimédia</li>
+            <li>Sites Web dynamiques</li>
+            <li>Rédaction de cahier des charges et dossiers techniques</li>
+            <li>Formation des utilisateurs</li>
+          </ul>
+        </section>
+
+        {/* Parcours RSI */}
+        <section className="mb-4">
+          {/* <h4 className="text-primary"> */}
+          <h4 style={{ color: "#0d3e5f" }}>
+            Parcours : Réseaux et Services Informatiques (RSI)
+          </h4>
+          <h6 className="fw-bold mt-2">Métiers visés :</h6>
+          <ul>
+            <li>Administrateur réseaux</li>
+            <li>Administrateur systèmes</li>
+            <li>Architecte réseaux et systèmes</li>
+          </ul>
+          <h6 className="fw-bold mt-2">Compétences recherchées :</h6>
+          <ul>
+            <li>Mettre en œuvre et optimiser un réseau local</li>
+            <li>Installer et configurer des ressources réseaux</li>
+            <li>Politique de sécurisation d’un réseau</li>
+            <li>Maintenance de logiciels et applications distribuées</li>
+          </ul>
+        </section>
+
+        {/* Parcours MDW */}
+        <section className="mb-4">
+          {/* <h4 className="text-primary"> */}
+          <h4 style={{ color: "#0d3e5f" }}>
+            Parcours : Multimédia et Développement Web (MDW)
+          </h4>
+          <h6 className="fw-bold mt-2">Métiers visés :</h6>
+          <ul>
+            <li>Webmaster développeur</li>
+            <li>Webmaster designer</li>
+            <li>Administrateur de portail web</li>
+            <li>Intégrateur de technologies web</li>
+          </ul>
+          <h6 className="fw-bold mt-2">Compétences recherchées :</h6>
+          <ul>
+            <li>Développement et intégration de sites web dynamiques</li>
+            <li>Déploiement et administration de portails web</li>
+            <li>Production d’images de synthèse</li>
+            <li>Applications multimédia</li>
+          </ul>
+        </section>
+
+        {/* Parcours SEM */}
+        <section className="mb-4">
+          {/* <h4 className="text-primary"> */}
+          <h4 style={{ color: "#0d3e5f" }}>
+            Parcours : Systèmes Embarqués et Mobiles (SEM)
+          </h4>
+          <h6 className="fw-bold mt-2">Métiers visés :</h6>
+          <ul>
+            <li>
+              Responsable R&D, conception de produit, veille technologique
+            </li>
+            <li>Responsable production, essais, procédés de fabrication</li>
+            <li>Chargé d’affaires, acheteur, formateur produits</li>
+          </ul>
+          <h6 className="fw-bold mt-2">Compétences recherchées :</h6>
+          <ul>
+            <li>Développement de logiciels embarqués et temps réel</li>
+            <li>
+              Conception de systèmes électroniques et informatiques embarqués
+            </li>
+            <li>Développement de systèmes mobiles</li>
+            <li>Exploitation et maintenance des systèmes embarqués</li>
+          </ul>
+        </section>
+      </div>
     </div>
   );
 }
-//CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+
 export default PresentationInfo;

@@ -34,6 +34,9 @@ import PresentationElec from "./components/iset/départements/electrique/Present
 import PresentationMec from "./components/iset/départements/mécanique/PresentationMec";
 import PresentationEco from "./components/iset/départements/économique/PresentationEco";
 import Lmd from "./components/iset/Lmd";
+import Licence from "./components/iset/Licence";
+import Mastere from "./components/iset/Mastere";
+import Organigramme from "./components/iset/Organigramme";
 import JobOfferForm from "./components/entreprises/JobOfferForm";
 import JobList from "./components/entreprises/JobList";
 import CandidatureList from "./components/candidatures/CandidatureList";
@@ -99,7 +102,7 @@ function App() {
         <Route path="/presentationinfo" element={<PresentationInfo />} />
         <Route path="/presentationelec" element={<PresentationElec />} />
         <Route path="/presentationmec" element={<PresentationMec />} />
-        <Route path="/presentationEco" element={<PresentationEco />} />
+        <Route path="/presentationeco" element={<PresentationEco />} />
         <Route path="/iset/proflist" element={<ProfList />} />
         <Route path="/list" element={<EtudiantList />} />
         <Route path="/iset/entrepriselist" element={<EntrepriseList />} />
@@ -108,6 +111,9 @@ function App() {
         <Route path="/Etudiant" element={<EtudiantServices />} />
         <Route path="/Career" element={<CareerServices />} />
         <Route path="/iset/lmd" element={<Lmd />} />
+        <Route path="/iset/licence" element={<Licence />} />
+        <Route path="/iset/mastere" element={<Mastere />} />
+        <Route path="/iset/organigramme" element={<Organigramme />} />
         {isEntreprise && <Route path="/offre" element={<JobOfferForm />} />}
         {isEntreprise && (
           <Route path="/list-offre" element={<ListJobsByEntreprise />} />

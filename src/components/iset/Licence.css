@@ -1,0 +1,15 @@
+.text-primary {
+  color: #0d3e5f !important;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+}
+
+.card-text {
+  font-size: 0.95rem;
+}
