@@ -1,5 +1,10 @@
 package com.university.manager.Dto;
 
+import java.util.Date;
+
+import lombok.Data;
+
+@Data
 public class EntrepriseInfoDTO {
 
 	private Long id;
@@ -16,6 +21,11 @@ public class EntrepriseInfoDTO {
 	private String fax;
 	private String web;
 	private String linkedin;
+	
+	public EntrepriseInfoDTO() {
+		super();
+	}
+
 	public EntrepriseInfoDTO(Long id, String nom, String prenom, String email, String cinNumber, String telephone,
 			String matricule, String nomcompany, String owner, String rhresponsible, String adresse, String fax,
 			String web, String linkedin) {
