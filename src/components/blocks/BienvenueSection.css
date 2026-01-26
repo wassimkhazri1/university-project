@@ -1,0 +1,10 @@
+.hero1 {
+  background-image: url("../../images/ISET/etudiant.png");
+  background-size: cover; /* l'image couvre tout le bloc */
+  background-position: center; /* centrée */
+  background-repeat: no-repeat; /* évite la répétition */
+}
+.fade-in,
+.slide-up {
+  color: #0d3e5f;
+}

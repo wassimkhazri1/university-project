@@ -2,6 +2,7 @@ import { useState } from "react";
 import EtudiantHeader from "../etudiants/EtudiantHeader";
 import EnseignantHeader from "../enseignants/EnseignantHeader";
 import logo from "../../images/ISET/sigles/logo.png";
+import logo1 from "../../images/ISET/sigles/logo1.png";
 import LoginModal from "../login/LoginModal";
 import "./Header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -53,11 +54,34 @@ function Header() {
   return (
     <>
       <header className="header">
+        <div className="container-fluid">
+          <div>
+            <div
+              className="arabic text-center"
+              style={{
+                fontFamily: "Scheherazade, serif",
+                fontSize: "1.8rem",
+                direction: "rtl",
+                fontWeight: "500",
+              }}
+            >
+              المعهد العالي للدراسات التكنولوجية بجندوبة
+            </div>
+            <div
+              className="french text-center"
+              style={{ fontSize: "1rem", fontWeight: "300" }}
+            >
+              Institut supérieur des études technologiques de Jendouba
+            </div>
+          </div>
+        </div>
         <nav className="nav navbar navbar-expand-lg">
-          <div className="logo">
-            <a className="col-auto" href="/">
-              <img src={logo} alt="Logo ISET" />
-            </a>
+          <div className="container-fluid">
+            <div>
+              <a className="col-auto" href="/">
+                <img src={logo1} alt="Logo ISET" style={{ height: "70px" }} />
+              </a>
+            </div>
           </div>
           <div className="container-fluid">
             {/* Bouton toggle pour mobile */}
@@ -347,7 +371,7 @@ function Header() {
                     {role === "ROLE_ADMIN" && <AdminProfil />}
                     {role === "ROLE_ENTREPRISE" && <EntrepriseProfil />}
                     <DropdownMenu className="dropdown-navbar" tag="ul" right>
-                      <NavLink tag="li">
+                      <NavLink tag="li" className="nav-item">
                         <strong> {user.username}</strong>
                       </NavLink>
                       <NavLink tag="li">

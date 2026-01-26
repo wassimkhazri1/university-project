@@ -3,7 +3,8 @@
   /*display: flex;*/
   justify-content: space-between;
   align-items: center;
-  background-color: #74c0fc;
+  /* background-color: #74c0fc; */
+  background-color: #001f4d;
   color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -14,24 +15,34 @@
   height: 50px;
   width: auto;
 }
+.logo1 img {
+  height: 100px;
+  width: auto;
+}
 
 .nav {
   display: flex;
   align-items: center;
 }
-
 .nav a,
 .nav .dropdown-toggle,
 .nav .dropdown-item {
   color: #0d3e5f !important;
-  /* color: #3498db !important; */
   text-decoration: none;
   font-weight: bold;
   margin-left: 20px;
   transition: color 0.3s ease;
   cursor: pointer;
 }
-
+.nav a,
+.nav .dropdown-toggle {
+  color: white !important;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 20px;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
 .nav a:hover,
 .nav .dropdown-item:hover {
   color: #ffcc00 !important;
@@ -74,7 +85,7 @@
 
 .nav-link {
   font-weight: 500;
-  color: white;
+  color: white !important;
   /* color: #495057 !important; */
   padding: 0.8rem 1rem !important;
   transition: all 0.3s ease;
@@ -83,12 +94,14 @@
 
 .nav-link:hover,
 .nav-link:focus {
-  color: #2c3e50 !important;
+  /* color: #2c3e50 !important; */
+  color: white !important;
   background-color: #f8f9fa;
 }
 
 .nav-link.active {
-  color: #3498db !important;
+  /* color: #3498db !important; */
+  color: white !important;
 }
 
 /* Mega menu */
@@ -221,4 +234,28 @@
 .dropdown:hover .dropdown-menu {
   display: block;
   margin-top: 0; /* Ajuste l'espacement */
+}
+
+.institute-banner {
+  background-color: #001f4d; /* Bleu foncé */
+  color: white;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+  /* padding: 40px 20px; */
+}
+
+.institute-banner .arabic {
+  font-family: "Scheherazade", serif; /* Police arabe stylée */
+  font-size: 32px;
+  margin-bottom: 10px;
+  direction: rtl;
+}
+
+.institute-banner .french {
+  font-size: 12px;
+  font-weight: 500;
+}
+.nav-link {
+  display: inline-block; /* ou inline */
+  white-space: nowrap; /* empêche la coupure du texte */
 }

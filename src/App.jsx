@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./components/login/Login";
 // import DepartmentsSection from "./DepartmentDropdown";
 import ContactSection from "./components/blocks/ContactSection";
+import BienvenueSection from "./components/blocks/BienvenueSection";
 import ScrollToTopButton from "./components/blocks/ScrollToTopButton";
 import Block2 from "./components/blocks/Block2";
 import Header from "./components/header/Header";
@@ -147,18 +148,7 @@ function App() {
           }
         />
       </Routes>
-
-      <section className="hero">
-        <h1 className="fade-in">Bienvenue à l'ISET de Jendouba</h1>
-        <p className="slide-up">Institut Supérieur des Études Technologiques</p>
-        <button onClick={handleClick} className="cta-button">
-          En savoir plus
-        </button>
-
-        {!token && !isStudent && !isAdmin && !isProf && !isEntreprise && (
-          <Block2 />
-        )}
-      </section>
+      <BienvenueSection />
       <AboutSection />
       <ContactSection />
       <ScrollToTopButton />
