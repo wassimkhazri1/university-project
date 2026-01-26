@@ -44,26 +44,6 @@ const DocumentsAdministratifs = () => {
     setDocToDelete(id);
     setShowConfirm(true);
   };
-
-  // const handleDeleteConfirmed = async () => {
-  //   console.log("Suppression confirmée pour ID:", docToDelete);
-  //   if (!docToDelete) return; // sécurité
-
-  //   const token = localStorage.getItem("token");
-  //   try {
-  //     await axios.delete(`http://localhost:8080/api/documents/${docToDelete}`, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setFiles(files.filter((file) => file.id !== docToDelete));
-  //     setShowConfirm(false);
-  //     setDocToDelete(null);
-  //     setShowToast(true);
-  //     setTimeout(() => setShowToast(false), 3000); // 3 secondes
-  //   } catch (error) {
-  //     console.error("Erreur lors de la suppression", error);
-  //     alert("Échec de la suppression");
-  //   }
-  // };
   const [toastMessage, setToastMessage] = useState("");
   const [toastColor, setToastColor] = useState("#28a745"); // vert par défaut
 
@@ -130,7 +110,6 @@ const DocumentsAdministratifs = () => {
       .toLowerCase()
       .includes(searchTerm.toLowerCase()),
   );
-  console.log("showConfirm:", showConfirm);
   return (
     // <div className="reglement-container">
     <div className="container mt-4">

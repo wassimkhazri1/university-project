@@ -7,14 +7,18 @@ import ProfCard from "./ProfCard";
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import AddEnseignant from "./AddEnseignant";
+import "../iset/RegmentInterne.css";
 //import './ProfList.css';
 const API = "http://localhost:8080/api/professeurs";
 const ProfList = () => {
+  const roles = JSON.parse(localStorage.getItem("user")) || [];
+  const isAdmin = roles.roles?.includes("ROLE_ADMIN"); // Vérifie si ROLE_ADMIN est présent
   // Exemple de données de professeurs
   const [profs, setProfs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
   //CreatedAndDevelopedByWassimKhazri
   //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -78,8 +82,11 @@ const ProfList = () => {
     return <div className="text-danger">{error}</div>;
   }
 
-  const roles = JSON.parse(localStorage.getItem("user")) || [];
-  const isAdmin = roles.roles?.includes("ROLE_ADMIN"); // Vérifie si ROLE_ADMIN est présent
+  const filteredProfs = profs.filter((prof) =>
+    `${prof.prenom} ${prof.nom}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase()),
+  );
   return (
     <div>
       {/* Nouvelle modale d'ajout */}
@@ -130,9 +137,19 @@ const ProfList = () => {
       {error && (
         <div style={{ color: "red", marginBottom: "10px" }}>{error}</div>
       )}
+      {/* Champ de recherche */}
+      <div className="container">
+        <input
+          type="text"
+          placeholder="🔍 Rechercher un prof..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />{" "}
+      </div>
       <div className="row prof-list">
-        {profs.length > 0 ? (
-          profs.map((prof) => <ProfCard key={prof.id} prof={prof} />)
+        {filteredProfs.length > 0 ? (
+          filteredProfs.map((prof) => <ProfCard key={prof.id} prof={prof} />)
         ) : (
           <p>Aucun enseignant trouvé.</p>
         )}
