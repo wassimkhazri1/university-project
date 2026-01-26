@@ -82,7 +82,9 @@ public class WebSecurityConfig {
 				.requestMatchers("/api/matieres/**").hasAnyRole("PROF", "ADMIN").requestMatchers("/api/prof/**")
 				.hasRole("PROF").requestMatchers("/api/entreprises/**").hasAnyRole("ENTREPRISE", "ADMIN")
 				.requestMatchers(HttpMethod.DELETE, "/api/documents/**").hasRole("ADMIN")
-				.requestMatchers("/api/documents/**").permitAll().requestMatchers("/api/admin/**")
+				.requestMatchers("/api/documents/**").permitAll()
+				.requestMatchers("/api/personnes/**").permitAll()
+				.requestMatchers("/api/admin/**")
 				.hasRole("ADMIN").requestMatchers("/api/auth/signout").authenticated().anyRequest().authenticated()
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout()
 				.disable();

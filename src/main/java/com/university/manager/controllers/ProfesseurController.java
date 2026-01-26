@@ -53,6 +53,11 @@ public class ProfesseurController {
 	public List<Professeur> getAllProfesseurs() {
 		return professeurService.getAllProfesseurs();
 	}
+	
+	@GetMapping("/id/{codeId}")
+	public ResponseEntity<Professeur> getProfesseurByCodeId(@PathVariable Long codeId) {
+		return professeurRepository.findById(codeId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+	}
 
 	@PostMapping
 	public Professeur addProfesseur(@RequestBody Professeur professeur) {
