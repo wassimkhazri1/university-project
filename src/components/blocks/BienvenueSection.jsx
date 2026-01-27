@@ -29,7 +29,7 @@ function BienvenueSection() {
   return (
     <>
       {!token && !isStudent && !isAdmin && !isProf && !isEntreprise ? (
-        <section className="hero">
+        <section>
           <Block2 />
         </section>
       ) : (

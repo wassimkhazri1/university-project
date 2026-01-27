@@ -39,9 +39,6 @@ const ProfList = () => {
           navigate("/iset/login");
           return;
         }
-
-        // Log du token pour vérifier qu'il est bien récupéré
-        console.log("Token envoyé : ", token);
         const profsResponse = await fetch(API, {
           method: "GET",
           headers: {
@@ -55,7 +52,6 @@ const ProfList = () => {
           }); */
         }
         const profsData = await profsResponse.json();
-        console.log("Données reçues :", profsData);
         setProfs(profsData);
         // Vérification du statut HTTP
         if (!profsResponse.ok) {

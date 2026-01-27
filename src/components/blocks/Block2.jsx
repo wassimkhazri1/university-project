@@ -3,12 +3,17 @@ import etudiant from "../../images/ISET/etudiant.png";
 import enseignant from "../../images/ISET/enseignant.png";
 import entreprise from "../../images/ISET/entreprise.png";
 import LoginModal from "../login/LoginModal";
+import "./Block2.css";
 
 function Block2() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   return (
     <div>
-      <div id="carouselExampleCaptions" className="carousel slide">
+      <div
+        id="carouselExampleCaptions"
+        className="carousel slide"
+        data-bs-ride="carousel"
+      >
         <div className="carousel-indicators">
           <button
             type="button"
@@ -34,9 +39,15 @@ function Block2() {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src={etudiant} className="d-block w-100" alt="..." />
-            <div className="carousel-caption d-none d-md-block">
+            {/* <div className="carousel-caption d-none d-md-block"> */}
+            <div className="carousel-caption d-none d-md-block top-50 start-50 translate-middle">
               <h1>
-                <a onClick={() => setShowLoginModal(true)}>Espace étudiants</a>
+                <a
+                  onClick={() => setShowLoginModal(true)}
+                  style={{ color: "#0d3e5f" }}
+                >
+                  Espace étudiants
+                </a>
               </h1>
             </div>
           </div>
@@ -46,9 +57,13 @@ https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 */}
           <div className="carousel-item">
             <img src={enseignant} className="d-block w-100" alt="..." />
-            <div className="carousel-caption d-none d-md-block">
+            {/* <div className="carousel-caption d-none d-md-block"> */}
+            <div className="carousel-caption d-none d-md-block top-50 start-50 translate-middle">
               <h1>
-                <a onClick={() => setShowLoginModal(true)}>
+                <a
+                  onClick={() => setShowLoginModal(true)}
+                  style={{ color: "#0d3e5f" }}
+                >
                   Espace enseignants
                 </a>
               </h1>
@@ -56,9 +71,13 @@ https://www.linkedin.com/in/wassim-khazri-ab923a14b/
           </div>
           <div className="carousel-item">
             <img src={entreprise} className="d-block w-100" alt="..." />
-            <div className="carousel-caption d-none d-md-block">
+            {/* <div className="carousel-caption d-none d-md-block"> */}
+            <div className="carousel-caption d-none d-md-block top-50 start-50 translate-middle">
               <h1>
-                <a onClick={() => setShowLoginModal(true)}>
+                <a
+                  onClick={() => setShowLoginModal(true)}
+                  style={{ color: "#0d3e5f" }}
+                >
                   Espace entreprises
                 </a>
               </h1>

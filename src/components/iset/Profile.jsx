@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Grid } from "@mui/material";
 import GenererPdf from "../genererPdf/GenererPdf";
-// import plan from "../../images/ISET/plan1.png";
+import plan1 from "../../images/ISET/plan1.png";
 import plan from "../../images/ISET/plan3.jpg";
-import plan1 from "../../images/ISET/entreprise1.png";
+import plan2 from "../../images/ISET/entreprise1.png";
 import GenererPdf1 from "./GenererPdf1";
 import { getEtudiantById } from "../../services/api";
 //CreatedAndDevelopedByWassimKhazri
@@ -34,48 +35,46 @@ function Profile() {
   }, []);
   return (
     <div
-      className="row"
       style={{
-        backgroundImage: `url(${plan})`,
+        backgroundImage: `url(${plan2})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
+        maxWidth: "100%",
+        height: "auto",
       }}
     >
-      <p>
-        <strong>Bienvenue {user.username}</strong>
-      </p>
-
-      <a
-        data-mdb-dropdown-init
-        className="dropdown-toggle d-flex align-items-center hidden-arrow col-3"
-        href="#"
-        id="navbarDropdownMenuAvatar"
-        role="button"
-        aria-expanded="false"
+      <Grid
+        container
+        spacing={2}
+        style={{
+          backgroundImage: `url(/images/ISET/plan3.jpg)`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
       >
-        {photoSrc ? (
+        {/* Colonne gauche */}
+        <Grid item xs={12}>
+          <p>
+            <strong style={{ color: "#001f4d" }}>
+              Bienvenue {user.username}
+            </strong>
+          </p>
+        </Grid>
+
+        <Grid item xs={12} md={4}>
           <img
             src={photoSrc}
             alt="Profile"
-            className="rounded-circle"
-            style={{ width: "350px", height: "350px" }}
+            className="rounded-circle img-fluid"
+            style={{ maxWidth: "100%", height: "auto" }}
           />
-        ) : (
-          <img
-            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-            className="rounded-circle"
-            height="25"
-            alt="Black and White Portrait of a Man"
-            loading="lazy"
-            style={{ width: "350px", height: "350px" }}
-          />
-        )}
-      </a>
+        </Grid>
 
-      <a className="col-8" id="divdiv">
-        {isStudent && <GenererPdf1 />}
-        {/*   <GenererPdf /> */}
-      </a>
+        {/* Colonne droite */}
+        <Grid item xs={12} md={8} id="divdiv">
+          {isStudent && <GenererPdf1 />}
+        </Grid>
+      </Grid>
     </div>
   );
 }

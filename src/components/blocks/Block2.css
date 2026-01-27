@@ -1,0 +1,4 @@
+.carousel-item a:hover {
+  color: #ffcc00 !important;
+  cursor: pointer;
+}

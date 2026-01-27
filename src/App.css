@@ -18,12 +18,12 @@ body {
   font-weight: bold;
 }
 
-.hero {
+/* .hero {
   text-align: center;
   padding: 80px 20px;
   background: linear-gradient(135deg, #0077cc, #00c6ff);
   color: white;
-}
+} */
 
 .fade-in {
   animation: fadeIn 2s ease-in;

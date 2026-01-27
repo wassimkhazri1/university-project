@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import EtudiantHeader from "../etudiants/EtudiantHeader";
 import EnseignantHeader from "../enseignants/EnseignantHeader";
-import logo from "../../images/ISET/sigles/logo.png";
 import logo1 from "../../images/ISET/sigles/logo1.png";
 import LoginModal from "../login/LoginModal";
 import "./Header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-
-import { DropdownMenu, DropdownItem, NavLink } from "reactstrap";
+import {
+  UncontrolledDropdown,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavLink,
+} from "reactstrap";
 
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
@@ -22,14 +28,14 @@ import AddMatiereForm from "../admins/AddMatiereForm";
 import EntrepriseHeader from "../entreprises/EntrepriseHeader";
 import EntrepriseProfil from "../entreprises/EntrepriseProfil";
 import NotificationBell from "../NotificationBell";
+import { blue } from "@mui/material/colors";
 //import NotificationPanel from "./NotificationPanel";
 
+const API = "http://localhost:8080/api/personnes/id/";
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
-
   // Récupérer le token depuis le localStorage
   const token = localStorage.getItem("token");
-
   // Récupérer user depuis le localStorage
   const user = JSON.parse(localStorage.getItem("user")) || {};
   const roles = user.roles || [];
@@ -38,19 +44,48 @@ function Header() {
   const isAdmin = roles.includes("ROLE_ADMIN");
   const isProf = roles.includes("ROLE_PROF");
   const isStudent = roles.includes("ROLE_STUDENT");
-
   const role = roles.length > 0 ? roles[0] : null;
-
   const [addModalOpen, setAddModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   const handleOpenAddModal = () => {
     setAddModalOpen(true);
   };
-
   const [addModalOpen1, setAddModalOpen1] = useState(false);
   const handleOpenAddModal1 = () => {
     setAddModalOpen1(true);
   };
+  const [selectedPersonne, setPersonne] = useState(null);
+  useEffect(() => {
+    const fetchPersonne = async () => {
+      if (!userId || !token) {
+        setError("Utilisateur ou token manquant");
+        return;
+      }
+      try {
+        const response = await fetch(`${API}${userId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`Erreur API: ${response.status}`);
+        }
+        const data = await response.json();
+        setPersonne(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+    fetchPersonne();
+  }, [userId, token]);
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen((prev) => !prev);
   return (
     <>
       <header className="header">
@@ -363,35 +398,53 @@ function Header() {
                 </li>
               )}
               {/* Profil utilisateur ou bouton Login */}
-              <li className="nav-item dropdown" right>
+              <li className="nav-item dropdown dropdown-menu-end">
                 {token ? (
                   <>
                     {role === "ROLE_STUDENT" && <EtudiantProfil />}
                     {role === "ROLE_PROF" && <EnseignantProfil />}
                     {role === "ROLE_ADMIN" && <AdminProfil />}
                     {role === "ROLE_ENTREPRISE" && <EntrepriseProfil />}
-                    <DropdownMenu className="dropdown-navbar" tag="ul" right>
-                      <NavLink tag="li" className="nav-item">
-                        <strong> {user.username}</strong>
-                      </NavLink>
-                      <NavLink tag="li">
-                        <DropdownItem
-                          className="nav-item"
-                          href="/iset/myprofile"
-                        >
-                          Profile
-                        </DropdownItem>
-                      </NavLink>
-                      <NavLink tag="li">
-                        <DropdownItem className="nav-item" href="#">
-                          Settings
-                        </DropdownItem>
-                      </NavLink>
-                      <DropdownItem divider tag="li" />
-                      <NavLink tag="li">
-                        <Logout />
-                      </NavLink>
-                    </DropdownMenu>
+                    {/* <UncontrolledDropdown nav inNavbar> */}
+                    <Dropdown nav isOpen={dropdownOpen} toggle={toggle}>
+                      <DropdownToggle nav caret>
+                        Menu
+                      </DropdownToggle>
+                      <DropdownMenu
+                        className="dropdown-navbar dropdown-menu-end"
+                        tag="ul"
+                      >
+                        <NavLink tag="li">
+                          <strong style={{ color: "#0d3e5f" }}>
+                            {selectedPersonne ? (
+                              <>
+                                {selectedPersonne.nom} {selectedPersonne.prenom}
+                              </>
+                            ) : (
+                              "Chargement..."
+                            )}
+                          </strong>
+                        </NavLink>
+                        <NavLink tag="li">
+                          <DropdownItem
+                            className="nav-item"
+                            href="/iset/myprofile"
+                          >
+                            Profile
+                          </DropdownItem>
+                        </NavLink>
+                        <NavLink tag="li">
+                          <DropdownItem className="nav-item" href="#">
+                            Settings
+                          </DropdownItem>
+                        </NavLink>
+                        <DropdownItem divider tag="li" />
+                        <NavLink tag="li">
+                          <Logout />
+                        </NavLink>
+                      </DropdownMenu>
+                    </Dropdown>
+                    {/* </UncontrolledDropdown> */}
                   </>
                 ) : (
                   <a

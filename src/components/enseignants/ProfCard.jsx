@@ -23,10 +23,8 @@ const ProfCard = ({ prof }) => {
     setIsFlipped(!isFlipped); // Inverse l'état de la carte
   };
   const profid = prof.id;
-  console.log("This is ProfId:" + profid);
   const handleDelete = (profid) => {
     if (window.confirm("Voulez-vous vraiment supprimer cet enseignant ?")) {
-      console.log("Supprimer l'étudiant ID :", profid);
       deleteEnseignant(profid).then(navigate("/iset/proflist"));
     }
   };

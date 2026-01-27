@@ -27,21 +27,23 @@ function EtudiantProfil() {
   }, []);
 
   return (
-    <a
-      data-mdb-dropdown-init
-      className="dropdown-toggle d-flex align-items-center hidden-arrow col-auto"
-      href="#"
-      id="navbarDropdownMenuAvatar"
-      role="button"
-      aria-expanded="false"
-    >
-      <img
-        src={photoSrc}
-        alt="Profile"
-        className="rounded-circle"
-        style={{ width: "40px", height: "40px" }}
-      />
-    </a>
+    <div>
+      <a
+        data-mdb-dropdown-init
+        className="dropdown-toggle d-flex align-items-center hidden-arrow col-auto"
+        href="#"
+        id="navbarDropdownMenuAvatar"
+        role="button"
+        aria-expanded="false"
+      >
+        <img
+          src={photoSrc}
+          alt="Profile"
+          className="rounded-circle"
+          style={{ width: "40px", height: "40px" }}
+        />
+      </a>
+    </div>
   );
 }
 
