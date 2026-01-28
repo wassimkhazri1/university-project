@@ -56,6 +56,7 @@ import DocumentsAdministratifs from "./components/iset/DocumentsAdministratifs";
 import HomePage from "./components/HomePage";
 import AboutSection from "./components/blocks/AboutSection";
 import Footer from "./components/footer/Footer";
+import AdminDashboard from "./components/admins/AdminDashboard";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -129,6 +130,7 @@ function App() {
         <Route path="/polygon" element={<PolygonMenu />} />
         <Route path="/iset/documents" element={<DocumentsAdministratifs />} />
         <Route path="/absence" element={<AbsenceForm />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/homepage" element={<HomePage />} />
 
         <Route

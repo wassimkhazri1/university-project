@@ -433,6 +433,16 @@ function Header() {
                             Profile
                           </DropdownItem>
                         </NavLink>
+                        {isAdmin && (
+                          <NavLink tag="li">
+                            <DropdownItem
+                              className="nav-item"
+                              href="/admin/dashboard"
+                            >
+                              Dashboard
+                            </DropdownItem>
+                          </NavLink>
+                        )}
                         <NavLink tag="li">
                           <DropdownItem className="nav-item" href="#">
                             Settings
