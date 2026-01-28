@@ -84,6 +84,7 @@ public class WebSecurityConfig {
 				.requestMatchers(HttpMethod.DELETE, "/api/documents/**").hasRole("ADMIN")
 				.requestMatchers("/api/documents/**").permitAll()
 				.requestMatchers("/api/personnes/**").permitAll()
+				.requestMatchers("/api/absences/stats/**").hasRole("ADMIN")
 				.requestMatchers("/api/admin/**")
 				.hasRole("ADMIN").requestMatchers("/api/auth/signout").authenticated().anyRequest().authenticated()
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout()

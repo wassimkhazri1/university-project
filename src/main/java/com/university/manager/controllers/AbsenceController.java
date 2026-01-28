@@ -3,6 +3,7 @@ package com.university.manager.controllers;
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -126,6 +127,84 @@ public class AbsenceController {
             .map(this::convertToDTO)
             .collect(Collectors.toList());
     }
+    
+ 
+
+  @GetMapping("/stats/global")
+  public ResponseEntity<?> getGlobalStats() {
+      long totalAbsences = absenceRepository.count();
+      long justifiedAbsences = absenceRepository.findAll()
+              .stream().filter(Absence::isJustified).count();
+      long nonJustifiedAbsences = totalAbsences - justifiedAbsences;
+
+      return ResponseEntity.ok(
+          Map.of(
+              "totalAbsences", totalAbsences,
+              "justifiedAbsences", justifiedAbsences,
+              "nonJustifiedAbsences", nonJustifiedAbsences
+          )
+      );
+  }
+
+  @GetMapping("/stats/byMatiere")
+  public ResponseEntity<?> getAbsencesByMatiere() {
+      List<Absence> absences = absenceRepository.findAll();
+
+      Map<String, Long> stats = absences.stream()
+          .collect(Collectors.groupingBy(
+              a -> a.getMatiere().getNom(),
+              Collectors.counting()
+          ));
+
+      return ResponseEntity.ok(stats);
+  }
+
+  @GetMapping("/stats/byStudent")
+  public ResponseEntity<?> getAbsencesByStudent() {
+      List<Absence> absences = absenceRepository.findAll();
+
+      Map<String, Long> stats = absences.stream()
+          .collect(Collectors.groupingBy(
+              a -> a.getEtudiant().getNom() + " " + a.getEtudiant().getPrenom(),
+              Collectors.counting()
+          ));
+
+      return ResponseEntity.ok(stats);
+  }
+
+    
+//CreatedAndDevelopedByWassimKhazri
+//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+
+@GetMapping("/stats/byMonth/{year}")
+public ResponseEntity<?> getAbsencesByMonth(@PathVariable int year) {
+    List<Absence> absences = absenceRepository.findAll();
+
+    Map<Integer, Long> stats = absences.stream()
+        .filter(a -> a.getDate() != null && a.getDate().getYear() == year)
+        .collect(Collectors.groupingBy(
+            a -> a.getDate().getMonthValue(), // regroupe par mois
+            Collectors.counting()
+        ));
+
+    return ResponseEntity.ok(stats);
+}
+
+@GetMapping("/stats/byYear")
+public ResponseEntity<?> getAbsencesByYear() {
+    List<Absence> absences = absenceRepository.findAll();
+
+    Map<Integer, Long> stats = absences.stream()
+        .filter(a -> a.getDate() != null)
+        .collect(Collectors.groupingBy(
+            a -> a.getDate().getYear(), // regroupe par année
+            Collectors.counting()
+        ));
+
+    return ResponseEntity.ok(stats);
+}
+
+    
     
     // Convertir un RequestDTO en entité Absence
 //    private Absence convertToEntity(AbsenceRequestDTO requestDTO, Etudiant etudiant, Matiere matiere) {
