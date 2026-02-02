@@ -1,53 +1,53 @@
 :root {
-    --hex-width: 150px;
-    --hex-height: 160px;
-    --hex-spacing: 10px; /* Espace souhaité entre les hexagones */
-  }
-  /*
+  --hex-width: 150px;
+  --hex-height: 160px;
+  --hex-spacing: 10px; /* Espace souhaité entre les hexagones */
+}
+/*
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
   */
-  
-  .hex-row {
-    margin-bottom: calc(-1 * var(--hex-height) * 0.25);
-  }
-  
-  .hex-row.offset {
-    transform: translateX(calc(var(--hex-width) / 2));
-  }
-.hex-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .hex-button {
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    background-color: #5084ae;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px; /* Ajusté pour un espacement régulier */
-    width: var(--hex-width);
-    height: var(--hex-height);
-    margin : 30px;
-    /*margin: 0 calc(-1 * (var(--hex-width) / 2 + var(--hex-spacing) / 2));*/
-  }
-  .hex-button :hover {
-    color: #be2828;
-  }
-  
-  .hex-row {
-    display: flex;
-    margin-bottom: -32px; /* Ajusté pour l'empilement vertical */
-  }
-  
-  .hex-row.offset {
-    transform: translateX(calc(120px / 2 + 15px / 2)); /* 67.5px */
-  }
 
-  /*
+.hex-row {
+  margin-bottom: calc(-1 * var(--hex-height) * 0.25);
+}
+
+.hex-row.offset {
+  transform: translateX(calc(var(--hex-width) / 2));
+}
+.hex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hex-button {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background-color: #5084ae;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px; /* Ajusté pour un espacement régulier */
+  width: var(--hex-width);
+  height: var(--hex-height);
+  margin: 30px;
+  /*margin: 0 calc(-1 * (var(--hex-width) / 2 + var(--hex-spacing) / 2));*/
+}
+.hex-button :hover {
+  /* color: #be2828; */
+  color: #ffcc00;
+}
+
+.hex-row {
+  display: flex;
+  margin-bottom: -32px; /* Ajusté pour l'empilement vertical */
+}
+
+.hex-row.offset {
+  transform: translateX(calc(120px / 2 + 15px / 2)); /* 67.5px */
+}
+
+/*
 //CreatedAndDevelopedByWassimKhazri
 //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
   */
-  

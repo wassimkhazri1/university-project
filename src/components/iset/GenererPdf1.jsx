@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material"; // Ajout de l'import manquant
 import { useNavigate } from "react-router-dom"; // Pour la redirection
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -131,9 +130,10 @@ const GenererPdf1 = () => {
         }`}
         whileHover={{ scale: 1.5 }}
         onClick={path}
+        style={{ backgroundColor: "#0d3e5f" }}
       >
         <div className="text-2xl mb-1">{icon}</div>
-        <div>{label}</div>
+        <div className="text-center">{label}</div>
       </motion.div>
     );
   };
@@ -142,11 +142,6 @@ const GenererPdf1 = () => {
   return (
     <div>
       <div className="min-h-screen bg-gradient-to-br from-blue-200 to-blue-500 flex items-center justify-center p-4">
-        {/* <div
-        style={{ backgroundImage: "linear-gradient(135deg, #0077cc, #00c6ff)" }}
-        className="min-h-screen flex items-center justify-center p-4"
-      > */}
-
         <div className="hex-container">
           <div className="hexagon-menu clear">
             <div className="hexagon-item">
@@ -166,6 +161,4 @@ const GenererPdf1 = () => {
     </div>
   );
 };
-//CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 export default GenererPdf1;
