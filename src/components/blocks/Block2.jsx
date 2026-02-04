@@ -1,6 +1,6 @@
 import { useState } from "react";
 import etudiant from "../../images/ISET/etudiant.png";
-import enseignant from "../../images/ISET/enseignant.png";
+import enseignant from "../../images/ISET/enseignant1.png";
 import entreprise from "../../images/ISET/entreprise.png";
 import LoginModal from "../login/LoginModal";
 import "./Block2.css";

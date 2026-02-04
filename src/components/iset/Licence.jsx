@@ -6,7 +6,7 @@ import "./Licence.css";
 
 const Licence = () => {
   return (
-    <div className="hero text-start p-4">
+    <div className="hero hero1 text-start p-4">
       {/* Titre principal */}
       <div style={{ display: "flex", alignItems: "center" }}>
         {" "}

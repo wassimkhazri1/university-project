@@ -13,3 +13,27 @@
 .card-text {
   font-size: 0.95rem;
 }
+
+/* === Animation Hero === */
+@keyframes slideInOut {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.hero1 {
+  animation: slideInOut 6s ease-in-out infinite;
+}
