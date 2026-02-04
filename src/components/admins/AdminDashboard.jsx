@@ -181,7 +181,10 @@ function AdminDashboard() {
         <Grid item xs={12} md={4}>
           <StatCard
             title="Total Absences"
-            value={globalStats.total}
+            value={
+              (globalStats.justifiedAbsences || 0) +
+              (globalStats.nonJustifiedAbsences || 0)
+            }
             color="#0d3e5f"
             icon={<PeopleIcon color="primary" />}
           />
