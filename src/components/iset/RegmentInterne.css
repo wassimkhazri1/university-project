@@ -94,3 +94,63 @@
     opacity: 1;
   }
 }
+
+/* Couleur de fond générale très douce */
+body {
+  background-color: #f8fbff;
+}
+
+/* Effet sur les cartes */
+.hover-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(13, 62, 95, 0.1) !important;
+}
+
+/* Bouton bleu ISET */
+.btn-custom-blue {
+  background-color: #0d3e5f;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.btn-custom-blue:hover {
+  background-color: #082d45;
+}
+
+/* Icônes */
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  height: 60px;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Input style */
+.form-control:focus {
+  box-shadow: none;
+  border-color: #0d3e5f;
+}

@@ -52,7 +52,7 @@ import EntrepriseList from "./components/entreprises/EntrepriseList";
 import ListJobsByEntreprise from "./components/entreprises/ListJobsByEntreprise";
 import AbsenceForm from "./components/absence/AbsenceForm";
 import MesAbsences from "./components/etudiants/MesAbsences";
-import DocumentsAdministratifs from "./components/iset/DocumentsAdministratifs";
+import DocumentsAdministratifs from "./components/iset/DocumentsAdministratifs1";
 import HomePage from "./components/HomePage";
 import AboutSection from "./components/blocks/AboutSection";
 import Footer from "./components/footer/Footer";
