@@ -42,9 +42,6 @@ public class EntrepriseService {
 		if (roleOptional.isPresent()) {
 			Role role = roleOptional.get();
 			entreprise.getRoles().add(role);
-			System.out.println("Rôle trouvé : " + role.getName());
-		} else {
-			System.out.println("Rôle non trouvé");
 		}
 
 		String nom = entreprise.getNom();

@@ -70,9 +70,9 @@ public class NotificationService {
 
 	@Transactional
 	public void clearAllNotifications(Long userId) {
-	    notificationRepository.deleteByUserId(userId);
-		//notificationRepository.deleteByUserIdAndNotificationRead(userId);
-		//notificationRepository.deleteByUserIdAndRead(userId, false);
+		notificationRepository.deleteByUserId(userId);
+		// notificationRepository.deleteByUserIdAndNotificationRead(userId);
+		// notificationRepository.deleteByUserIdAndRead(userId, false);
 	}
 
 	public boolean isNotificationBelongsToUser(Long notificationId, Long userId) {
@@ -182,26 +182,19 @@ public class NotificationService {
 	@Transactional
 	public void sendAbsenceNotification(Absence absence) {
 		try {
-			System.out.println(absence);
-			System.out.println("\n=== DÉBUT sendAbsenceNotification ===");
-			System.out.println("Absence ID: " + absence.getId());
 
 			// Vérifier que l'absence a un étudiant
 			if (absence.getEtudiant() == null) {
 				System.err.println("❌ ERREUR: Absence sans étudiant associé!");
-				System.out.println("=== FIN sendAbsenceNotification (ÉCHEC) ===\n");
 				return;
 			}
 
 			Etudiant etudiant = absence.getEtudiant();
 			Optional<Etudiant> etudiant1 = etudiantRepository.findById(etudiant.getId());
-			System.out.println("Étudiant ID: " + etudiant.getId());
-			System.out.println("Étudiant nom: " + etudiant1.get().getNom() + " " + etudiant1.get().getPrenom());
 
 			// Vérifier que l'étudiant a un ID
 			if (etudiant.getId() == null) {
 				System.err.println("❌ ERREUR: Étudiant sans ID!");
-				System.out.println("=== FIN sendAbsenceNotification (ÉCHEC) ===\n");
 				return;
 			}
 
@@ -229,20 +222,13 @@ public class NotificationService {
 
 			String studentMessage = messageBuilder.toString();
 
-			System.out.println("Message à envoyer: " + studentMessage);
-			System.out.println("Type: ABSENCE_ADDED");
-			System.out.println("Student ID: " + etudiant.getId());
-
 			// Envoyer la notification via le contrôleur
 			sendNotification(etudiant.getId(), "ABSENCE_ADDED", studentMessage, absence.getId());
-
-			System.out.println("✅ Notification envoyée avec succès!");
-			System.out.println("=== FIN sendAbsenceNotification (SUCCÈS) ===\n");
 
 		} catch (Exception e) {
 			System.err.println("\n❌ ERREUR CRITIQUE dans sendAbsenceNotification:");
 			e.printStackTrace();
-			System.out.println("=== FIN sendAbsenceNotification (ERREUR) ===\n");
+
 		}
 	}
 
@@ -252,7 +238,6 @@ public class NotificationService {
 	@Transactional
 	public void sendAbsenceReminderNotification(Absence absence) {
 		try {
-			System.out.println("\n=== DÉBUT sendAbsenceReminderNotification ===");
 
 			if (absence.getEtudiant() == null) {
 				System.err.println("❌ Absence sans étudiant pour rappel!");
@@ -266,9 +251,6 @@ public class NotificationService {
 
 			sendNotification(absence.getEtudiant().getId(), "ABSENCE_REMINDER", message, absence.getId());
 
-			System.out.println("✅ Notification de rappel envoyée pour absenceId: " + absence.getId());
-			System.out.println("=== FIN sendAbsenceReminderNotification ===\n");
-
 		} catch (Exception e) {
 			System.err.println("❌ Erreur lors de l'envoi de la notification de rappel:");
 			e.printStackTrace();
@@ -281,7 +263,6 @@ public class NotificationService {
 	@Transactional
 	public void sendAbsenceJustifiedNotification(Absence absence, boolean isNowJustified) {
 		try {
-			System.out.println("\n=== DÉBUT sendAbsenceJustifiedNotification ===");
 
 			if (absence.getEtudiant() == null) {
 				return;
@@ -293,9 +274,6 @@ public class NotificationService {
 					(absence.getMatiere() != null) ? absence.getMatiere().getNom() : "cours", status);
 
 			sendNotification(absence.getEtudiant().getId(), "ABSENCE_JUSTIFICATION_UPDATED", message, absence.getId());
-
-			System.out.println("✅ Notification de justification envoyée pour absenceId: " + absence.getId());
-			System.out.println("=== FIN sendAbsenceJustifiedNotification ===\n");
 
 		} catch (Exception e) {
 			System.err.println("❌ Erreur lors de l'envoi de la notification de justification:");
@@ -309,11 +287,9 @@ public class NotificationService {
 	@Transactional
 	public void saveAndSendNotification(NotificationDTO notificationDTO) {
 		try {
-			System.out.println("\n=== DÉBUT saveAndSendNotification ===");
 
 			// Sauvegarder dans la base de données
 			Notification notification = saveNotification(notificationDTO);
-			System.out.println("Notification sauvegardée avec ID: " + notification.getId());
 
 			// Envoyer via WebSocket si l'utilisateur est connecté
 			if (notificationDTO.getUserId() != null) {

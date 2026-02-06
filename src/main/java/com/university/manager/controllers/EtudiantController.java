@@ -100,13 +100,6 @@ public class EtudiantController {
 
 		if (etudiantOptional.isPresent()) {
 			Etudiant etudiant = etudiantOptional.get();
-			System.out.println("*************Ancien Password****************");
-			System.out.println("Nouveau mot de passe hashé : " + etudiant.getPassword());
-			System.out.println("*****************************");
-			System.out.println("*************Nouveau Password****************");
-			System.out.println("Nouveau mot de passe non hashé : " + userDetails.getPassword());
-			System.out.println("*****************************");
-			System.out.println(encoder.matches("motDePasseTest", etudiant.getPassword()));
 			etudiant.setNom(userDetails.getNom());
 			etudiant.setPrenom(userDetails.getPrenom());
 			etudiant.setCinNumber(userDetails.getCinNumber());

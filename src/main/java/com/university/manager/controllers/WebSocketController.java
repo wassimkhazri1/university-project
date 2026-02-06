@@ -14,56 +14,54 @@ import com.university.manager.services.PendingNotificationService;
 @Controller
 public class WebSocketController {
 
-    @Autowired
-    private PendingNotificationService pendingNotificationService;
+	@Autowired
+	private PendingNotificationService pendingNotificationService;
 
-    // Quand un utilisateur se connecte via WebSocket
-    @MessageMapping("/connect")
-    @SendTo("/topic/connections")
-    public String handleConnect(SimpMessageHeaderAccessor headerAccessor) {
-        String userId = headerAccessor.getUser().getName();
-        System.out.println("Utilisateur connecté via WebSocket: " + userId);
-        
-        // Envoyer les notifications en attente
-        if (userId != null) {
-            try {
-                Long id = Long.parseLong(userId);
-                pendingNotificationService.sendPendingNotifications(id);
-            } catch (NumberFormatException e) {
-                System.err.println("ID utilisateur invalide: " + userId);
-            }
-        }
-        
-        return "User connected: " + userId;
-    }
+	// Quand un utilisateur se connecte via WebSocket
+	@MessageMapping("/connect")
+	@SendTo("/topic/connections")
+	public String handleConnect(SimpMessageHeaderAccessor headerAccessor) {
+		String userId = headerAccessor.getUser().getName();
 
-    // Marquer une notification comme lue
-    @MessageMapping("/notification/read")
-    public void handleNotificationRead(NotificationReadRequest request) {
-        System.out.println("Notification marquée comme lue: " + request.getNotificationId());
-        // Implémenter la logique de marquage comme lu ici
-    }
+		// Envoyer les notifications en attente
+		if (userId != null) {
+			try {
+				Long id = Long.parseLong(userId);
+				pendingNotificationService.sendPendingNotifications(id);
+			} catch (NumberFormatException e) {
+				System.err.println("ID utilisateur invalide: " + userId);
+			}
+		}
 
-    // Pour les tests
-//    @MessageMapping("/notification/test")
-//    @SendTo("/topic/global-notifications")
-//    public NotificationMessage sendTestNotification() {
-//        return NotificationMessage.builder()
-//                .type("TEST")
-//                .message("Ceci est une notification de test")
-//                .timestamp(new Date())
-//                .build();
-//    }
+		return "User connected: " + userId;
+	}
+
+	// Marquer une notification comme lue
+	@MessageMapping("/notification/read")
+	public void handleNotificationRead(NotificationReadRequest request) {
+	}
+
 }
 
 // Classe pour la requête de lecture
 class NotificationReadRequest {
-    private String userId;
-    private String notificationId;
-    
-    // Getters et setters
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
-    public String getNotificationId() { return notificationId; }
-    public void setNotificationId(String notificationId) { this.notificationId = notificationId; }
+	private String userId;
+	private String notificationId;
+
+	// Getters et setters
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getNotificationId() {
+		return notificationId;
+	}
+
+	public void setNotificationId(String notificationId) {
+		this.notificationId = notificationId;
+	}
 }

@@ -67,11 +67,7 @@ public class ProfesseurService {
 		if (roleOptional.isPresent()) {
 			Role role = roleOptional.get();
 			professeur.getRoles().add(role);
-			System.out.println("Rôle trouvé : " + role.getName());
-		} else {
-			System.out.println("Rôle non trouvé");
 		}
-
 		String nom = professeur.getNom();
 		String prenom = professeur.getPrenom();
 		String email = professeur.getEmail();

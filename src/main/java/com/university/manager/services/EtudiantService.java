@@ -81,9 +81,7 @@ public class EtudiantService {
 		if (roleOptional.isPresent()) {
 			Role role = roleOptional.get();
 			etudiant.getRoles().add(role);
-			System.out.println("Rôle trouvé : " + role.getName());
-		} else {
-			System.out.println("Rôle non trouvé");
+
 		}
 
 		String nom = etudiant.getNom();
@@ -122,8 +120,6 @@ public class EtudiantService {
 		etudiant.setClasse(classe);
 		etudiant.setNiveauScol(niveauScolaire);
 		etudiant.setBranche(branche);
-		System.out.println("##############Photo Etudiant#############");
-        System.out.println(etudiant.getPhoto().getBytes());
 		return etudiantRepository.save(etudiant);
 	}
 
