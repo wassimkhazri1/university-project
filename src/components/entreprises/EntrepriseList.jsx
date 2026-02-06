@@ -66,7 +66,6 @@ function EntrepriseList() {
   };
   const handleDelete = (id) => {
     if (window.confirm("Voulez-vous vraiment supprimer cette entreprise ?")) {
-      console.log("Supprimer l'entreprise ID :", id);
       deleteEntreprise(id).then(navigate("/iset/entrepriselist"));
       window.location.reload();
     }

@@ -114,22 +114,6 @@ const JobOfferForm = () => {
     }
   };
 
-  {
-    /*  const handleSubmit = (e) => {
-    e.preventDefault();
-
-        // Vérification du CAPTCHA
-        if (formData.captcha !== currentCaptcha) {
-            alert('Code CAPTCHA incorrect !');
-            setCurrentCaptcha(generateCaptcha()); // Régénère un nouveau CAPTCHA
-            return;
-          }
-
-    console.log('Form submitted:', formData);
-    // Logique d'envoi des données
-  };
-*/
-  }
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
@@ -170,7 +154,7 @@ const JobOfferForm = () => {
       setError(
         error.response?.data?.message ||
           error.message ||
-          "Erreur lors de l'ajout"
+          "Erreur lors de l'ajout",
       );
       console.error("Erreur:", error);
     } finally {

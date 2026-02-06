@@ -19,12 +19,9 @@ const JobCard = ({ job }) => {
     setIsExpanded(!isExpanded);
   };
   const jobid = job.id;
-  console.log("This is jobId:" + jobid);
   const handleDelete = (jobid) => {
     if (window.confirm("Voulez-vous vraiment supprimer cette offre ?")) {
-      console.log("Supprimer l'offre ID :", jobid);
       deleteOffer(jobid).then(() => navigate("/iset/offerlist"));
-      // deleteOffer(jobid).then(navigate("/iset/offerlist"));
     }
   };
 

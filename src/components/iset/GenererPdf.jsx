@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Pour la redirection
 import { motion } from "framer-motion";
 import axios from "axios";
-const GenererPdf1 = () => {
+const GenererPdf = () => {
   const navigate = useNavigate(); // Hook pour la navigation
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -48,7 +48,6 @@ const GenererPdf1 = () => {
       <p style={{ color: "green" }}>Attestation générée avec succès!</p>;
     } catch (error) {
       setError(error.response?.data?.message || "Erreur lors de la génération");
-      console.error("Erreur:", error);
       <p style={{ color: "red" }}>{error}</p>;
     } finally {
       setLoading(false);
@@ -101,7 +100,6 @@ const GenererPdf1 = () => {
       setError(
         error.response1?.data?.message || "Erreur lors de la génération",
       );
-      console.error("Erreur:", error);
       {
         error && <p style={{ color: "red" }}>{error}</p>;
       }
@@ -161,4 +159,4 @@ const GenererPdf1 = () => {
     </div>
   );
 };
-export default GenererPdf1;
+export default GenererPdf;

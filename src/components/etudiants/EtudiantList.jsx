@@ -71,7 +71,6 @@ function EtudiantList() {
   };
   const handleDelete = (id) => {
     if (window.confirm("Voulez-vous vraiment supprimer cet étudiant ?")) {
-      console.log("Supprimer l'étudiant ID :", id);
       deleteEtudiant(id).then(navigate("/list"));
       window.location.reload();
     }

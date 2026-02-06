@@ -10,7 +10,6 @@ api.interceptors.request.use(
     const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; // Ajoute le token dans l'en-tête
-      console.log("Token trouvé: " + token);
     } else {
       console.error("Aucun token trouvé !");
       // Vous pouvez rediriger l'utilisateur vers la page de connexion ici si nécessaire
@@ -46,7 +45,6 @@ api1.interceptors.request.use(
     const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; // Ajoute le token dans l'en-tête
-      console.log("Token trouvé: " + token);
     } else {
       console.error("Aucun token trouvé !");
       // Vous pouvez rediriger l'utilisateur vers la page de connexion ici si nécessaire
@@ -70,7 +68,6 @@ api2.interceptors.request.use(
     const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; // Ajoute le token dans l'en-tête
-      console.log("Token trouvé: " + token);
     } else {
       console.error("Aucun token trouvé !");
       // Vous pouvez rediriger l'utilisateur vers la page de connexion ici si nécessaire
@@ -130,7 +127,6 @@ api3.interceptors.request.use(
     const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; // Ajoute le token dans l'en-tête
-      console.log("Token trouvé: " + token);
     } else {
       console.error("Aucun token trouvé !");
       // Vous pouvez rediriger l'utilisateur vers la page de connexion ici si nécessaire

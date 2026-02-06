@@ -1,9 +1,9 @@
-//CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+// CreatedAndDevelopedByWassimKhazri
+// https://www.linkedin.com/in/wassim-khazri-ab923a14b/
 import React, { useEffect, useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Paper, Divider, Box } from "@mui/material";
 import { getEtudiantById } from "../../services/api";
-import GenererPdf1 from "./GenererPdf1";
+import GenererPdf from "./GenererPdf";
 
 function Profile() {
   const [photoSrc, setPhotoSrc] = useState(null);
@@ -37,43 +37,59 @@ function Profile() {
   }, [user]);
 
   return (
-    <Grid
-      container
-      spacing={2}
+    <Paper
+      elevation={4}
       sx={{
-        backgroundColor: "#f5f5f5",
-        borderRadius: 2,
+        borderRadius: 3,
         p: 3,
-        boxShadow: 3,
+        background: "linear-gradient(135deg, #f9fafb, #eef2f7)",
       }}
     >
-      {/* Colonne gauche : photo */}
-      <Grid item xs={12} md={4} sx={{ textAlign: "center" }}>
-        <img
-          src={photoSrc}
-          alt="Profile"
-          style={{
-            borderRadius: "50%",
-            width: "150px",
-            height: "150px",
-            objectFit: "cover",
-          }}
-        />
-      </Grid>
+      <Grid container spacing={3} alignItems="center">
+        {/* Colonne gauche : photo */}
+        <Grid item xs={12} md={4} sx={{ textAlign: "center" }}>
+          <Box
+            sx={{
+              display: "inline-block",
+              borderRadius: "50%",
+              overflow: "hidden",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+              transition: "transform 0.3s ease",
+              "&:hover": { transform: "scale(1.05)" },
+            }}
+          >
+            <img
+              src={photoSrc}
+              alt="Profile"
+              style={{
+                width: "150px",
+                height: "150px",
+                objectFit: "cover",
+              }}
+            />
+          </Box>
+        </Grid>
 
-      {/* Colonne droite : infos + boutons */}
-      <Grid item xs={12} md={8}>
-        <Typography variant="h6" color="primary">
-          {etudiant?.nom} {etudiant?.prenom}
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 2, color: "#001f4d" }}>
-          Bienvenue {user?.username}
-        </Typography>
+        {/* Colonne droite : infos + boutons */}
+        <Grid item xs={12} md={8}>
+          <Typography variant="h5" color="primary" fontWeight="bold">
+            {etudiant?.nom} {etudiant?.prenom}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 1, color: "#374151" }}>
+            Bienvenue <strong>{user?.username}</strong>
+          </Typography>
 
-        {/* Boutons hexagonaux */}
-        {isStudent && <GenererPdf1 />}
+          <Divider sx={{ my: 2 }} />
+
+          {/* Boutons / actions */}
+          {isStudent && (
+            <Box sx={{ mt: 2 }}>
+              <GenererPdf />
+            </Box>
+          )}
+        </Grid>
       </Grid>
-    </Grid>
+    </Paper>
   );
 }
 

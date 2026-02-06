@@ -22,7 +22,6 @@ const API_BASE_URL = "http://localhost:8080/api";
 const MATIERES_CACHE_KEY = "matieres_cache";
 
 export default function AbsenceForm({ open, onClose, studentId }) {
-  console.log("This is studant id: " + studentId);
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
     justified: false,
@@ -106,17 +105,12 @@ export default function AbsenceForm({ open, onClose, studentId }) {
     const token = localStorage.getItem("token");
     e.preventDefault();
 
-    // Vérification debug
-    console.log("Token actuel:", localStorage.getItem("token"));
-    console.log("Données envoyées:", JSON.stringify(formData, null, 2));
-
     try {
       const response = await addAbsence({
         ...formData,
         etudiant: { id: studentId }, // Format attendu par le backend
       });
 
-      console.log("Réponse du serveur:", response.data);
       setSnackbar({
         open: true,
         message: "Absence ajoutée avec succès!",

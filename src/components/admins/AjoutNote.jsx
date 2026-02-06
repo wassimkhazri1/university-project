@@ -52,15 +52,14 @@ const AjoutNote = ({ open, onClose }) => {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
         setEtudiants(
           response.data.map((etud) => ({
             value: etud.id,
             label: `${etud.matricule} - ${etud.nom} ${etud.prenom}`,
-          }))
+          })),
         );
-        console.log("This is data: " + response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des notes:", error);
       }
@@ -135,23 +134,23 @@ const AjoutNote = ({ open, onClose }) => {
   };
 
   const validate = () => {
-  const newErrors = {};
-  if (!formData.coefMoyenne) newErrors.coefMoyenne = "Ce champ est requis";
-  if (!formData.coefExamen) newErrors.coefExamen = "Ce champ est requis";
-  if (!formData.noteExamen) newErrors.noteExamen = "Ce champ est requis";
-  if (!formData.coefTd) newErrors.coefTd = "Ce champ est requis";
-  if (!formData.noteTd) newErrors.noteTd = "Ce champ est requis";
-  // if (!formData.coefMoyenne) newErrors.coefMoyenne = "Ce champ est requis";
-  // Ajoutez d'autres validations ici
-  return newErrors;
-};
+    const newErrors = {};
+    if (!formData.coefMoyenne) newErrors.coefMoyenne = "Ce champ est requis";
+    if (!formData.coefExamen) newErrors.coefExamen = "Ce champ est requis";
+    if (!formData.noteExamen) newErrors.noteExamen = "Ce champ est requis";
+    if (!formData.coefTd) newErrors.coefTd = "Ce champ est requis";
+    if (!formData.noteTd) newErrors.noteTd = "Ce champ est requis";
+    // if (!formData.coefMoyenne) newErrors.coefMoyenne = "Ce champ est requis";
+    // Ajoutez d'autres validations ici
+    return newErrors;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-      const validationErrors = validate();
-  if (Object.keys(validationErrors).length > 0) {
-    setErrors(validationErrors);
-    return;
-  }
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     try {
       const token = localStorage.getItem("token");
@@ -247,7 +246,7 @@ const AjoutNote = ({ open, onClose }) => {
     }
   };
 
-    const handleCloseSnackbar = () => {
+  const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
 
@@ -281,7 +280,7 @@ const AjoutNote = ({ open, onClose }) => {
               >
                 {etudiants
                   .filter((etud) =>
-                    etud.label.toLowerCase().includes(filter.toLowerCase())
+                    etud.label.toLowerCase().includes(filter.toLowerCase()),
                   )
                   .map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -324,8 +323,8 @@ const AjoutNote = ({ open, onClose }) => {
                   variant="outlined"
                   margin="normal"
                   required
-                error={!!errors.noteTd}
-                helperText={errors.noteTd}
+                  error={!!errors.noteTd}
+                  helperText={errors.noteTd}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -340,8 +339,8 @@ const AjoutNote = ({ open, onClose }) => {
                   variant="outlined"
                   margin="normal"
                   required
-                error={!!errors.coefTd}
-                helperText={errors.coefTd}
+                  error={!!errors.coefTd}
+                  helperText={errors.coefTd}
                 />
               </Grid>
             </Grid>
@@ -360,8 +359,8 @@ const AjoutNote = ({ open, onClose }) => {
                   variant="outlined"
                   margin="normal"
                   required
-                error={!!errors.noteExamen}
-                helperText={errors.noteExamen}
+                  error={!!errors.noteExamen}
+                  helperText={errors.noteExamen}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -376,8 +375,8 @@ const AjoutNote = ({ open, onClose }) => {
                   variant="outlined"
                   margin="normal"
                   required
-                error={!!errors.coefExamen}
-                helperText={errors.coefExamen}
+                  error={!!errors.coefExamen}
+                  helperText={errors.coefExamen}
                 />
               </Grid>
             </Grid>
@@ -400,16 +399,20 @@ const AjoutNote = ({ open, onClose }) => {
             </Grid>
           </Grid>
         </form>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity={snackbarSeverity}
+            sx={{ width: "100%" }}
+          >
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
         <Snackbar
           open={success}
           autoHideDuration={3000}

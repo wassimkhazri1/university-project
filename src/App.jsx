@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./components/login/Login";
-// import DepartmentsSection from "./DepartmentDropdown";
 import ContactSection from "./components/blocks/ContactSection";
 import BienvenueSection from "./components/blocks/BienvenueSection";
 import ScrollToTopButton from "./components/blocks/ScrollToTopButton";
@@ -154,10 +153,9 @@ function App() {
       <BienvenueSection />
       <AboutSection />
       <ContactSection />
+      <Chatbot />
       <ScrollToTopButton />
       <Footer />
-      {/* LE CHATBOT EST ICI : il flottera au-dessus du reste */}
-      <Chatbot />
     </div>
   );
 }

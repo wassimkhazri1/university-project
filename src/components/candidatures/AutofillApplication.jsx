@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import "./AutofillApplication.css";
-import axios from 'axios';
+import axios from "axios";
 import {
   Dialog,
   DialogTitle,
@@ -13,9 +13,8 @@ import {
   Alert,
 } from "@mui/material";
 
-const AutofillApplication = ({ open, onClose,job }) => {
+const AutofillApplication = ({ open, onClose, job }) => {
   const jobOfferId = job.id;
-  console.log("This is jobId ha wassim:" + jobOfferId);
   const [isDragging, setIsDragging] = useState(false);
   const [cvFile, setCvFile] = useState(null);
   const [lettreFile, setLettreFile] = useState(null);
@@ -72,59 +71,62 @@ const AutofillApplication = ({ open, onClose,job }) => {
       setFileFunction(file);
     } else {
       alert(
-        "Format de fichier non supporté. Veuillez uploader un fichier .doc, .docx, .pdf, .odt ou .rtf."
+        "Format de fichier non supporté. Veuillez uploader un fichier .doc, .docx, .pdf, .odt ou .rtf.",
       );
     }
   };
 
-const handleSubmit = async () => {
+  const handleSubmit = async () => {
     if (!cvFile) {
-        setError("Veuillez uploader votre CV");
-        return;
+      setError("Veuillez uploader votre CV");
+      return;
     }
 
     setLoading(true);
-    
+
     try {
-        const formData = new FormData();
-        formData.append("cv", cvFile);
-        formData.append("lettreMotivation", lettreFile || "");
-        formData.append("jobOfferId", jobOfferId); // Ajout de l'ID de l'offre
+      const formData = new FormData();
+      formData.append("cv", cvFile);
+      formData.append("lettreMotivation", lettreFile || "");
+      formData.append("jobOfferId", jobOfferId); // Ajout de l'ID de l'offre
 
-        const token = localStorage.getItem('token');
-        const response = await axios.post(
-            "http://localhost:8080/api/candidatures",
-            formData,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
-        );
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://localhost:8080/api/candidatures",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
 
-        setSuccess(true);
-        onClose();
+      setSuccess(true);
+      onClose();
     } catch (err) {
-        setError(err.response?.data?.message || "Erreur lors de la soumission de la candidature");
+      setError(
+        err.response?.data?.message ||
+          "Erreur lors de la soumission de la candidature",
+      );
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
+  };
 
   return (
     <>
       <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
         <DialogTitle>Poser votre candidature</DialogTitle>
-        
+
         <DialogContent dividers>
           <Grid container spacing={3}>
             {/* CV Upload Section */}
             <Grid item xs={12} md={6}>
               <p className="subtitle">Votre CV (obligatoire)</p>
               <div
-                className={`upload-area ${isDragging && activeDropZone === 'cv' ? "dragging" : ""}`}
-                onDragEnter={(e) => handleDragEnter(e, 'cv')}
+                className={`upload-area ${isDragging && activeDropZone === "cv" ? "dragging" : ""}`}
+                onDragEnter={(e) => handleDragEnter(e, "cv")}
                 onDragLeave={handleDragLeave}
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, setCvFile)}
@@ -147,7 +149,9 @@ const handleSubmit = async () => {
                   ) : (
                     <>
                       <p>Déposez votre CV ici ou cliquez pour sélectionner</p>
-                      <p className="file-types">Formats acceptés : .doc, .docx, .pdf, .odt, .rtf</p>
+                      <p className="file-types">
+                        Formats acceptés : .doc, .docx, .pdf, .odt, .rtf
+                      </p>
                     </>
                   )}
                 </label>
@@ -158,8 +162,8 @@ const handleSubmit = async () => {
             <Grid item xs={12} md={6}>
               <p className="subtitle">Lettre de motivation (optionnelle)</p>
               <div
-                className={`upload-area ${isDragging && activeDropZone === 'lettre' ? "dragging" : ""}`}
-                onDragEnter={(e) => handleDragEnter(e, 'lettre')}
+                className={`upload-area ${isDragging && activeDropZone === "lettre" ? "dragging" : ""}`}
+                onDragEnter={(e) => handleDragEnter(e, "lettre")}
                 onDragLeave={handleDragLeave}
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, setLettreFile)}
@@ -181,8 +185,12 @@ const handleSubmit = async () => {
                     </div>
                   ) : (
                     <>
-                      <p>Déposez votre lettre ici ou cliquez pour sélectionner</p>
-                      <p className="file-types">Formats acceptés : .doc, .docx, .pdf, .odt, .rtf</p>
+                      <p>
+                        Déposez votre lettre ici ou cliquez pour sélectionner
+                      </p>
+                      <p className="file-types">
+                        Formats acceptés : .doc, .docx, .pdf, .odt, .rtf
+                      </p>
                       <p className="optional">(Optionnel)</p>
                     </>
                   )}
@@ -196,23 +204,35 @@ const handleSubmit = async () => {
           <Button onClick={onClose} color="secondary">
             Annuler
           </Button>
-          <Button 
-            onClick={handleSubmit} 
+          <Button
+            onClick={handleSubmit}
             color="primary"
             variant="contained"
             disabled={loading || !cvFile}
           >
-            {loading ? <CircularProgress size={24} /> : "Soumettre la candidature"}
+            {loading ? (
+              <CircularProgress size={24} />
+            ) : (
+              "Soumettre la candidature"
+            )}
           </Button>
         </DialogActions>
       </Dialog>
 
       {/* Notifications */}
-      <Snackbar open={success} autoHideDuration={3000} onClose={() => setSuccess(false)}>
+      <Snackbar
+        open={success}
+        autoHideDuration={3000}
+        onClose={() => setSuccess(false)}
+      >
         <Alert severity="success">Candidature soumise avec succès !</Alert>
       </Snackbar>
 
-      <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError(null)}>
+      <Snackbar
+        open={!!error}
+        autoHideDuration={6000}
+        onClose={() => setError(null)}
+      >
         <Alert severity="error">{error}</Alert>
       </Snackbar>
     </>

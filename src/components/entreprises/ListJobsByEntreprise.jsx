@@ -23,10 +23,8 @@ function ListJobsByEntreprise() {
           return;
         }
 
-        console.log("Token envoyé : ", token);
         const user = JSON.parse(localStorage.getItem("user"));
         const codeId = user.id;
-        console.log("ID envoyé : ", codeId);
         const jobsResponse = await fetch(
           API + `/api/job-offers/entreprise/${codeId}`,
           {
@@ -39,7 +37,6 @@ function ListJobsByEntreprise() {
         );
 
         const jobsData = await jobsResponse.json();
-        console.log("Données reçues :", jobsData);
         setJobs(jobsData);
 
         if (!jobsResponse.ok) {

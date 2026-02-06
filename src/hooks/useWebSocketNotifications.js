@@ -17,8 +17,6 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
   const createStompClient = useCallback(() => {
     if (!userId) return null;
 
-    console.log("Creating STOMP client for user:", userId);
-
     const socket = new SockJS("http://localhost:8080/ws");
 
     const client = new Client({
@@ -33,23 +31,18 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
       debug: (str) => {
         // Filtrer les logs de heartbeat pour moins de bruit
         if (!str.includes("HEARTBEAT")) {
-          console.log("[STOMP]", str);
         }
       },
       onConnect: () => {
-        console.log("✅ WebSocket connecté pour user:", userId);
         isConnectedRef.current = true;
         reconnectAttemptsRef.current = 0; // Réinitialiser les tentatives
 
         // S'abonner aux notifications personnelles
         // const destination = `/user/${userId}/queue/notifications`;
         const destination = `/user/queue/notifications`;
-        console.log("📫 Subscribing to:", destination);
-
         client.subscribe(destination, (message) => {
           try {
             const notification = JSON.parse(message.body);
-            console.log("📨 Notification reçue:", notification);
 
             // Appeler le callback avec la nouvelle notification
             if (onNewNotification) {
@@ -62,7 +55,7 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
             console.error(
               "❌ Erreur lors du traitement de la notification:",
               error,
-              message.body
+              message.body,
             );
           }
         });
@@ -85,20 +78,15 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
         // Réessayer de se connecter
         if (reconnectAttemptsRef.current < MAX_RECONNECT_ATTEMPTS) {
           reconnectAttemptsRef.current++;
-          console.log(
-            `🔄 Tentative de reconnexion ${reconnectAttemptsRef.current}/${MAX_RECONNECT_ATTEMPTS}`
-          );
         }
       },
       onDisconnect: () => {
-        console.log("👋 WebSocket déconnecté pour user:", userId);
         isConnectedRef.current = false;
       },
       onWebSocketError: (error) => {
         console.error("🌐 Erreur WebSocket:", error);
       },
       onWebSocketClose: (event) => {
-        console.log("🔌 Connexion WebSocket fermée:", event);
         isConnectedRef.current = false;
 
         // Tentative de reconnexion intelligente
@@ -108,9 +96,6 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
 
           if (!reconnectTimeoutRef.current) {
             reconnectTimeoutRef.current = setTimeout(() => {
-              console.log(
-                `🔄 Reconnexion ${reconnectAttemptsRef.current}/${MAX_RECONNECT_ATTEMPTS} dans ${delay}ms...`
-              );
               connect();
               reconnectTimeoutRef.current = null;
             }, delay);
@@ -190,14 +175,14 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
               </div>
             </div>
           ),
-          toastOptions
+          toastOptions,
         );
         break;
 
       case "NOTE_ADDED":
         toast.success(
           `📝 ${notification.message || "Nouvelle note ajoutée"}`,
-          toastOptions
+          toastOptions,
         );
         break;
 
@@ -222,7 +207,7 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
               </div>
             </div>
           ),
-          { ...toastOptions, duration: 8000 }
+          { ...toastOptions, duration: 8000 },
         );
         break;
 
@@ -244,7 +229,7 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       if (response.ok) {
@@ -255,18 +240,12 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
           }
           showNotificationToast(notification);
         });
-        console.log(
-          `Récupéré ${pendingNotifications.length} notifications en attente`
-        );
       } else if (response.status === 401) {
-        console.log(
-          "Non authentifié, impossible de récupérer les notifications"
-        );
       }
     } catch (error) {
       console.error(
         "Erreur lors de la récupération des notifications en attente:",
-        error
+        error,
       );
     }
   }, [userId, onNewNotification]);
@@ -274,12 +253,10 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
   // Fonction pour connecter le WebSocket
   const connect = useCallback(() => {
     if (!userId) {
-      console.log("Aucun userId, connexion WebSocket annulée");
       return;
     }
 
     if (isConnectedRef.current) {
-      console.log("WebSocket déjà connecté");
       return;
     }
 
@@ -299,7 +276,6 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
 
     try {
       client.activate();
-      console.log("Connexion WebSocket initiée...");
     } catch (error) {
       console.error("Erreur lors de l'activation du client STOMP:", error);
     }
@@ -319,7 +295,6 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
     if (clientRef.current) {
       try {
         clientRef.current.deactivate();
-        console.log("WebSocket déconnecté avec succès");
       } catch (error) {
         console.error("Erreur lors de la déconnexion:", error);
       }
@@ -332,10 +307,7 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
   const deleteNotification = useCallback(
     async (notificationId) => {
       if (!userId || !clientRef.current || !isConnectedRef.current) {
-        console.log("WebSocket non connecté, envoi via HTTP");
-        // Fallback HTTP si WebSocket non disponible
       } else {
-        console.log("This is Notification Id: " + `${notificationId}`);
         try {
           const token = localStorage.getItem("token");
 
@@ -347,7 +319,7 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
-            }
+            },
           );
 
           if (!resClear.ok) {
@@ -359,16 +331,13 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
         return;
       }
     },
-    [userId]
+    [userId],
   );
   // Fonction pour envoyer une notification (ex: marquer comme lu)
   const sendNotificationRead = useCallback(
     async (notificationId) => {
       if (!userId || !clientRef.current || !isConnectedRef.current) {
-        console.log("WebSocket non connecté, envoi via HTTP");
-        // Fallback HTTP si WebSocket non disponible
       } else {
-        console.log("This is Notification Id: " + `${notificationId}`);
         try {
           const token = localStorage.getItem("token");
 
@@ -380,7 +349,7 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
-            }
+            },
           );
 
           if (!resRead.ok) {
@@ -401,13 +370,12 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
         }),
       });
     },
-    [userId]
+    [userId],
   );
 
   // Fonction pour effacer toutes les notifications
   const clearNotification = useCallback(async (userId) => {
     if (userId) {
-      // console.log('pas de notifications pour cet etudiant');
       try {
         const token = localStorage.getItem("token");
         await fetch(`http://localhost:8080/api/notifications/clear/${userId}`, {
@@ -427,9 +395,6 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
   // Fonction pour envoyer une notification de test
   const sendTestNotification = useCallback(() => {
     if (!clientRef.current || !isConnectedRef.current) {
-      console.log(
-        "WebSocket non connecté, impossible d'envoyer une notification de test"
-      );
       return;
     }
 
@@ -467,8 +432,6 @@ const useWebSocketNotifications = (userId, onNewNotification) => {
         userId &&
         !isConnectedRef.current
       ) {
-        // Reconnexion lorsque la page redevient visible
-        console.log("Page visible, reconnexion WebSocket...");
         connect();
       }
     };

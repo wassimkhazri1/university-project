@@ -29,8 +29,6 @@ const JobList = () => {
           return;
         }
 
-        // Log du token pour vérifier qu'il est bien récupéré
-        console.log("Token envoyé : ", token);
         const jobsResponse = await fetch(API, {
           method: "GET",
           headers: {
@@ -44,7 +42,6 @@ const JobList = () => {
           }); */
         }
         const jobsData = await jobsResponse.json();
-        console.log("Données reçues :", jobsData);
         setJobs(jobsData);
         // Vérification du statut HTTP
         if (!jobsResponse.ok) {

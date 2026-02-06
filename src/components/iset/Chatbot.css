@@ -1,6 +1,6 @@
 .chatbot-button {
   position: fixed;
-  bottom: 8rem;
+  bottom: 6rem;
   right: 2rem;
   background: #2563eb;
   color: white;
@@ -10,6 +10,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: transform 0.2s ease;
+  z-index: 1000;
 }
 .chatbot-button:hover {
   transform: scale(1.1);
@@ -18,8 +19,8 @@
 
 .chat-overlay {
   position: fixed;
-  bottom: 8rem;
-  right: 8rem;
+  bottom: 10rem;
+  right: 2rem;
   width: 320px;
   height: 420px;
   background: #fff;
@@ -29,6 +30,7 @@
   flex-direction: column;
   overflow: hidden;
   animation: fadeInUp 0.3s ease;
+  z-index: 1000;
 }
 
 .chat-header {

@@ -42,10 +42,10 @@ const AuthForm = () => {
       decodeURIComponent(
         escape(
           window.atob(
-            "eyJhc3NldHNVcmwiOiIiLCJhdXRoMERvbWFpbiI6ImNhbmRpZGF0ZXMtcHJvZC5ldS5hdXRoMC5jb20iLCJhdXRoMFRlbmFudCI6ImNhbmRpZGF0ZXMtcHJvZCIsImNsaWVudENvbmZpZ3VyYXRpb25CYXNlVXJsIjoiaHR0cHM6Ly9jYW5kaWRhdGVzLXByb2QuZXUuYXV0aDAuY29tLyIsImNhbGxiYWNrT25Mb2NhdGlvbkhhc2giOmZhbHNlLCJjYWxsYmFja1VSTCI6Imh0dHBzOi8vaGlyZS5pbnRlcnZpZXdlci5haS9jYWxsYmFjayIsImNkbiI6Imh0dHBzOi8vY2RuLmF1dGgwLmNvbS8iLCJjbGllbnRJRCI6InNUaHJvY0pacU9jcTYyTHpsMjBoSFgxV01Ld0w2WE82IiwiZGljdCI6eyJzaWduaW4iOnsidGl0bGUiOiJJbnRlcnZpZXdlci5BSSBGb3IgQ2FuZGlkYXRlcyJ9fSwiZXh0cmFQYXJhbXMiOnsicHJvdG9jb2wiOiJvYXV0aDIiLCJyZXNwb25zZV90eXBlIjoidG9rZW4gaWRfdG9rZW4iLCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIHJlYWQ6Y3VycmVudF91c2VyIiwiYXVkaWVuY2UiOiJodHRwczovL2NhbmRpZGF0ZXMtcHJvZC5ldS5hdXRoMC5jb20vYXBpL3YyLyIsIm5vbmNlIjoibzhwb3k3b1pWbm1UM3QzUEhBSGlTQjFRTlF1OGg4Y2kiLCJhdXRoMENsaWVudCI6ImV5SnVZVzFsSWpvaVlYVjBhREF1YW5NaUxDSjJaWEp6YVc5dUlqb2lPUzR4Tmk0eUluMD0iLCJfY3NyZiI6IkJxOVM2bHVOLW5qVUxDaVUyZ2RGYTh4bjVldTN1azVfNmg2ZyIsIl9pbnRzdGF0ZSI6ImRlcHJlY2F0ZWQiLCJzdGF0ZSI6ImhLRm8yU0JDU25WMk1WOWhlRzFpVW5ScVVuZDRWWEpsWVhkQ2MxUTBZM2hMUTNwclE2RnVwV3h2WjJsdW8zUnBaTmtnWVRSTFJrdEZWbVJrWlVjeGFsQlZiVVJIYVZCYVpHcEZabEZCVkRWdVowT2pZMmxrMlNCelZHaHliMk5LV25GUFkzRTJNa3g2YkRJd2FFaFlNVmROUzNkTU5saFBOZyJ9LCJpbnRlcm5hbE9wdGlvbnMiOnsicHJvdG9jb2wiOiJvYXV0aDIiLCJyZXNwb25zZV90eXBlIjoidG9rZW4gaWRfdG9rZW4iLCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIHJlYWQ6Y3VycmVudF91c2VyIiwiYXVkaWVuY2UiOiJodHRwczovL2NhbmRpZGF0ZXMtcHJvZC5ldS5hdXRoMC5jb20vYXBpL3YyLyIsIm5vbmNlIjoibzhwb3k3b1pWbm1UM3QzUEhBSGlTQjFRTlF1OGg4Y2kiLCJhdXRoMENsaWVudCI6ImV5SnVZVzFsSWpvaVlYVjBhREF1YW5NaUxDSjJaWEp6YVc5dUlqb2lPUzR4Tmk0eUluMD0iLCJfY3NyZiI6IkJxOVM2bHVOLW5qVUxDaVUyZ2RGYTh4bjVldTN1azVfNmg2ZyIsIl9pbnRzdGF0ZSI6ImRlcHJlY2F0ZWQiLCJzdGF0ZSI6ImhLRm8yU0JDU25WMk1WOWhlRzFpVW5ScVVuZDRWWEpsWVhkQ2MxUTBZM2hMUTNwclE2RnVwV3h2WjJsdW8zUnBaTmtnWVRSTFJrdEZWbVJrWlVjeGFsQlZiVVJIYVZCYVpHcEZabEZCVkRWdVowT2pZMmxrMlNCelZHaHliMk5LV25GUFkzRTJNa3g2YkRJd2FFaFlNVmROUzNkTU5saFBOZyJ9LCJ3aWRnZXRVcmwiOiJodHRwczovL2Nkbi5hdXRoMC5jb20vdzIvYXV0aDAtd2lkZ2V0LTUuMi5taW4uanMiLCJpc1RoaXJkUGFydHlDbGllbnQiOmZhbHNlLCJhdXRob3JpemF0aW9uU2VydmVyIjp7InVybCI6Imh0dHBzOi8vY2FuZGlkYXRlcy1wcm9kLmV1LmF1dGgwLmNvbSIsImlzc3VlciI6Imh0dHBzOi8vY2FuZGlkYXRlcy1wcm9kLmV1LmF1dGgwLmNvbS8ifSwiY29sb3JzIjp7InBhZ2VfYmFja2dyb3VuZCI6IiMwMDAwMDAiLCJwcmltYXJ5IjoiIzAwNTlkNiJ9fQ=="
-          )
-        )
-      )
+            "eyJhc3NldHNVcmwiOiIiLCJhdXRoMERvbWFpbiI6ImNhbmRpZGF0ZXMtcHJvZC5ldS5hdXRoMC5jb20iLCJhdXRoMFRlbmFudCI6ImNhbmRpZGF0ZXMtcHJvZCIsImNsaWVudENvbmZpZ3VyYXRpb25CYXNlVXJsIjoiaHR0cHM6Ly9jYW5kaWRhdGVzLXByb2QuZXUuYXV0aDAuY29tLyIsImNhbGxiYWNrT25Mb2NhdGlvbkhhc2giOmZhbHNlLCJjYWxsYmFja1VSTCI6Imh0dHBzOi8vaGlyZS5pbnRlcnZpZXdlci5haS9jYWxsYmFjayIsImNkbiI6Imh0dHBzOi8vY2RuLmF1dGgwLmNvbS8iLCJjbGllbnRJRCI6InNUaHJvY0pacU9jcTYyTHpsMjBoSFgxV01Ld0w2WE82IiwiZGljdCI6eyJzaWduaW4iOnsidGl0bGUiOiJJbnRlcnZpZXdlci5BSSBGb3IgQ2FuZGlkYXRlcyJ9fSwiZXh0cmFQYXJhbXMiOnsicHJvdG9jb2wiOiJvYXV0aDIiLCJyZXNwb25zZV90eXBlIjoidG9rZW4gaWRfdG9rZW4iLCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIHJlYWQ6Y3VycmVudF91c2VyIiwiYXVkaWVuY2UiOiJodHRwczovL2NhbmRpZGF0ZXMtcHJvZC5ldS5hdXRoMC5jb20vYXBpL3YyLyIsIm5vbmNlIjoibzhwb3k3b1pWbm1UM3QzUEhBSGlTQjFRTlF1OGg4Y2kiLCJhdXRoMENsaWVudCI6ImV5SnVZVzFsSWpvaVlYVjBhREF1YW5NaUxDSjJaWEp6YVc5dUlqb2lPUzR4Tmk0eUluMD0iLCJfY3NyZiI6IkJxOVM2bHVOLW5qVUxDaVUyZ2RGYTh4bjVldTN1azVfNmg2ZyIsIl9pbnRzdGF0ZSI6ImRlcHJlY2F0ZWQiLCJzdGF0ZSI6ImhLRm8yU0JDU25WMk1WOWhlRzFpVW5ScVVuZDRWWEpsWVhkQ2MxUTBZM2hMUTNwclE2RnVwV3h2WjJsdW8zUnBaTmtnWVRSTFJrdEZWbVJrWlVjeGFsQlZiVVJIYVZCYVpHcEZabEZCVkRWdVowT2pZMmxrMlNCelZHaHliMk5LV25GUFkzRTJNa3g2YkRJd2FFaFlNVmROUzNkTU5saFBOZyJ9LCJpbnRlcm5hbE9wdGlvbnMiOnsicHJvdG9jb2wiOiJvYXV0aDIiLCJyZXNwb25zZV90eXBlIjoidG9rZW4gaWRfdG9rZW4iLCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIHJlYWQ6Y3VycmVudF91c2VyIiwiYXVkaWVuY2UiOiJodHRwczovL2NhbmRpZGF0ZXMtcHJvZC5ldS5hdXRoMC5jb20vYXBpL3YyLyIsIm5vbmNlIjoibzhwb3k3b1pWbm1UM3QzUEhBSGlTQjFRTlF1OGg4Y2kiLCJhdXRoMENsaWVudCI6ImV5SnVZVzFsSWpvaVlYVjBhREF1YW5NaUxDSjJaWEp6YVc5dUlqb2lPUzR4Tmk0eUluMD0iLCJfY3NyZiI6IkJxOVM2bHVOLW5qVUxDaVUyZ2RGYTh4bjVldTN1azVfNmg2ZyIsIl9pbnRzdGF0ZSI6ImRlcHJlY2F0ZWQiLCJzdGF0ZSI6ImhLRm8yU0JDU25WMk1WOWhlRzFpVW5ScVVuZDRWWEpsWVhkQ2MxUTBZM2hMUTNwclE2RnVwV3h2WjJsdW8zUnBaTmtnWVRSTFJrdEZWbVJrWlVjeGFsQlZiVVJIYVZCYVpHcEZabEZCVkRWdVowT2pZMmxrMlNCelZHaHliMk5LV25GUFkzRTJNa3g2YkRJd2FFaFlNVmROUzNkTU5saFBOZyJ9LCJ3aWRnZXRVcmwiOiJodHRwczovL2Nkbi5hdXRoMC5jb20vdzIvYXV0aDAtd2lkZ2V0LTUuMi5taW4uanMiLCJpc1RoaXJkUGFydHlDbGllbnQiOmZhbHNlLCJhdXRob3JpemF0aW9uU2VydmVyIjp7InVybCI6Imh0dHBzOi8vY2FuZGlkYXRlcy1wcm9kLmV1LmF1dGgwLmNvbSIsImlzc3VlciI6Imh0dHBzOi8vY2FuZGlkYXRlcy1wcm9kLmV1LmF1dGgwLmNvbS8ifSwiY29sb3JzIjp7InBhZ2VfYmFja2dyb3VuZCI6IiMwMDAwMDAiLCJwcmltYXJ5IjoiIzAwNTlkNiJ9fQ==",
+          ),
+        ),
+      ),
     );
 
     const leeway = config.internalOptions.leeway;
@@ -67,7 +67,7 @@ const AuthForm = () => {
         redirectUri: config.callbackURL,
         responseType: "code",
       },
-      config.internalOptions
+      config.internalOptions,
     );
 
     const auth0Instance = new window.auth0.WebAuth(params);
@@ -174,7 +174,7 @@ const AuthForm = () => {
       },
       function (err) {
         if (err) displayError(err, "signup");
-      }
+      },
     );
   };
 
@@ -190,7 +190,7 @@ const AuthForm = () => {
       },
       function (err) {
         if (err) displayError(err, "login");
-      }
+      },
     );
   };
 
@@ -206,7 +206,7 @@ const AuthForm = () => {
       },
       function (err) {
         if (err) displayError(err, "signup");
-      }
+      },
     );
   };
 
@@ -231,13 +231,11 @@ const AuthForm = () => {
       },
       function (err, resp) {
         if (err) {
-          console.log(err.message);
           alert(err.message);
         } else {
-          console.log(resp);
           alert(resp);
         }
-      }
+      },
     );
   };
 

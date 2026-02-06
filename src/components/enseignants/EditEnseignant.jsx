@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Dialog,
   DialogTitle,
@@ -11,25 +11,18 @@ import {
   CircularProgress,
   Snackbar,
   Alert,
-/*  InputLabel,
-  MenuItem,
-  FormControl,
-  Select
-  */
-} from '@mui/material';
+} from "@mui/material";
 
 const EditEnseignant = ({ open, onClose, enseignant, onSave }) => {
   const [formData, setFormData] = useState({
- 
-    nom: '',
-    prenom: '',
-    email: '',
-    cinNumber: '',
-    telephone: '',
-    password: '',
-    roles: [{ id: 2, name: 'ROLE_PROF' }]
+    nom: "",
+    prenom: "",
+    email: "",
+    cinNumber: "",
+    telephone: "",
+    password: "",
+    roles: [{ id: 2, name: "ROLE_PROF" }],
     //classe: [{ id: '', nom: '' }]
-
   });
 
   const [loading, setLoading] = useState(false);
@@ -46,46 +39,46 @@ const EditEnseignant = ({ open, onClose, enseignant, onSave }) => {
     { id: 7, nom: "CLASSE G" },
     { id: 8, nom: "CLASSE H" },
     { id: 9, nom: "CLASSE I" },
-    { id: 10, nom: "CLASSE J" }
+    { id: 10, nom: "CLASSE J" },
   ]);
-//CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+  //CreatedAndDevelopedByWassimKhazri
+  //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
   useEffect(() => {
     if (enseignant) {
       setFormData({
         id: enseignant.id,
-        nom: enseignant.nom || '',
-        prenom: enseignant.prenom || '',
-        email: enseignant.email || '',
-        cinNumber: enseignant.cinNumber || '',
-        telephone: enseignant.telephone || '',
-        password:'',
-        roles: enseignant.roles || [{ id: 2, name: 'ROLE_PROF' }]
-      //  classes: enseignant.classes || [{ id: '', nom: '' }]
+        nom: enseignant.nom || "",
+        prenom: enseignant.prenom || "",
+        email: enseignant.email || "",
+        cinNumber: enseignant.cinNumber || "",
+        telephone: enseignant.telephone || "",
+        password: "",
+        roles: enseignant.roles || [{ id: 2, name: "ROLE_PROF" }],
+        //  classes: enseignant.classes || [{ id: '', nom: '' }]
       });
-      
     }
   }, [enseignant]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
+
     // Gestion des champs imbriqués
-    if (name.includes('.')) {
-      const [parent, child] = name.split('.');
-      setFormData(prev => ({
+    if (name.includes(".")) {
+      const [parent, child] = name.split(".");
+      setFormData((prev) => ({
         ...prev,
         [parent]: {
           ...prev[parent],
-          [child]: value
-        }
+          [child]: value,
+        },
       }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
- {/*  const handleSelectChange = (name, value) => {
+  {
+    /*  const handleSelectChange = (name, value) => {
     // Pour les selects d'objets (groupe, classe, etc.)
     const selectedItem = 
       name === 'classe' ? classes.find(c => c.id === value):
@@ -97,22 +90,23 @@ const EditEnseignant = ({ open, onClose, enseignant, onSave }) => {
       [name]: selectedItem
     }));
   };
-*/}
+*/
+  }
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const response = await axios.put(
         `http://localhost:8080/api/professeurs/${enseignant.id}`,
         formData, // Envoie formData tel quel, sans hachage du mot de passe
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        }
+            "Content-Type": "application/json",
+          },
+        },
       );
-    //  onSave(response.data);
+      //  onSave(response.data);
       setSuccess(true);
       onClose();
       window.location.reload();
@@ -122,14 +116,14 @@ const EditEnseignant = ({ open, onClose, enseignant, onSave }) => {
       setLoading(false);
     }
     //CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
-  };  
+    //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+  };
 
   return (
     <>
       <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
         <DialogTitle>Modifier l'enseignant</DialogTitle>
-        
+
         <DialogContent dividers>
           <Grid container spacing={2}>
             {/* Colonne 1 - Informations personnelles */}
@@ -175,16 +169,16 @@ const EditEnseignant = ({ open, onClose, enseignant, onSave }) => {
                 onChange={handleChange}
                 margin="normal"
               />
-                <TextField
+              <TextField
                 fullWidth
                 label="Password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 margin="normal"
-               // disabled
+                // disabled
               />
-   {/*           <FormControl fullWidth margin="normal">
+              {/*           <FormControl fullWidth margin="normal">
                 <InputLabel>Classe</InputLabel>
                 <Select
                   value={formData.classes}
@@ -197,8 +191,8 @@ const EditEnseignant = ({ open, onClose, enseignant, onSave }) => {
                     </MenuItem>
                   ))}
                 </Select>
-              </FormControl>   */}       
-            </Grid> 
+              </FormControl>   */}
+            </Grid>
           </Grid>
         </DialogContent>
         {/*
@@ -209,8 +203,8 @@ const EditEnseignant = ({ open, onClose, enseignant, onSave }) => {
           <Button onClick={onClose} color="secondary">
             Annuler
           </Button>
-          <Button 
-            onClick={handleSubmit} 
+          <Button
+            onClick={handleSubmit}
             color="primary"
             variant="contained"
             disabled={loading}
@@ -221,11 +215,19 @@ const EditEnseignant = ({ open, onClose, enseignant, onSave }) => {
       </Dialog>
 
       {/* Notifications */}
-      <Snackbar open={success} autoHideDuration={3000} onClose={() => setSuccess(false)}>
+      <Snackbar
+        open={success}
+        autoHideDuration={3000}
+        onClose={() => setSuccess(false)}
+      >
         <Alert severity="success">Modification réussie !</Alert>
       </Snackbar>
 
-      <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError(null)}>
+      <Snackbar
+        open={!!error}
+        autoHideDuration={6000}
+        onClose={() => setError(null)}
+      >
         <Alert severity="error">{error}</Alert>
       </Snackbar>
     </>

@@ -17,7 +17,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
   // Hook WebSocket
   const { sendNotificationRead } = useWebSocketNotifications(
     userId,
-    handleNewNotification
+    handleNewNotification,
   );
   const { deleteNotification } = useWebSocketNotifications(userId);
 
@@ -25,8 +25,6 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
 
   // Nouvelle notification reçue
   function handleNewNotification(notification) {
-    console.log("Nouvelle notification reçue:", notification);
-
     const newNotification = {
       id: notification.id || crypto.randomUUID(), // ID unique
       type: notification.type,
@@ -48,8 +46,8 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
   const handleMarkAsRead = (notificationId) => {
     setNotifications((prev) =>
       prev.map((notif) =>
-        notif.id === notificationId ? { ...notif, read: true } : notif
-      )
+        notif.id === notificationId ? { ...notif, read: true } : notif,
+      ),
     );
     setUnreadCount((prev) => Math.max(0, prev - 1));
     sendNotificationRead(notificationId);
@@ -102,7 +100,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
-          }
+          },
         );
 
         if (response.ok) {
@@ -112,14 +110,14 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
               ...notif,
               id: notif.id || crypto.randomUUID(),
               read: notif.read || false,
-            }))
+            })),
           );
           setUnreadCount(existingNotifications.filter((n) => !n.read).length);
         }
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des notifications:",
-          error
+          error,
         );
       }
     };
@@ -348,7 +346,7 @@ const NotificationBell = ({ userId, isAuthenticated, userRole }) => {
                             setOpenMenuId(
                               openMenuId === notification.id
                                 ? null
-                                : notification.id
+                                : notification.id,
                             )
                           }
                           style={{

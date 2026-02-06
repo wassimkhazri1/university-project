@@ -8,7 +8,7 @@ function Chatbot() {
   const [messages, setMessages] = useState([
     {
       role: "bot",
-      text: "👋 Bonjour ! Je suis l’assistante de l’ISET Jendouba.",
+      text: "👋 Bonjour ! Je suis l’assistant de l’ISET Jendouba.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -57,8 +57,12 @@ function Chatbot() {
         <div className="chat-overlay">
           <div className="chat-header">
             <span>Assistant ISETJ</span>
-            <button onClick={() => setIsOpen(false)}>
-              <X size={20} />
+            <button
+              onClick={() => setIsOpen(false)}
+              className="btn-close  w-8 h-8 flex items-center justify-center rounded-full hover:btn-close-white transition-colors duration-200"
+              aria-label="Fermer le chat"
+            >
+              <X size={24} className="text-white" />
             </button>
           </div>
           <div className="chat-body">
@@ -88,7 +92,7 @@ function Chatbot() {
         </div>
       )}
 
-      {/* Bouton flottant façon ScrollToTop */}
+      {/* Bouton flottant */}
       {visible && (
         <button className="chatbot-button" onClick={() => setIsOpen(true)}>
           <MessageCircle size={28} />
