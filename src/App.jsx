@@ -57,6 +57,7 @@ import HomePage from "./components/HomePage";
 import AboutSection from "./components/blocks/AboutSection";
 import Footer from "./components/footer/Footer";
 import AdminDashboard from "./components/admins/AdminDashboard";
+import Chatbot from "./components/iset/Chatbot";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -155,6 +156,8 @@ function App() {
       <ContactSection />
       <ScrollToTopButton />
       <Footer />
+      {/* LE CHATBOT EST ICI : il flottera au-dessus du reste */}
+      <Chatbot />
     </div>
   );
 }

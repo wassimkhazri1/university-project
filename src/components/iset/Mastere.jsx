@@ -1,4 +1,5 @@
 import React from "react";
+import { Hammer, Info } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Licence.css";
 //CreatedAndDevelopedByWassimKhazri
@@ -6,7 +7,7 @@ import "./Licence.css";
 
 const Mastere = () => {
   return (
-    <div className="hero text-start p-4">
+    <div className="hero hero1 text-start p-4">
       {/* Titre principal */}
       <div style={{ display: "flex", alignItems: "center" }}>
         {" "}
@@ -29,21 +30,37 @@ const Mastere = () => {
           }}
         />{" "}
       </div>
-      <div className="container">
-        {/* Section en construction */}
-        <section className="mb-5">
-          <div className="card shadow-sm border-0">
-            <div className="card-body text-center">
-              <h5 className="card-title text-primary fw-bold">
-                En cours de construction
-              </h5>
-              <p className="card-text text-muted">
-                Cette section sera bientôt disponible avec la liste complète des
-                mastères proposées par l’ISET Jendouba.
-              </p>
+      <div className="container-fluid px-md-5 mt-5">
+        {" "}
+        {/* container-fluid pour plus de largeur */}
+        <div className="row justify-content-center">
+          {/* On passe à 12 pour occuper toute la largeur sur grand écran */}
+          <div className="col-12 col-lg-12 animate-card">
+            <div className="card shadow border-0 text-center p-4 py-6 w-100">
+              <div className="card-body">
+                <Hammer
+                  size={60}
+                  color="#0d3e5f"
+                  className="mb-4 animate-hammer"
+                />
+
+                <h2 className="fw-bold mb-3 text-primary">
+                  Section en Construction
+                </h2>
+
+                <p className="text-muted fs-5 mb-4">
+                  Nous préparons la liste complète des mastères proposées par
+                  <strong> l’ISET Jendouba</strong>. Revenez très bientôt !
+                </p>
+
+                <div className="d-inline-flex align-items-center justify-content-center text-primary bg-light p-3 px-5 rounded-pill shadow-sm">
+                  <Info size={20} className="me-2" />
+                  <span className="fw-bold">Prochainement disponible</span>
+                </div>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );
