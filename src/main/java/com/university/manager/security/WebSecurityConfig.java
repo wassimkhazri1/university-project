@@ -85,6 +85,7 @@ public class WebSecurityConfig {
 				.requestMatchers("/api/documents/**").permitAll()
 				.requestMatchers("/api/personnes/**").permitAll()
 				.requestMatchers("/api/chatbot/**").permitAll()
+				.requestMatchers("/api/tickers/**").permitAll()
 				.requestMatchers("/api/absences/stats/**").hasRole("ADMIN")
 				.requestMatchers("/api/admin/**")
 				.hasRole("ADMIN").requestMatchers("/api/auth/signout").authenticated().anyRequest().authenticated()
