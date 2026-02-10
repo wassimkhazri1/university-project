@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Ignorer le fichier de configuration local ###
+application.properties 
+### Ignorer les fichiers de configuration spécifiques à l'environnement ###
+application-*.properties 
+application-*.yml
