@@ -139,3 +139,20 @@ api3.interceptors.request.use(
 );
 export const deleteEntreprise = (id) => api3.post(`/delete/${id}`);
 // export const deleteEntreprise = (id) => api3.delete(`/${id}`);
+
+// api pour les tickers
+
+const API_URL1 = axios.create({
+  baseURL: "http://localhost:8080/api/tickers",
+});
+
+const token = localStorage.getItem("token");
+export const getTickers = async () => {
+  const response = await axios.get(`${API_URL1}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};

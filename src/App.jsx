@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "./components/login/Login";
 import ContactSection from "./components/blocks/ContactSection";
 import BienvenueSection from "./components/blocks/BienvenueSection";
@@ -57,6 +57,7 @@ import AboutSection from "./components/blocks/AboutSection";
 import Footer from "./components/footer/Footer";
 import AdminDashboard from "./components/admins/AdminDashboard";
 import Chatbot from "./components/iset/Chatbot";
+import NewsTicker from "./components/header/NewsTicker";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -66,22 +67,6 @@ function App() {
   const isProf = roles.roles?.includes("ROLE_PROF"); // Vérifie si ROLE_PROF est présent
   const isStudent = roles.roles?.includes("ROLE_STUDENT"); // Vérifie si ROLE_STUDENT est présent
   const isEntreprise = roles.roles?.includes("ROLE_ENTREPRISE");
-  const navigate = useNavigate();
-  const handleClick = () => {
-    // Si vous êtes déjà sur la page d'accueil
-    const aboutElement = document.getElementById("about");
-    if (aboutElement) {
-      aboutElement.scrollIntoView({ behavior: "smooth" });
-    } else {
-      // Sinon, naviguer puis défilement
-      navigate("/");
-      // Attendre que la page soit chargée
-      setTimeout(() => {
-        const element = document.getElementById("about");
-        if (element) element.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }
-  };
 
   return (
     <div className="App">
@@ -150,6 +135,8 @@ function App() {
           }
         />
       </Routes>
+      <NewsTicker />
+      {/* <NewsTicker message={announcement} /> */}
       <BienvenueSection />
       <AboutSection />
       <ContactSection />

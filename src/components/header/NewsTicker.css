@@ -1,0 +1,58 @@
+.ticker-container {
+  /* Fixation en haut de l'écran */
+  /*position: fixed;*/
+  position: "relative";
+  top: 100;
+  left: 0;
+  width: 100%;
+  /* z-index: 9999; // Pour rester au-dessus du header et du contenu */
+
+  /* Style Visuel : Fond transparent (RGBA) */
+  background-color: rgba(0, 31, 77, 0.3); /* Ton bleu avec 85% d'opacité */
+  backdrop-filter: blur(10px); /* Flou d'arrière-plan très moderne */
+
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 12px 0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+
+  /* Bordure basse pour l'effet "ligne d'info" */
+  border-bottom: 2px solid #00d4ff; /* Un bleu plus clair pour le contraste */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.ticker-wrapper {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker-scroll 200s linear infinite;
+}
+
+.ticker-text {
+  font-size: 1rem;
+  display: inline-block;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.ticker-separator {
+  margin: 0 60px;
+  color: #00d4ff; /* Rappel de la couleur de bordure */
+  font-weight: bold;
+}
+
+/* Animation fluide */
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Pause au survol */
+.ticker-container:hover .ticker-wrapper {
+  animation-play-state: paused;
+  cursor: pointer;
+}

@@ -1,162 +1,147 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Pour la redirection
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { saveAs } from "file-saver";
+import {
+  FileText,
+  Download,
+  Loader2,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
+
 const GenererPdf = () => {
-  const navigate = useNavigate(); // Hook pour la navigation
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(null);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
+  const generatePdf = async (url, filename, method = "get", body = null) => {
     setLoading(true);
+    setSuccess("");
+    setError("");
     const userString = localStorage.getItem("user");
     if (!userString) {
       navigate("/iset/login");
       return;
     }
     try {
-      const user = JSON.parse(userString); // Conversion en objet
+      const user = JSON.parse(userString);
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Aucun token trouvé !");
-      //CreatedAndDevelopedByWassimKhazri
-      //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
-      const response = await axios.post(
-        `http://localhost:8080/api/attestationEtudiant/generate/${user.id}`,
-        user,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          responseType: "blob", // Important pour les fichiers
-        },
-      );
 
-      // Créer un URL pour le blob
-      const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+      const response = await axios({
+        method,
+        url,
+        data: body,
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "blob",
+      });
 
-      // Créer un lien temporaire et déclencher le téléchargement
-      const link = document.createElement("a");
-      link.href = fileURL;
-      link.setAttribute("download", "Attestation.pdf");
-      document.body.appendChild(link);
-      link.click();
-
-      // Nettoyer
-      link.parentNode.removeChild(link);
-      window.URL.revokeObjectURL(fileURL);
-
-      setSuccess(true);
-      <p style={{ color: "green" }}>Attestation générée avec succès!</p>;
-    } catch (error) {
-      setError(error.response?.data?.message || "Erreur lors de la génération");
-      <p style={{ color: "red" }}>{error}</p>;
+      saveAs(response.data, filename);
+      setSuccess(`${filename} téléchargé !`);
+    } catch (err) {
+      setError("Erreur de génération ❌");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSubmit1 = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const userString = localStorage.getItem("user");
-    if (!userString) {
-      navigate("/iset/login");
-      return;
-    }
-    try {
-      const user = JSON.parse(userString); // Conversion en objet
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("Aucun token trouvé !");
-      //CreatedAndDevelopedByWassimKhazri
-      //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
-      const response1 = await axios.get(
-        `http://localhost:8080/api/notes/exportpdf/${user.id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          responseType: "blob", // Important pour les fichiers
-        },
-      );
+  const userString = localStorage.getItem("user");
+  const user = userString ? JSON.parse(userString) : {};
 
-      // Créer un URL pour le blob
-      const fileURL = window.URL.createObjectURL(new Blob([response1.data]));
-
-      // Créer un lien temporaire et déclencher le téléchargement
-      const link = document.createElement("a");
-      link.href = fileURL;
-      link.setAttribute("download", "Releve.pdf");
-      document.body.appendChild(link);
-      link.click();
-
-      // Nettoyer
-      link.parentNode.removeChild(link);
-      window.URL.revokeObjectURL(fileURL);
-
-      setSuccess(true);
-      {
-        success && (
-          <p style={{ color: "green" }}>RELEVÉ DE NOTES générée avec succès!</p>
-        );
-      }
-    } catch (error) {
-      setError(
-        error.response1?.data?.message || "Erreur lors de la génération",
-      );
-      {
-        error && <p style={{ color: "red" }}>{error}</p>;
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const hexButtons = [
+  const buttons = [
     {
-      label: "Génerer l'attestation",
-      icon: <i className="fas fa-file-export"></i>,
-      path: handleSubmit,
+      label: "Attestation de présence",
+      sub: "Document officiel PDF",
+      icon: <FileText size={20} />,
+      color: "bg-indigo-600",
+      action: () =>
+        generatePdf(
+          `http://localhost:8080/api/attestationEtudiant/generate/${user.id}`,
+          "Attestation.pdf",
+          "post",
+          user,
+        ),
     },
     {
-      label: "Génerer le relevé de notes",
-      icon: <i className="fas fa-file-export"></i>,
-      path: handleSubmit1,
+      label: "Relevé de notes",
+      sub: "Notes par semestre",
+      icon: <Download size={20} />,
+      color: "bg-emerald-600",
+      action: () =>
+        generatePdf(
+          `http://localhost:8080/api/notes/exportpdf/${user.id}`,
+          "Releve_Notes.pdf",
+        ),
     },
   ];
-  const HexButton = ({ path, label, icon, active }) => {
-    return (
-      <motion.div
-        className={`hex-button text-white text-sm font-semibold flex flex-col items-center justify-center relative cursor-pointer ${
-          active ? "border-4 border-red-500" : "border-2 border-white"
-        }`}
-        whileHover={{ scale: 1.5 }}
-        onClick={path}
-        style={{ backgroundColor: "#0d3e5f" }}
-      >
-        <div className="text-2xl mb-1">{icon}</div>
-        <div className="text-center">{label}</div>
-      </motion.div>
-    );
-  };
-  //CreatedAndDevelopedByWassimKhazri
-  //https://www.linkedin.com/in/wassim-khazri-ab923a14b/
+
   return (
-    <div>
-      <div className="min-h-screen bg-gradient-to-br from-blue-200 to-blue-500 flex items-center justify-center p-4">
-        <div className="hex-container">
-          <div className="hexagon-menu clear">
-            <div className="hexagon-item">
-              <div className="hex-item">
-                {/* Première rangée */}
-                <div className="hex-row">
-                  {hexButtons.slice(0, 4).map((btn, i) => (
-                    <HexButton key={i} {...btn} />
-                  ))}
-                </div>
-              </div>
+    <div className="w-full">
+      <div className="grid grid-cols-2 gap-4 w-full">
+        {buttons.map((btn, i) => (
+          <motion.div
+            key={i}
+            whileHover={{
+              y: -4,
+              shadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+            }}
+            whileTap={{ scale: 0.98 }}
+            onClick={btn.action}
+            className="relative overflow-hidden group cursor-pointer bg-white border border-slate-100 p-4 rounded-2xl flex items-center gap-4 transition-all shadow-sm"
+          >
+            {/* Petit indicateur de couleur sur le côté */}
+            <div
+              className={`absolute left-0 top-0 bottom-0 w-1 ${btn.color}`}
+            />
+
+            <div
+              className={`${btn.color} text-white p-3 rounded-xl shadow-lg shadow-indigo-100 group-hover:scale-110 transition-transform`}
+            >
+              {btn.icon}
             </div>
+
+            <div className="flex-1">
+              <h4 className="text-sm font-bold text-slate-800">{btn.label}</h4>
+              <p className="text-[11px] text-slate-400 font-medium uppercase tracking-tight">
+                {btn.sub}
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Barre de Status élégante */}
+      <div className="mt-4 flex justify-center min-h-[30px]">
+        {loading && (
+          <div className="flex items-center gap-2 text-indigo-600 animate-pulse bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-100">
+            <Loader2 size={14} className="animate-spin" />
+            <span className="text-xs font-bold uppercase tracking-wider">
+              Traitement...
+            </span>
           </div>
-        </div>
-        <div className="pt-table desktop-768"></div>
+        )}
+        {success && (
+          <div className="flex items-center gap-2 text-emerald-700 bg-emerald-50 px-4 py-1.5 rounded-full border border-emerald-100 animate-in zoom-in">
+            <CheckCircle size={14} />
+            <span className="text-xs font-bold uppercase tracking-wider">
+              {success}
+            </span>
+          </div>
+        )}
+        {error && (
+          <div className="flex items-center gap-2 text-rose-700 bg-rose-50 px-4 py-1.5 rounded-full border border-rose-100">
+            <AlertCircle size={14} />
+            <span className="text-xs font-bold uppercase tracking-wider">
+              {error}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
 export default GenererPdf;
