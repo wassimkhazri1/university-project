@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Row, Col, Form, InputGroup } from "react-bootstrap";
+import { FaSearch } from "react-icons/fa";
 import { Visibility } from "@mui/icons-material";
 import { CircularProgress, IconButton, Tooltip } from "@mui/material";
 import DetailsAbsence from "../absence/DetailsAbsence";
 
 const MesAbsences = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [absences, setAbsences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,6 +44,9 @@ const MesAbsences = () => {
     }
   };
 
+  const filteredAbsences = absences.filter((absence) =>
+    absence.matiereNom.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
   useEffect(() => {
     fetchData();
   }, []);
@@ -62,7 +68,16 @@ const MesAbsences = () => {
 
   // Agréger les absences par matière
   const aggregated = {};
-  absences.forEach((absence) => {
+  // absences.forEach((absence) => {
+  //   if (!aggregated[absence.matiereNom]) {
+  //     aggregated[absence.matiereNom] = {
+  //       count: 0,
+  //       matiereId: absence.matiereId,
+  //     };
+  //   }
+  //   aggregated[absence.matiereNom].count += absence.count;
+  // });
+  filteredAbsences.forEach((absence) => {
     if (!aggregated[absence.matiereNom]) {
       aggregated[absence.matiereNom] = {
         count: 0,
@@ -115,57 +130,76 @@ const MesAbsences = () => {
             }}
           />{" "}
         </div>
-        <div className="table-responsive">
-          <table className="table table-striped table-bordered">
-            <thead className="thead-dark">
-              <tr>
-                <th>ID Matière</th>
-                <th>Matière</th>
-                <th>Nombre d'absences</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(aggregated).length > 0 ? (
-                Object.entries(aggregated).map(([matiereNom, data]) => {
-                  let rowClass = "";
-                  if (data.count >= 3) {
-                    rowClass = "table-danger";
-                  } else if (data.count === 2) {
-                    rowClass = "table-warning";
-                  } else if (data.count === 1) {
-                    rowClass = "table-success";
-                  }
 
-                  return (
-                    <tr key={data.matiereId} className={rowClass}>
-                      <td>{data.matiereId}</td>
-                      <td>{matiereNom}</td>
-                      <td>{data.count}</td>
-                      <td>
-                        <Tooltip title="Voir les détails">
-                          <IconButton
-                            onClick={() => handleDetails(data.matiereId)}
-                            color="primary"
-                            aria-label={`Détails des absences pour ${matiereNom}`}
-                          >
-                            <Visibility fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
+        <Row className="g-4">
+          {/* Barre de Recherche et Action Admin */}
+          <Col lg={12} className="mb-4">
+            <div className="d-flex flex-wrap gap-3 justify-content-between align-items-center bg-white p-3 shadow-sm rounded-4">
+              <InputGroup style={{ maxWidth: "400px" }}>
+                <InputGroup.Text className="bg-transparent border-end-0">
+                  <FaSearch color="#0d3e5f" />
+                </InputGroup.Text>
+                <Form.Control
+                  className="border-start-0"
+                  placeholder="Rechercher un document..."
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </InputGroup>
+            </div>
+          </Col>
+          {/* Grid des Documents */}
+          <div className="table-responsive">
+            <table className="table table-striped table-bordered">
+              <thead className="thead-dark">
                 <tr>
-                  <td colSpan="4" className="text-center">
-                    Aucune absence disponible
-                  </td>
+                  <th>ID Matière</th>
+                  <th>Matière</th>
+                  <th>Nombre d'absences</th>
+                  <th>Actions</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {Object.entries(aggregated).length > 0 ? (
+                  Object.entries(aggregated).map(([matiereNom, data]) => {
+                    let rowClass = "";
+                    if (data.count >= 3) {
+                      rowClass = "table-danger";
+                    } else if (data.count === 2) {
+                      rowClass = "table-warning";
+                    } else if (data.count === 1) {
+                      rowClass = "table-success";
+                    }
+
+                    return (
+                      <tr key={data.matiereId} className={rowClass}>
+                        <td>{data.matiereId}</td>
+                        <td>{matiereNom}</td>
+                        <td>{data.count}</td>
+                        <td>
+                          <Tooltip title="Voir les détails">
+                            <IconButton
+                              onClick={() => handleDetails(data.matiereId)}
+                              color="primary"
+                              aria-label={`Détails des absences pour ${matiereNom}`}
+                            >
+                              <Visibility fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="text-center">
+                      Aucune absence disponible
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </Row>
       </div>
     </div>
   );
