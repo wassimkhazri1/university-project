@@ -9,6 +9,8 @@ import { deleteEnseignant } from "../../services/api";
 import plan2 from "../../images/ISET/plan2.png";
 
 const ProfCard = ({ prof }) => {
+  const user = JSON.parse(localStorage.getItem("user")) || {};
+  const isAdmin = user.roles?.includes("ROLE_ADMIN");
   const [isFlipped, setIsFlipped] = useState(false);
   const [selectedEnseignant, setSelectedEnseignant] = useState(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -108,24 +110,21 @@ const ProfCard = ({ prof }) => {
           <strong>Téléphone :</strong>{" "}
           <a href={`tel:${prof.telephone}`}>{prof.telephone}</a>
         </div>
-        <div>
-          {/* Bouton Éditer */}
-          <Tooltip title="Modifier">
-            <IconButton onClick={() => handleEdit()} color="primary">
-              <Edit fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          {/*
-//CreatedAndDevelopedByWassimKhazri
-//https://www.linkedin.com/in/wassim-khazri-ab923a14b/
-    */}
-          {/* Bouton Supprimer */}
-          <Tooltip title="Supprimer">
-            <IconButton onClick={() => handleDelete(prof.id)} color="error">
-              <Delete fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </div>
+        {isAdmin && (
+          <div>
+            {/* Bouton Éditer */}
+            <Tooltip title="Modifier">
+              <IconButton onClick={() => handleEdit()} color="primary">
+                <Edit fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Supprimer">
+              <IconButton onClick={() => handleDelete(prof.id)} color="error">
+                <Delete fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </div>
+        )}
       </div>
     </div>
   );

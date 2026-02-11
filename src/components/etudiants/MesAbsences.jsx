@@ -68,15 +68,6 @@ const MesAbsences = () => {
 
   // Agréger les absences par matière
   const aggregated = {};
-  // absences.forEach((absence) => {
-  //   if (!aggregated[absence.matiereNom]) {
-  //     aggregated[absence.matiereNom] = {
-  //       count: 0,
-  //       matiereId: absence.matiereId,
-  //     };
-  //   }
-  //   aggregated[absence.matiereNom].count += absence.count;
-  // });
   filteredAbsences.forEach((absence) => {
     if (!aggregated[absence.matiereNom]) {
       aggregated[absence.matiereNom] = {
@@ -141,7 +132,7 @@ const MesAbsences = () => {
                 </InputGroup.Text>
                 <Form.Control
                   className="border-start-0"
-                  placeholder="Rechercher un document..."
+                  placeholder="Rechercher une matière..."
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </InputGroup>
