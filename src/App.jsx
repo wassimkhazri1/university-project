@@ -142,6 +142,7 @@ function App() {
       <ContactSection />
       <Chatbot />
       <ScrollToTopButton />
+
       <Footer />
     </div>
   );
