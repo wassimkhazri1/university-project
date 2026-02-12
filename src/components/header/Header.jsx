@@ -29,6 +29,7 @@ import EntrepriseHeader from "../entreprises/EntrepriseHeader";
 import EntrepriseProfil from "../entreprises/EntrepriseProfil";
 import NotificationBell from "../NotificationBell";
 import { blue } from "@mui/material/colors";
+import AjoutEvent from "../admins/AjoutEvent";
 //import NotificationPanel from "./NotificationPanel";
 
 const API = "http://localhost:8080/api/personnes/id/";
@@ -56,6 +57,10 @@ function Header() {
   const [addModalOpen1, setAddModalOpen1] = useState(false);
   const handleOpenAddModal1 = () => {
     setAddModalOpen1(true);
+  };
+  const [addModalOpen2, setAddModalOpen2] = useState(false);
+  const handleOpenAddModal2 = () => {
+    setAddModalOpen2(true);
   };
   const [selectedPersonne, setPersonne] = useState(null);
   useEffect(() => {
@@ -335,6 +340,16 @@ function Header() {
                             </a>
                           </li>
                         )}
+                        {isAdmin && (
+                          <li>
+                            <a
+                              className="dropdown-item"
+                              onClick={handleOpenAddModal2}
+                            >
+                              Ajouter Event
+                            </a>
+                          </li>
+                        )}
                       </>
                     )}
                   </ul>
@@ -475,6 +490,10 @@ function Header() {
         onClose={() => setShowLoginModal(false)}
       />
       <AjoutNote open={addModalOpen} onClose={() => setAddModalOpen(false)} />
+      <AjoutEvent
+        open={addModalOpen2}
+        onClose={() => setAddModalOpen2(false)}
+      />
       <AddMatiereForm
         open={addModalOpen1}
         onClose={() => setAddModalOpen1(false)}
