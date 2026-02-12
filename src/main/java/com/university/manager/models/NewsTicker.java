@@ -23,7 +23,7 @@ public class NewsTicker {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "message", length = 500)
+	@Column(name = "message", columnDefinition = "TEXT")
 	private String message;
 
 	@Column(name = "personne_id")
