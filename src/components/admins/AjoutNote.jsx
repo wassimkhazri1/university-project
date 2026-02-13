@@ -41,11 +41,6 @@ const AjoutNote = ({ open, onClose }) => {
     const fetchEtudiants = async () => {
       try {
         const token = localStorage.getItem("token");
-        if (!token) {
-          console.error("Aucun token trouvé !");
-          return;
-        }
-
         const response = await axios.get(
           "http://localhost:8080/api/etudiants",
           {
@@ -154,16 +149,6 @@ const AjoutNote = ({ open, onClose }) => {
 
     try {
       const token = localStorage.getItem("token");
-      //    if (!token) throw new Error("Aucun token trouvé !");
-      if (!token) {
-        Swal.fire({
-          title: "Erreur",
-          text: "Authentification requise. Veuillez vous reconnecter.",
-          icon: "error",
-          confirmButtonText: "OK",
-        });
-        return;
-      }
       // const response =
       await axios.post("http://localhost:8080/api/notes", formData, {
         headers: { Authorization: `Bearer ${token}` },
@@ -222,27 +207,6 @@ const AjoutNote = ({ open, onClose }) => {
       setSnackbarMessage(`${errorMessage}`);
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
-
-      // Swal.fire({
-      //   title: "Erreur",
-      //   html: `
-      //     <div>
-      //       <p>${errorMessage}</p>
-      //       ${
-      //         error.response?.data?.details
-      //           ? `<ul>
-      //           ${error.response.data.details
-      //             .map((d) => `<li>${d}</li>`)
-      //             .join("")}
-      //         </ul>`
-      //           : ""
-      //       }
-      //     </div>
-      //   `,
-      //   icon: "error",
-      //   confirmButtonText: "OK",
-      // });
-      // onClose();
     }
   };
 

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./components/login/Login";
 import ContactSection from "./components/blocks/ContactSection";
 import BienvenueSection from "./components/blocks/BienvenueSection";
@@ -58,20 +57,35 @@ import Footer from "./components/footer/Footer";
 import AdminDashboard from "./components/admins/AdminDashboard";
 import Chatbot from "./components/iset/Chatbot";
 import NewsTicker from "./components/header/NewsTicker";
+import AdmDashboard from "./components/iset/AdmDashboard";
 
 function App() {
+  const location = useLocation();
   const token = localStorage.getItem("token");
   const roles = JSON.parse(localStorage.getItem("user")) || [];
   const role = roles.roles;
-  const isAdmin = roles.roles?.includes("ROLE_ADMIN"); // Vérifie si ROLE_ADMIN est présent
-  const isProf = roles.roles?.includes("ROLE_PROF"); // Vérifie si ROLE_PROF est présent
-  const isStudent = roles.roles?.includes("ROLE_STUDENT"); // Vérifie si ROLE_STUDENT est présent
-  const isEntreprise = roles.roles?.includes("ROLE_ENTREPRISE");
+  const isAdmin = role?.includes("ROLE_ADMIN"); // Vérifie si ROLE_ADMIN est présent
+  const isProf = role?.includes("ROLE_PROF"); // Vérifie si ROLE_PROF est présent
+  const isStudent = role?.includes("ROLE_STUDENT"); // Vérifie si ROLE_STUDENT est présent
+  const isEntreprise = role?.includes("ROLE_ENTREPRISE");
+
+  const isHomePage = location.pathname === "/";
 
   return (
     <div className="App">
       <Header />
+      <NewsTicker />
       <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <BienvenueSection />
+              <AboutSection />
+              <ContactSection />
+            </>
+          }
+        />
         <Route path="/iset/login" element={<Login />} />
         <Route path="/attestation" element={<AttestationForm />} />
         <Route path="/pdf" element={<VoiceCommandPdf />} />
@@ -81,8 +95,10 @@ function App() {
         <Route path="/iset/block2" element={<Block2 />} />
         <Route path="/iset/account" element={<AccountDropdown />} />
         <Route path="/iset/enseignant" element={<EnseignantHeader />} />
-        <Route path="/iset/entreprise" element={<EntrepriseHeader />} />
-        <Route path="/iset/login" element={<Login />} />
+        {/* <Route path="/iset/entreprise" element={<EntrepriseHeader />} /> */}
+        <Route path="/iset/admin" element={<AdmDashboard />} />
+        <Route path="/iset/entreprise" element={<AdmDashboard />} />
+        <Route path="/iset/etudiant" element={<AdmDashboard />} />
         <Route path="/iset/langue" element={<Language />} />
 
         <Route path="/iset/myprofile" element={<Profile />} />
@@ -117,6 +133,7 @@ function App() {
         <Route path="/absence" element={<AbsenceForm />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/homepage" element={<HomePage />} />
+        <Route path="/iset/dash" element={<AdmDashboard />} />
 
         <Route
           path="/iset/mesnotes"
@@ -135,14 +152,8 @@ function App() {
           }
         />
       </Routes>
-      <NewsTicker />
-      {/* <NewsTicker message={announcement} /> */}
-      <BienvenueSection />
-      <AboutSection />
-      <ContactSection />
       <Chatbot />
       <ScrollToTopButton />
-
       <Footer />
     </div>
   );

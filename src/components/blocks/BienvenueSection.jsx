@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import Block2 from "../../components/blocks/Block2";
 import "./BienvenueSection.css";

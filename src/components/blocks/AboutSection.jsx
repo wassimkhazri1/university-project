@@ -1,5 +1,3 @@
-import React from "react";
-import logo from "../../images/ISET/etudiant.png"; // ou une autre image de l'ISET
 import "./AboutSection.css";
 import Block3 from "./Block3";
 

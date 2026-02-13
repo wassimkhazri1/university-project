@@ -17,7 +17,7 @@ import {
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 const AjoutEvent = ({ open, onClose }) => {
-  const user = JSON.parse(localStorage.getItem("user")) || {};
+  const user = JSON.parse(localStorage.getItem("user")) || "{}";
   const userId = user.id || null;
   const [formData, setFormData] = useState({
     message: "",
@@ -58,15 +58,6 @@ const AjoutEvent = ({ open, onClose }) => {
 
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        Swal.fire({
-          title: "Erreur",
-          text: "Authentification requise. Veuillez vous reconnecter.",
-          icon: "error",
-          confirmButtonText: "OK",
-        });
-        return;
-      }
       // const response =
       await axios.post("http://localhost:8080/api/tickers", formData, {
         headers: { Authorization: `Bearer ${token}` },

@@ -18,13 +18,6 @@ body {
   font-weight: bold;
 }
 
-/* .hero {
-  text-align: center;
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #0077cc, #00c6ff);
-  color: white;
-} */
-
 .fade-in {
   animation: fadeIn 2s ease-in;
 }
@@ -110,3 +103,5 @@ body {
   height: 50px;
   width: auto;
 }
+
+/* Modifie ou ajoute ceci dans App.css */

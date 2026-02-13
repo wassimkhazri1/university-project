@@ -58,10 +58,6 @@ function Header() {
   const handleOpenAddModal1 = () => {
     setAddModalOpen1(true);
   };
-  const [addModalOpen2, setAddModalOpen2] = useState(false);
-  const handleOpenAddModal2 = () => {
-    setAddModalOpen2(true);
-  };
   const [selectedPersonne, setPersonne] = useState(null);
   useEffect(() => {
     const fetchPersonne = async () => {
@@ -143,12 +139,12 @@ function Header() {
             >
               <ul className="navbar-nav ms-auto ">
                 <li className="nav-item active">
-                  <a href="#about" className="nav-link">
+                  <a href="/#about" className="nav-link">
                     À propos
                   </a>
                 </li>
                 <li className="nav-item active">
-                  <a href="#contact" className="nav-link">
+                  <a href="/#contact" className="nav-link">
                     Contact
                   </a>
                 </li>
@@ -324,29 +320,9 @@ function Header() {
                           <li>
                             <a
                               className="dropdown-item"
-                              onClick={handleOpenAddModal1}
-                            >
-                              Ajouter Matiere
-                            </a>
-                          </li>
-                        )}
-                        {isAdmin && (
-                          <li>
-                            <a
-                              className="dropdown-item"
                               onClick={handleOpenAddModal}
                             >
                               Ajouter Note
-                            </a>
-                          </li>
-                        )}
-                        {isAdmin && (
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              onClick={handleOpenAddModal2}
-                            >
-                              Ajouter Event
                             </a>
                           </li>
                         )}
@@ -441,23 +417,11 @@ function Header() {
                           </strong>
                         </NavLink>
                         <NavLink tag="li">
-                          <DropdownItem
-                            className="nav-item"
-                            href="/iset/myprofile"
-                          >
-                            Profile
+                          <DropdownItem className="nav-item" href="/iset/dash">
+                            Dashboard
                           </DropdownItem>
                         </NavLink>
-                        {isAdmin && (
-                          <NavLink tag="li">
-                            <DropdownItem
-                              className="nav-item"
-                              href="/admin/dashboard"
-                            >
-                              Dashboard
-                            </DropdownItem>
-                          </NavLink>
-                        )}
+
                         <NavLink tag="li">
                           <DropdownItem className="nav-item" href="#">
                             Settings
@@ -489,15 +453,9 @@ function Header() {
         show={showLoginModal}
         onClose={() => setShowLoginModal(false)}
       />
-      <AjoutNote open={addModalOpen} onClose={() => setAddModalOpen(false)} />
-      <AjoutEvent
-        open={addModalOpen2}
-        onClose={() => setAddModalOpen2(false)}
-      />
-      <AddMatiereForm
-        open={addModalOpen1}
-        onClose={() => setAddModalOpen1(false)}
-      />
+      {isAdmin && (
+        <AjoutNote open={addModalOpen} onClose={() => setAddModalOpen(false)} />
+      )}
     </>
   );
 }
