@@ -58,6 +58,7 @@ import AdminDashboard from "./components/admins/AdminDashboard";
 import Chatbot from "./components/iset/Chatbot";
 import NewsTicker from "./components/header/NewsTicker";
 import AdmDashboard from "./components/iset/AdmDashboard";
+import Whatsapp from "./components/iset/Whatsapp";
 
 function App() {
   const location = useLocation();
@@ -152,6 +153,7 @@ function App() {
           }
         />
       </Routes>
+      <Whatsapp />
       <Chatbot />
       <ScrollToTopButton />
       <Footer />
