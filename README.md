@@ -57,5 +57,7 @@ cd university-project
 #    spring.datasource.username=VOTRE_USER
 #    spring.datasource.password=VOTRE_PASSWORD
 
+## 🎨 Frontend
+Le frontend React est disponible sur la branche [`frontend`](https://github.com/wassimkhazri1/university-project/tree/frontend).
 # 3. Lancer l'application
 ./mvnw spring-boot:run
