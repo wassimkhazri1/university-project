@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# 🎨 University Manager — Frontend React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Interface utilisateur de l'application **University Manager**, développée avec **React** (Create React App) et connectée à l'API REST Spring Boot.
 
-## Available Scripts
+> Partie du projet full-stack **University Manager** par [Wassim Khazri](https://github.com/wassimkhazri1)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## ✨ Fonctionnalités
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 🔐 Authentification JWT (login, gestion du token)
+- 👨‍🎓 Interface de gestion des étudiants (liste, création, édition, suppression)
+- 📊 Saisie et consultation des notes
+- 📅 Suivi des absences
+- 📄 Téléchargement des attestations PDF
+- 📈 Export Excel depuis l'interface
+- 💬 Chat temps réel (WebSocket + STOMP + SockJS)
+- 🤖 Interface du chatbot IA
+- 📰 NewsTicker pour les annonces
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Stack technique
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Élément | Techno |
+|---|---|
+| Framework | React |
+| Bootstrap | Create React App |
+| Langage | JavaScript (ES6+) |
+| Appels API | Fetch / Axios vers backend Spring Boot |
+| Communication temps réel | STOMP + SockJS |
+| Package manager | npm |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Lancement
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prérequis
+- Node.js 18+
+- npm
+- Le **backend Spring Boot** doit tourner sur `http://localhost:8080`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Étapes
 
-### `npm run eject`
+```bash
+# 1. Installer les dépendances
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# 2. Lancer en mode développement
+npm start
+```
+L'application sera accessible sur `http://localhost:3000`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Build production
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm run build
+```
+Le build optimisé sera dans le dossier `build/`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 📁 Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+frontend/
+├── public/
+├── src/
+│   ├── components/     # Composants réutilisables
+│   ├── pages/          # Pages de l'application
+│   ├── services/       # Appels API (fetch/axios)
+│   └── ...
+└── package.json
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🔗 Backend associé
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Le backend est disponible sur la branche `main` :
+👉 [github.com/wassimkhazri1/university-project](https://github.com/wassimkhazri1/university-project)
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 👤 Auteur
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Wassim Khazri**
+- 📧 wassim_khazri@hotmail.fr
+- 💼 [LinkedIn](https://www.linkedin.com/in/wassim-khazri-ab923a14b/)
+- 🐙 [GitHub](https://github.com/wassimkhazri1)
